@@ -1,0 +1,68 @@
+@import "mixin";
+/*step guide style-------------------start*/
+.step-guide {
+  display: inline-block;
+  $wh:20px;
+  .current{
+    color: $color;
+    i{
+      background-color: $color;
+      color:#fff;
+    }
+    &+span:before{
+      border: 2px solid $color;
+    }
+  }
+  span{
+    display: inline-block;
+    width: auto;
+    @include radius(1px);
+    i{
+      margin-right: 4px;
+      @include radius(50%);
+      display: inline-block;
+      width: $wh;
+      height: $wh;
+      line-height: $wh;
+      *line-height: $wh;
+      vertical-align: middle;
+      text-align: center;
+      background-color: $color-disabled;
+      color: $color;
+
+    }
+    &+span:before{
+      content: "";
+      display: inline-block;
+      width: $wh;
+      padding: 0;
+      border: 2px solid #c8c8c8;
+      margin: 0 10px 0 8px;
+      vertical-align: middle;
+    }
+
+  }
+}
+.guide-success{
+  .current{
+    color: $cg;
+    i{
+      background-color: $cg;
+    }
+    &+span:before{
+      border: 2px solid $cg;
+    }
+  }
+}
+.guide-info{
+  .current{
+    color: $cb;
+    i{
+      background-color: $cb;
+    }
+    &+span:before{
+      border: 2px solid $cb;
+    }
+  }
+}
+/*step guide style-------------------end*/

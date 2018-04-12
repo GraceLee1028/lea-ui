@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit">
+    <meta name="description" content="">
+    <title>文件上传</title>
+    <link rel="shortcut icon" href="">
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <link href="//at.alicdn.com/t/font_480253_zx2ehzu7rjm7vi.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="https://cdn.bootcss.com/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <link href="../../css/common.css?112001" rel="stylesheet" />
+    <link rel="stylesheet" href="../../css/index.css?111601">
+</head>
+<body style="overflow-x: hidden;">
+<main class="content content-main">
+    <h1 class="main-title">文件上传</h1>
+    <article>
+        <header class="header-title">
+            <h4 class="title-text">文件上传</h4>
+        </header>
+        <section>
+            <h5 class="title-small">own本地上传</h5>
+            <form class="">
+                <div class="form-group">
+                    <label for="upload">文件上传</label>
+                    <label class="btn btn-icon leaui-btn-primary"><i class="iconfont icon-upload"></i>文件上传
+                        <input type="file" id="upload" class="hide"></label>
+                    <p class="help-block">增加属性 accept="image/*" 导致文件选择框延迟弹出</p>
+                </div>
+            </form>
+        </section>
+    </article>
+</main>
+</body>
+<script src="../../plugins/jquery.min.js"></script>
+<script>
+    (function(){
+        $.fn.uploadLea = function(){
+            var $this = this;//这里this为jquery
+            $this.change(function(){
+                var uploadObj = {
+
+                };
+                var _file = this,files = _file.files;
+                if(files){
+                    console.log(files);
+                    for(var i = 0,len=files.length;i<len;i++){
+                        console.log(files[0]);
+
+                    }
+                }else{
+                    console.log(_file.value)
+                }
+            });
+        };
+        $(function(){
+            $("#upload").uploadLea();
+        });
+    })();
+</script>
+</html>

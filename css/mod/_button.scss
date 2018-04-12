@@ -1,0 +1,125 @@
+/*button style start------------------*/
+.btn,.btn:focus,.btn:focus:active{
+  @include outline-shadow-none();
+}
+.title-small{
+  border-left:4px solid $theme-color;
+  padding:$px10 $px15;
+  background-color: #eee;
+}
+.leaui-btns,.leaui-labels{
+  .btn,.label{
+    margin-right:$px15;
+    margin-bottom:$px15;
+    &:last-child{
+      margin-right:0;
+    }
+  }
+}
+.btn{
+  @include radius($radius);
+}
+.leaui-btn-default{
+  background-color: white;
+  color:$color;
+  &:hover,&:active,&:focus{
+    background-color: $gray-light;
+  }
+}
+.leaui-btn-white{
+  background-color: white;
+  color:$color;
+  &:hover,&:active,&:focus{
+    color:$theme-color;
+    border-color: $theme-color;
+  }
+}
+.leaui-btn-primary{
+  background-color: $theme-color;
+  border-color: $theme-color;
+  color:#fff;
+  &:hover,&:active,&:focus{
+    color:#fff;
+    background-color:$theme-hover-color;
+    border-color: $theme-hover-color;
+  }
+}
+.leaui-btn-info{
+  background-color: $cb;
+  border-color: $cb;
+  color:#fff;
+  &:hover,&:active,&:focus{
+    color:#fff;
+    background-color:$cb-hover;
+    border-color: $cb-hover;
+  }
+}
+.leaui-btn-warning{
+  background-color: $ct;
+  border-color: $ct;
+  color:#fff;
+  &:hover,&:active,&:focus{
+    color:#fff;
+    background-color:$ct-hover;
+    border-color: $ct-hover;
+  }
+}
+.leaui-btn-danger{
+  background-color: $color-danger;
+  border-color: $color-danger;
+  color:#fff;
+  &:hover,&:active,&:focus{
+    color:#fff;
+    background-color:$color-hover-danger;
+    border-color: $color-hover-danger;
+  }
+}
+.leaui-btn-disabled{
+  background-color: $color-disabled;
+  border-color: $color-disabled;
+  color:#999;
+  cursor: not-allowed;
+  &:hover,&:active,&:focus{
+    color:#999;
+  }
+}
+.leaui-btn-gray{
+  background-color: $gray;
+  border-color: $gray;
+  color:#fff;
+  &:hover,&:active,&:focus{
+    background-color: $gray-hover;
+    border-color: $gray-hover;
+    color:#fff;
+  }
+}
+//带图标的按钮
+.btn-icon{
+  padding:0 12px;
+  &{
+    line-height: 34px;
+    height:34px;
+  }
+  .iconfont{
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 20px;
+    margin-right:3px;
+    position: relative;
+    top: -1px;
+  }
+}
+//文本按钮
+.leaui-label-primary{
+  background-color: $theme-color;
+}
+.leaui-label-info{
+  background-color: $cb;
+}
+.leaui-label-warning{
+  background-color: $ct;
+}
+.leaui-label-danger{
+  background-color: $color-danger;
+}
+/*button style end------------------*/

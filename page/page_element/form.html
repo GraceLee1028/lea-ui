@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit">
+    <meta name="description" content="">
+    <title>按钮</title>
+    <link rel="shortcut icon" href="">
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://at.alicdn.com/t/font_480253_z69ug2h96gsnhfr.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="https://cdn.bootcss.com/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <link href="../../css/common.css?1121" rel="stylesheet" />
+    <link rel="stylesheet" href="../../css/index.css?111601">
+</head>
+<body>
+<main class="content content-main">
+    <h1 class="main-title">表单</h1>
+    <article>
+        <header class="header-title">
+            <h4 class="title-text">基本表单</h4>
+        </header>
+        <section>
+            <h5 class="title-small">.form-group,.form-control</h5>
+            <form>
+                <div class="form-group">
+                    <label>用户名：</label>
+                    <input type="text" class="form-control" placeholder="请输入用户名">
+                </div>
+                <div class="form-group">
+                    <label>密码：</label>
+                    <input type="text" class="form-control" placeholder="请输入密码">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputFile">File input</label>
+                    <input type="file" id="exampleInputFile">
+                    <p class="help-block">Example block-level help text here.</p>
+                </div>
+                <div class="form-group">
+                    <label for="upload">File input</label>
+                    <label class="btn btn-icon leaui-btn-primary"><i class="iconfont icon-xiazai"></i>下载<input type="file" id="upload" class="hide"></label>
+                    <p class="help-block">Example block-level help text here.</p>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox"> Check me out
+                    </label>
+                </div>
+                <button type="submit" class="btn leaui-btn-primary">Submit</button>
+            </form>
+        </section>
+        <section>
+            <h5 class="title-small">内联表单：.form-inline .form-group,.form-control</h5>
+            <form class="form-inline">
+                <div class="form-group">
+                    <label>用户名：</label>
+                    <input type="text" class="form-control" placeholder="请输入用户名">
+                </div>
+                <div class="form-group">
+                    <label>密码：</label>
+                    <input type="text" class="form-control" placeholder="请输入密码">
+                </div>
+                <button type="button" class="btn leaui-btn-primary">搜索</button>
+            </form>
+        </section>
+        <section>
+            <h5 class="title-small">水平表单：.form-horizontal .form-group,.form-control</h5>
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
+                    <div class="col-sm-10">
+                        <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
+                    <div class="col-sm-10">
+                        <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox"> Remember me
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-default">Sign in</button>
+                    </div>
+                </div>
+            </form>
+        </section>
+    </article>
+    <article>
+        <header class="header-title">
+            <h4 class="title-text">自定义加工表单</h4>
+        </header>
+        <section>
+            <h5 class="title-small">单选表单</h5>
+            <form>
+                <div class="check-group" id="courseCheck">
+                    <label class="checkbox-inline" data-type="tao"><input type="radio" name="course">淘宝vip课程</label>
+                    <label class="checkbox-inline selected" data-type="pin"><input type="radio" name="course">拼多多vip课程</label>
+                </div>
+            </form>
+        </section>
+        <section>
+            <h5 class="title-small">搜索</h5>
+            <form>
+                <div class="search block">
+                    <input type="text" class="form-control">
+                    <button type="button" class="btn btn-theme">提问</button>
+                </div>
+            </form>
+        </section>
+
+    </article>
+</main>
+</body>
+<script src="../../plugins/jquery.min.js"></script>
+<script>
+    (function(){
+        $.fn.checkClick = function(options){
+            var setting = {
+                cName:"selected",
+                callback:function(){
+                    console.log("回调事件");
+                }
+            };
+            options = $.extend(setting,options||{});
+            var $this = this;
+            var $checkBoxs = $this.find(".checkbox-inline");
+            $checkBoxs.each(function(){
+                var _current = $(this),$check=_current.find("input");
+                if(_current.hasClass(options.cName)){
+                    $check.prop("checked",true);
+                    options.callback(_current);
+                }else{
+                    $check.prop("checked",false);
+                }
+            });
+            $checkBoxs.find("input").on("click",function(e){
+                var $check = $(this),_current=$check.parents(".checkbox-inline");
+                if($check.prop("checked")){//选中
+                    //单选
+                    if(!_current.hasClass(options.cName)){
+                        $checkBoxs.removeClass(options.cName);
+                        _current.addClass(options.cName);
+                        options.callback(_current);
+                    }
+                }
+            });
+        };
+        $(function(){
+            //单选切换
+            $("#courseCheck").checkClick({
+                callback:function($active){
+                    var type = $active.data("type");
+                    console.log($active);
+                    if(type == "tao"){
+                        console.log("淘宝");
+                    }else{//拼
+                        console.log("拼多多");
+                    }
+                }
+            });
+        });
+    })();
+</script>
+</html>

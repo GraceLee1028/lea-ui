@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit">
+    <meta name="description" content="">
+    <title>分页</title>
+    <link rel="shortcut icon" href="">
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="https://cdn.bootcss.com/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <link href="../../css/common.css?112001" rel="stylesheet" />
+    <link rel="stylesheet" href="../../css/index.css?111601">
+</head>
+<body style="overflow-x: hidden;">
+<main class="content content-main">
+    <h1 class="main-title">分页</h1>
+    <article>
+        <header class="header-title">
+            <h4 class="title-text">pagination的基本用法</h4>
+            <p>官网：<a>未知</a></p>
+            <p>引入pagination的js</p>
+        </header>
+        <section>
+            <h5 class="title-small">1、没有跳转页的分页</h5>
+            <p id="result">第1页</p>
+            <div class="pagination" id="pager"></div>
+        </section>
+        <section>
+            <h5 class="title-small">2、有首尾的分页</h5>
+            <p id="result1">第1页</p>
+            <div class="pagination" id="pager1"></div>
+        </section>
+        <section>
+            <h5 class="title-small">3、有首尾，有跳转的分页</h5>
+            <p id="result2">第1页</p>
+            <div class="pagination" id="pager2"></div>
+        </section>
+    </article>
+    <article>
+        <header class="header-title">
+            <h4 class="title-text">另一主题的分页</h4>
+        </header>
+        <section>
+            <h5 class="title-small">1、没有跳转页的分页</h5>
+            <p id="result0">第1页</p>
+            <div class="pagination pagination-theme" id="pager0"></div>
+        </section>
+        <section>
+            <h5 class="title-small">2、有首尾的分页</h5>
+            <p id="result01">第1页</p>
+            <div class="pagination pagination-theme" id="pager01"></div>
+        </section>
+        <section>
+            <h5 class="title-small">3、有首尾，有跳转的分页</h5>
+            <p id="result02">第1页</p>
+            <div class="pagination pagination-theme" id="pager02"></div>
+        </section>
+    </article>
+    <article>
+        <header class="header-title">
+            <h4 class="title-text">分页连串</h4>
+        </header>
+        <section>
+            <h5 class="title-small">1、没有跳转页的联动分页</h5>
+            <div class="pagination-other" id="pagerOther11"></div>
+            <p id="result11">第1页</p>
+            <div class="pagination pagination-other pagination-theme" id="pager11"></div>
+        </section>
+    </article>
+</main>
+</body>
+<script src="../../plugins/jquery.min.js"></script>
+<script src="../../plugins/pagination.js"></script>
+<script>
+    (function(){
+        $.extend({
+            paging: function (ele, options) {
+                options["per_items"] = options["per_items"] || 10;
+                //ele:分页容器【如：$("#id")】
+                //options["num_entries"]：总数据条数
+                ele.pagination(options["num_entries"], {
+                    current_page: 0,
+                    callback: options.callback,//       必填
+                    items_per_page: options["per_items"], //每页显示10项
+                    load_first_page: false,
+                    num_edge_entries: 1, //边缘页数
+                    num_display_entries: 3, //主体页数
+                    prev_text: "上一页",
+                    next_text: "下一页",
+                    pager_other: options["pager_other"] ? options["pager_other"] : "",
+                    first_text: options["first_text"] ? options["first_text"] : "首页",//是否有首页
+                    last_text: options["last_text"] ? options["last_text"] : "尾页",//是否有尾页:[为空表示没有，默认为空]
+                    link_has_button: options["link_has_button"]?options["link_has_button"]:false,
+                    button_error_callback: function (pageVal) {
+                        alert("第"+pageVal+"页不存在");
+                    }
+                    //link_has_button: options["link_has_button"] ? options["link_has_button"] : false//是否可以 跳转页数,默认，false不行
+                });
+            }
+        });
+        $(function(){
+            //没有跳转页的分页
+            $.paging($("#pager"),{
+                num_entries:40,
+                callback:function(index){
+                    index++;
+                    $("#result").html("第"+index+"页");
+                }
+            });
+            //有首尾页的分页
+            $.paging($("#pager1"),{
+                num_entries:40,
+                first_text:"首页",
+                last_text:"尾页",
+                callback:function(index){
+                    index++;
+                    $("#result1").html("第"+index+"页");
+                }
+            });
+            //有跳转页的分页
+            $.paging($("#pager2"),{
+                num_entries:40,
+                first_text:"首页",
+                last_text:"尾页",
+                link_has_button:true,
+                callback:function(index){
+                    index++;
+                    $("#result2").html("第"+index+"页");
+                }
+            });
+            /*---------------分页 pagination--------------------------*/
+            //没有跳转页的分页
+            $.paging($("#pager0"),{
+                num_entries:40,
+                callback:function(index){
+                    index++;
+                    $("#result0").html("第"+index+"页");
+                }
+            });
+            //有首尾页的分页
+            $.paging($("#pager01"),{
+                num_entries:40,
+                first_text:"首页",
+                last_text:"尾页",
+                callback:function(index){
+                    index++;
+                    $("#result01").html("第"+index+"页");
+                }
+            });
+            //有跳转页的分页
+            $.paging($("#pager02"),{
+                num_entries:40,
+                first_text:"首页",
+                last_text:"尾页",
+                link_has_button:true,
+                callback:function(index){
+                    index++;
+                    $("#result02").html("第"+index+"页");
+                }
+            });
+            //有联动的分页
+            $.paging($("#pager11"),{
+                num_entries:40,
+                pager_other:"#pagerOther11",
+                callback:function(index){
+                    index++;
+                    $("#result11").html("第"+index+"页");
+                }
+            });
+        });
+    })();
+</script>
+</html>

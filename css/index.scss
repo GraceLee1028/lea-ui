@@ -1,0 +1,140 @@
+@import "mod/mixin";
+$color: #393D49;
+$color-white:#efefef;
+$bg-color:#68665e;
+$border-color:#ddd;
+//$theme-color:#12bbab;
+//$theme-hover-color:#0ba395;
+$theme-color:#ff500b;
+$theme-hover-color:#ef4704;
+$gray-light:#f2f2f2;
+$padding:15px;
+$padding10:10px;
+$padding20:20px;
+@mixin border($c,$property:border){
+  #{$property}: 1px solid $c;
+}
+html,body{
+  height:100%;
+}
+.fixed-left{
+  position: fixed;
+  left:0;
+  top:0;
+}
+$header-height:60px;
+.leaui-header{
+  background-color:$bg-color;
+  color:$color-white;
+  height:$header-height;
+  line-height: $header-height;
+  padding:0 $padding;
+  @include border($bg-color,border-bottom);
+  @include box-shadow(0 1px 2px #aaa);
+  h1{margin:0;  line-height: $header-height;  }
+}
+body{
+  height:100%;
+  overflow: auto;
+}
+.con-page{
+  width:100%;
+  height:calc(100% - 60px);
+  overflow: hidden;
+}
+.page-menu,.page-main{
+  height:100%;
+  overflow: hidden;
+}
+$menu-width:220px;
+.page-menu{
+  @extend .fixed-left;
+  width:$menu-width;
+  top:$header-height;
+}
+.leaui-menu{
+  height:100%;
+  overflow-x: hidden;
+  @include user-select;
+  $active-bg:#53524c;
+  h2{
+    font-size:16px;
+    margin:0;
+    padding:$padding10 $padding;
+    cursor: default;
+  }
+  li{
+    &.menu-list{
+      border-left:3px solid transparent;
+      &.active{
+        border-left:3px solid $theme-color;
+      }
+    }
+    &:hover{
+      background-color: $active-bg;
+    }
+  }
+  li.active{
+    background-color: $active-bg;
+    &>ul{
+      height:auto;
+      @include opacity(1);
+      padding-bottom: 10px;
+      display:block;
+      padding-top:0;
+    }
+  }
+  li.active h2,li[data-url]:hover,li[data-url].active{
+    color:$theme-color;
+  }
+  li>ul{
+    @include transition(padding-top,1s);
+    padding-top:100px;
+    padding-left:$padding;
+    height:0;
+    @include opacity(0);
+    display: none;
+    li{
+      cursor: pointer;
+      padding:$padding10 $padding;
+    }
+  }
+}
+.page-main{
+  margin:0 0 0 $menu-width;
+}
+.L_iframe{
+  width:100%;
+  height:100%;
+}
+//menu left
+.page-menu{
+  background-color: $bg-color;
+  color:$color-white;
+}
+//content
+.content-main{
+  padding:0 $padding;
+}
+.main-title{
+  margin:0;
+  padding:$padding10 0;
+  @include border($border-color,border-bottom);
+}
+.header-title{
+  border-top:1px solid $border-color;
+  margin-top:$padding * 2;
+  .title-text{
+    display:inline-block;
+    font-size:20px;
+    margin:0;
+    position:relative;
+    top:-11px;
+    left:$padding20;
+    padding: 0 $padding10;
+    background-color: #fff;
+    font-weight: 300;
+  }
+}
+//表单 style start
+

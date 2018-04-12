@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit">
+    <meta name="description" content="">
+    <title>按钮</title>
+    <link rel="shortcut icon" href="">
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="https://cdn.bootcss.com/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <link href="../css/common.css?111601" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/index.css">
+</head>
+<body>
+<main class="content content-main">
+    <h1 class="main-title">主页</h1>
+    <article>
+        <header class="header-title">
+            <h4 class="title-text">常用导航</h4>
+        </header>
+        <section>
+            <header class="header">
+                <div class="container">
+                    <menu class="header-menu clearfix" role="menu">
+                        <h1><a href="#" class="menu-logo" title="甩手铺货">甩手铺货</a></h1>
+                        <nav class="menu-nav" role="navigation">
+                            <ul id="mainNav" class="menu-box">
+                                <li class="active"><a href="#">首页</a></li>
+                                <li><a href="#">铺货任务</a></li>
+                                <li><a href="#">已代销商品</a></li>
+                                <li><a href="#">代销订单</a></li>
+                            </ul>
+                        </nav>
+                    </menu>
+                    <aside class="header-aside clearfix" id="headerAside">
+                        <h2 class="header-user">oubasoft<i class=""></i></h2>
+                    </aside>
+                </div>
+            </header>
+        </section>
+    </article>
+    <article>
+        <header class="header-title">
+            <h4 class="title-text">常用引导提示</h4>
+        </header>
+        <section>
+            <h5 class="title-small">默认引导</h5>
+            <div class="step-guide" id="titleTips"></div>
+        </section>
+        <section>
+            <h5 class="title-small">成功引导</h5>
+            <div class="step-guide guide-success" id="titleTips1"></div>
+        </section><section>
+            <h5 class="title-small">信息引导</h5>
+            <div class="step-guide guide-info" id="titleTips2"></div>
+        </section>
+    </article>
+</main>
+</body>
+<script src="../plugins/jquery.min.js"></script>
+<script src="../plugins/pluginCommon.js"></script>
+<script>
+    (function(){
+        $(function(){
+            $("#titleTips").titleTipsInit();
+            $("#titleTips1").titleTipsInit({
+                data:["找回密码","设置密码"]
+            });
+            $("#titleTips2").titleTipsInit({
+                step:1,//1:表示第二步
+                data:["第一张","第二张"]
+            });
+        });
+    })();
+</script>
+</html>

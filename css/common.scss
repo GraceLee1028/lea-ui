@@ -1,0 +1,49 @@
+@import "mod/mixin";
+@import "mod/reset";
+@import "mod/layout";
+$px5:5px;
+$px10:10px;
+$px15:15px;
+$px20:20px;
+$time:.3s;
+$theme-color:#ff500b;
+$theme-hover-color:#ef4704;
+$border-color:#ddd;
+$radius:2px;
+////color button form input style
+$color: #393D49;
+$theme-color:#ff500b;
+$theme-hover-color:#ef4704;
+$cg:#009688;
+$ca:#393D49;
+$ct:#f0ad4e;
+$ct-hover: #e3992f;
+$cb:#1E9FFF;
+$cb-hover: #0c8aff;
+$cl:#01AAED;
+$caside:#2F4056;
+$color-danger:#ed5565;
+$color-hover-danger:#e84355;
+$color-disabled:#e2e2e2;
+$gray:#c2c2c2;
+$gray-light:#f2f2f2;
+$gray-hover:#b2b2b2;
+$color-tao:#ff500b;
+@import "mod/color";
+@import "mod/button";
+@import "mod/form";
+@import "mod/progress";
+//page menu style
+$menu-bg:rgb(32,43,57);
+@import "mod/menu";
+@import "mod/step";
+//plugins style
+@import "mod/layer";
+@import "mod/select2";
+@import "mod/pagination";
+h5{
+  margin:{
+    top:10px;
+    bottom:15px;
+  }
+}

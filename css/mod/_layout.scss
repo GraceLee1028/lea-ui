@@ -1,0 +1,51 @@
+/*position absolute fixed style-----------------start*/
+.fixed-bottom, .fixed-right {
+  position: fixed;
+  z-index: 100;
+  width: auto;
+}
+.fixed-right {
+  margin-right: 0;
+  right: 0;
+  bottom: 36%;
+}
+.fixed-bottom{
+  bottom: 0;
+}
+.abs-left{
+  position: absolute;
+  left: 0;
+  top:0;
+}
+.abs-right{
+  position: absolute;
+  right: 0;
+  top:0;
+}
+/*position absolute fixed style-----------------end*/
+/*layout style-----------------start*/
+/*header、footer、container*/
+.container {
+  height: auto;
+  overflow: visible;
+  width: 100%;
+}
+.content,.content-height {
+  width: 100%;
+  position: relative;
+  *zoom: 1;
+}
+.content .con-left {
+  float: left;
+  width: auto;
+  text-align: left;
+}
+.content .con-right {
+  float: right;
+  width: auto;
+  text-align: right;
+}
+.header,.footer{
+  width: 100%;
+}
+/*layout style-----------------end*/

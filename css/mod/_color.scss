@@ -1,0 +1,58 @@
+/*color 样式*/
+.color-green{
+  color:#fff;
+  background-color: $cg;
+}
+.color-nav{
+  color:#fff;
+  background-color:$ca;
+}
+.color-tip{
+  color:#fff;
+  background-color:$ct;
+}
+.color-bright{
+  color:#fff;
+  background-color: $cb;
+}
+.color-link{
+  color:#fff;
+  background-color: $cl;
+}
+.color-aside{
+  color:#fff;
+  background-color: $caside;
+}
+.color-block{
+  display:inline-block;
+  width:100%;
+  padding:$px10 0;
+  border:1px solid #ddd;
+  text-align: center;
+  margin-bottom:$px15;
+  @include radius();
+}
+.leaui-bg-red{
+  color:#fff;
+  background-color: $color-danger!important;
+}
+.leaui-bg-green{
+  color:#fff;
+  background-color: $cg!important;
+}
+.leaui-bg-blue{
+  color:#fff;
+  background-color: $cb!important;
+}
+.leaui-bg-black{
+  color:#fff;
+  background-color: $color!important;
+}
+.leaui-bg-orange{
+  color:#fff;
+  background-color: $ct!important;
+}
+.leaui-bg-tao{
+  color:#fff;
+  background-color: $color-tao!important;
+}

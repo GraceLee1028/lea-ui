@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit">
+    <meta name="description" content="">
+    <title>select选择</title>
+    <link rel="shortcut icon" href="">
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="https://cdn.bootcss.com/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <link href="../../css/select2.min.css" rel="stylesheet">
+    <link href="../../css/common.css?112001" rel="stylesheet" />
+    <link rel="stylesheet" href="../../css/index.css?111601">
+</head>
+<body style="overflow-x: hidden;">
+<main class="content content-main">
+    <h1 class="main-title">bootstrap-select选择框</h1>
+    <div class="car">
+        <div class="car-box">
+            <div class="car-section cs-brand">
+                <div class="car-search"><i class="iconfont icon-search"></i><input type="text" id="carSearch" placeholder="请输入车品牌名称"></div>
+                <div class="brand-box">
+                    <ul class="list-none ul-brand">
+                        <li class="active">奥拓</li>
+                        <li>奥迪</li>
+                        <li>吉奥</li>
+                        <li>奥迪</li>
+                        <li>吉奥</li>
+                        <li>奥迪</li>
+                        <li>吉奥</li>
+                        <li>奥迪</li>
+                        <li>吉奥</li>
+                        <li>奥迪</li>
+                        <li>吉奥</li>
+                        <li>奥迪</li>
+                        <li>吉奥</li><li>奥迪</li>
+                        <li>吉奥</li>
+                        <li>奥迪</li>
+                        <li>吉奥</li>
+                        <li>奥迪</li>
+                        <li>吉奥</li><li>奥迪</li>
+                        <li>吉奥</li>
+                        <li>奥迪</li>
+                        <li>吉奥</li>
+                        <li>奥迪</li>
+                        <li>吉奥</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="car-section cs-model">
+                <ul class="ul-model list-none">
+                    <li class="active">西安奥拓</li>
+                </ul>
+            </div>
+            <div class="car-section cs-param">
+                <p><label class="car-cbx cbx-all"><input type="checkbox">全部</label></p>
+                <p><label class="car-cbx"><input type="checkbox">2001</label></p>
+                <p><label class="car-cbx"><input type="checkbox">2002</label></p>
+            </div>
+        </div>
+        <p class="car-help">您最多可选择100个,已经选择<span class="car-selected">0</span>个</p>
+    </div>
+    <div class="car">
+        <div class="brand-box">
+            <select id="brandSelect" class="selectpicker" data-live-search="true" multiple="multiple">
+                <option value="吉奥1">吉奥1</option>
+                <option value="吉奥2">吉奥2</option>
+                <option value="吉奥3">吉奥3</option>
+            </select>
+            <div class="brand-cbx">
+                <label class="car-bc-item"><input type="checkbox">2002</label></label>
+            </div>
+        </div>
+        <p class="car-help">您最多可选择100个,已经选择<span class="car-selected">0</span>个</p>
+    </div>
+</main>
+</body>
+<script src="../../plugins/jquery.min.js"></script>
+<script src="../../plugins/bootstrap.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap-select/2.0.0-beta1/js/bootstrap-select.min.js"></script>
+<script>
+    (function(){
+        var bSelect = {
+            list:[],//总的车品牌
+            selectedList:[],//选中的车品牌
+            $brandSelect:$("#brandSelect"),
+            init:function(){
+                var list = [1,2,3];
+                bSelect.brandShow(list);
+                bSelect.bindCbxClick();
+            },
+            brandShow:function(list){
+                //1：渲染车品牌数据
+                var html = "";
+                for(var i= 0,length = list.length;i<length;i++){
+                    html+='<option value='+list[i]+'>'+list[i]+'</option>';
+                }
+                bSelect.$brandSelect.html(html);
+                //2: 运用插件 bootstrap-select
+                bSelect.$brandSelect.selectpicker({
+                    'width': '200px',
+                    'noneSelectedText':"请选择车品牌",
+                    'size':100
+                });
+                //选中项改变时，重新 渲染 checkbox
+                bSelect.$brandSelect.on('change', function (e) {
+                    // do something...
+                    var $this = $(this),value = $this.val();
+                    if(value == null){
+                        value = [];
+                    }
+                    bSelect.selectedList = value;
+                    bSelect.selectedCbx();
+                });
+            },
+            selectedCbx:function(){//通过旋转项，渲染 checkbox
+                var html ="",list = bSelect.selectedList;
+                console.log(list);
+                for(var i= 0,length=list.length; i<length; i++){
+                    html+='<label class="car-bc-item"><input type="checkbox" value="'+list[i]+'" checked>'+list[i]+'</label></label>';
+                }
+                console.log(html);
+                $(".brand-cbx").html(html);
+            },
+            bindCbxClick:function(){//checkbox 切换事件
+                $(".brand-cbx").on("click",".car-bc-item>input",function(){
+                    var $cbx = $(this),isCheck = $cbx.prop("checked"),value = $cbx.val(),$bcItem = $cbx.parents(".car-bc-item");
+                    if(isCheck){
+
+                    }else{//取消选择
+                        bSelect.selectedList = bSelect.deleteItem(value,bSelect.selectedList);
+                        $bcItem.remove();
+
+                        bSelect.$brandSelect.selectpicker('val', bSelect.selectedList);
+                        bSelect.$brandSelect.trigger("change");
+                    }
+                });
+            },
+            deleteItem: function (item,arr) {//删除某个值
+                var newArr = [];
+                for (var index in arr) {
+                    if (!(arr[index] == item)) {//删除的值不添加
+                        newArr.push(arr[index]);
+                    }
+                }
+                return newArr;
+            }
+        };
+        $(bSelect.init);
+    })();
+</script>
+</html>

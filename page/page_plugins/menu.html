@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit">
+    <meta name="description" content="">
+    <title>菜单</title>
+    <link rel="shortcut icon" href="">
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="https://cdn.bootcss.com/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <link href="../../css/common.css?112001" rel="stylesheet" />
+    <link rel="stylesheet" href="../../css/index.css?111601">
+    <link rel="stylesheet" href="../../css/plugins/menu.css?0306">
+</head>
+<body style="overflow-x: hidden;">
+<main class="content content-main">
+    <h1 class="main-title">菜单</h1>
+    <article>
+        <header class="header-title">
+            <h4 class="title-text">菜单的基本用法</h4>
+        </header>
+        <section>
+            <h5 class="title-small">1、页面头部的菜单</h5>
+            <div class="header-menu1">
+                <ul class="list-none menu-ul">
+                    <li class="active"><a href="javascript:void(0);"><span>首页</span></a></li>
+                    <li><a href="#"><span>免费公开课</span></a></li>
+                    <li><a href="#"><span>vip课程</span></a></li>
+                    <li><a href="#"><span>全部课程</span></a></li>
+                    <li><a href="#"><span>课程问答</span></a></li>
+                </ul>
+                <div class="menu-bottom"></div>
+            </div>
+        </section>
+        <section>
+            <h5 class="title-small">2、只是改变数据的切换【享用同一个框】</h5>
+            <div class="nav-tab">
+                <ul>
+                    <li data-type="tao" class="active"><span>淘宝免费课程</span></li>
+                    <li data-type="pin"><span>拼多多免费课程</span></li>
+                </ul>
+                <div class="bottom"></div>
+            </div>
+        </section>
+    </article>
+</main>
+</body>
+<script src="../../plugins/jquery.min.js"></script>
+<script>
+    (function(){
+        $.fn.menuClick = function(options){
+            var setting = {
+                border:'.menu-bottom',
+                padding:16,
+                click:"",
+                hasContent:false //是否有关联切换的内容【默认没有】
+            };
+            options = $.extend(setting,options||{});
+            var $this = this;
+            var setBottom = function(){
+                var $active = $this.find("li.active");
+                if($active.length > 0){
+                    var $actSpan = $active.find("span");
+                    var actL = $active.offset().left,spanW = parseInt($actSpan.css("width"));
+                    var actFirst = $this.find("li").eq(0).offset().left;
+                    var padding = (parseInt($active.css("width")) - spanW)/2;
+                    var left = parseInt(actL - actFirst) + padding-options.padding/2;
+                    $this.parent().find(options.border).css({
+                        "width":spanW+options.padding,
+                        "left":left+"px"
+                    });
+                    if(options.hasContent){
+                        var index = $active.index();
+                        console.log(index);
+                        var $tabBox = $this.siblings(".tab-box");
+                        var $items = $tabBox.find(".tab-item");
+                        $items.removeClass("active");
+                        $items.eq(index).addClass("active");
+                    }
+                    if(options.click != ""){
+                        options.click($active);
+                    }
+                }
+            };
+            setBottom();
+            var $lis = $this.find("li");
+            $lis.on("click",function(){
+                var _li = $(this);
+                $lis.removeClass('active');
+                _li.addClass("active");
+                setBottom();
+            });
+        };
+        $(function(){
+            //1
+            $(".header-menu1").menuClick();
+            //2
+            $(".nav-tab").menuClick({
+                border:".bottom",
+                padding:100,
+                click:function($active){
+                    var type = $active.data("type");
+                    if(type == "tao"){
+                        console.log("淘宝+");
+                    }else{//拼
+                        console.log("拼多多+");
+                    }
+                }
+            });
+        });
+    })();
+</script>
+</html>

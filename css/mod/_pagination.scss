@@ -1,0 +1,86 @@
+/*pagination style----------------------start*/
+.pagination {
+  display: block;
+  vertical-align: middle;
+  *zoom: 1;
+}
+/*.pagination.center{position:relative;left:50%;margin-left: -50%;}*/
+$page-color:#1e202c;
+$page-height:28px;
+.pagination:before, .pagination:after {
+  display: table;
+  content: "";
+}
+.pagination:after {
+  clear: both;
+}
+.pagination a, .pagination span {
+  display: inline-block;
+  padding: 6px 12px;
+  color: #333;
+  border-top: 1px solid #dddddd;
+  border-right: 1px solid #dddddd;
+  border-bottom: 1px solid #ddd;
+}
+.pagination a.prev, .pagination a:first-child,
+.pagination span.prev, .pagination span:first-child {
+  border-left: 1px solid #dddddd;
+  border-top-left-radius: 3px;
+  -webkit-border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+  -webkit-border-bottom-left-radius: 3px;
+}
+.pagination a.next, .pagination a:last-child,
+.pagination span.next, .pagination span:last-child {
+  border-right: 1px solid #dddddd;
+  border-top-right-radius: 3px;
+  -webkit-border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+  -webkit-border-bottom-right-radius: 3px;
+}
+.pagination a:hover, .pagination .prev:hover, .pagination .next:hover {
+  background-color: #dedede;
+  text-decoration: none;
+}
+.pagination span{cursor: not-allowed;}
+.pagination a.current, .pagination span.current {
+  background-color: $page-color;
+  color: #fff;
+  border-color: $page-color;
+}
+.pagination-theme{
+  a.current,span.current{
+    background-color: $theme-color;
+    border-color: $theme-color;
+  }
+  #pagevalue{
+    &:hover,&:focus{
+      border:1px solid $theme-color;
+    }
+  }
+}
+.pagination .current.prev, .pagination .current.next {
+  color: #999;
+  background: #fff;
+  border-color: #ddd;
+}
+.page-input{
+  display:inline-block;
+  width:60px;
+  height:$page-height;
+  line-height: $page-height;
+  text-align: center;
+  margin:0 0 0 5px;
+  &:hover,&:focus{
+    border:1px solid $page-color;
+  }
+}
+.pagination-other{
+  span.prev{
+
+  }
+  .prev{
+
+  }
+}
+/*pagination style----------------------end*/

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit">
+    <meta name="description" content="">
+    <title>template模板</title>
+    <link rel="shortcut icon" href="">
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="https://cdn.bootcss.com/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <link href="../../css/common.css?112001" rel="stylesheet" />
+    <link rel="stylesheet" href="../../css/index.css?111601">
+</head>
+<body style="overflow-x: hidden;">
+<main class="content content-main">
+    <h1 class="main-title">template模板</h1>
+    <article>
+        <header class="header-title">
+            <h4 class="title-text">template的基本用法</h4>
+            <p>官网：<a href="https://aui.github.io/art-template/zh-cn/docs/" target="_blank">https://aui.github.io/art-template/zh-cn/docs/</a></p>
+            <p>引入template_web的js</p>
+        </header>
+        <section>
+            <h5 class="title-small">1、基本语法:通过页面模板渲染数据【template()方法】</h5>
+            <table class="table table-bordered">
+                <tbody id="dataBox">
+                </tbody>
+            </table>
+        </section>
+        <section>
+            <h5 class="title-small">2、通过字符串模板来进行数据渲染【compile(),render()】</h5>
+            <div id="dataBox1">
+            </div>
+        </section>
+    </article>
+</main>
+<script id="trTemplate" type="text/html">
+    {{each list item index}}
+    <tr data-value='{{item.itemid}}' data-index="{{index}}">
+        <td>
+            <a href="{{item.detailurl}}" target="_blank">
+                <img src="{{item.picurl}}" alt="商品图片" />
+            </a>
+        </td>
+        <td>
+            <a href="{{item.detailurl}}" target="_blank">
+                <h4>
+                    <span>{{item.title}}</span>
+                    <span class="text-big">{{item.price}}</span>
+                </h4>
+            </a>
+        </td>
+        <td>
+            <button type="button" class="btn">删除</button>
+        </td>
+    </tr>
+    {{/each}}
+</script>
+</body>
+<script src="../../plugins/jquery.min.js"></script>
+<!--[if lt IE 9]>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-shim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/json3/3.3.2/json3.min.js"></script>
+<![endif]-->
+<script src="../../plugins/template-web.js"></script>
+<script>
+    (function(){
+        $(function(){
+            //通过页面模板渲染数据
+            var data=[
+                {
+                    "itemid": 561851595345,
+                    "title": "2017秋款学院风九分连衣裙后背扣子宽松直筒大码女装连衣裙 N6032",
+                    "approvestatus": "inventory",
+                    "picurl": "https://img.alicdn.com/bao/uploaded/i1/2742986791/TB1ir1geb_I8KJjy1XaXXbsxpXa_!!0-item_pic.jpg_50x50.jpg",
+                    "price": 100.2,
+                    "detailurl": "https://item.taobao.com/item.htm?id=561851595345"
+                },
+                {
+                    "itemid": 561845083041,
+                    "title": "2017秋冬新款针织衫背带裙两件套韩版中长款打底毛呢连衣裙女装潮",
+                    "approvestatus": "inventory",
+                    "picurl": "https://img.alicdn.com/bao/uploaded/i4/2742986791/TB1pbb1c63z9KJjy0FmXXXiwXXa_!!0-item_pic.jpg_50x50.jpg",
+                    "price": 111,
+                    "detailurl": "https://item.taobao.com/item.htm?id=561845083041"
+                },
+                {
+                    "itemid": 561844911246,
+                    "title": "外贸欧洲站秋冬女装 时尚重工钉珠长袖修身蕾丝百搭A字连衣裙",
+                    "approvestatus": "inventory",
+                    "picurl": "https://img.alicdn.com/bao/uploaded/i2/2742986791/TB1lCtHehPI8KJjSspoXXX6MFXa_!!0-item_pic.jpg_50x50.jpg",
+                    "price": 126.6,
+                    "detailurl": "https://item.taobao.com/item.htm?id=561844911246"
+                },
+                {
+                    "itemid": 561844891263,
+                    "title": "2017秋冬新款韩版女装时尚V领气质显瘦长袖中长款蕾丝连衣裙潮",
+                    "approvestatus": "inventory",
+                    "picurl": "https://img.alicdn.com/bao/uploaded/i4/2742986791/TB1vx8velHH8KJjy0FbXXcqlpXa_!!0-item_pic.jpg_50x50.jpg",
+                    "price": 66.6,
+                    "detailurl": "https://item.taobao.com/item.htm?id=561844891263"
+                },
+                {
+                    "itemid": 561844515567,
+                    "title": "秋冬加厚韩版女装针织衫中长款修身打底衫开叉包臀毛衣连衣裙",
+                    "approvestatus": "inventory",
+                    "picurl": "https://img.alicdn.com/bao/uploaded/i2/2742986791/TB1u60NebYI8KJjy0FaXXbAiVXa_!!0-item_pic.jpg_50x50.jpg",
+                    "price": 71.4,
+                    "detailurl": "https://item.taobao.com/item.htm?id=561844515567"
+                }];
+            var html = template('trTemplate', {list:data});
+            $("#dataBox").html(html);
+            //通过字符串模板来进行数据渲染。
+            var tplHtml = "<div class=\"templ-box\"style=\"width: 750px;font:22px '微软雅黑';margin-top:30px;margin-bottom:30px;\"><table cellpadding=\"0\"cellspacing=\"0\"width=\"750\"style=\"background-color:#fff;color:#fff;\"><tbody><tr>{{each list item}}<td align=\"center\"valign=\"middle\"style=\"padding:15px 0;\"><table cellpadding=\"0\"cellspacing=\"0\"width=\"200\"height=\"252\"style=\"background-color:#fe5222;box-shadow:-2px -2px 10px #b1aeae;margin:0 auto;\"><tbody><tr><td align=\"left\"valign=\"top\"style=\"padding-top:25px;\"><a href=\"{{item.src}}\"target=\"_blank\"style=\"width:100%;text-decoration:none;color:#fff;text-align: center;display:block;\"><span style=\"display:block;color:#fff;width:30px;font-size:30px;vertical-align:top;padding-left:9px;margin-bottom:-19px;\">￥</span><span style=\"display:block;color:#fff;width:100%;height:90px;text-align:center;font-size:90px;line-height: 90px;overflow:hidden;\">{{item.money}}</span><div style=\"text-align:center;margin-top:10px;color:#fff;\">满{{item.fullMoney}}元使用</div><div style=\"text-align:center;font-size:30px;color:#fdd64f;margin-top:5px;\">抢<span style=\"margin-left: 10px;\">&gt;</span></div></a></td></tr></tbody></table></td>{{/each}}</tr></tbody></table></div>";
+            var list = [
+                {
+                    src: "javascript:void(0)",
+                    money: "10",
+                    fullMoney: "100"
+                },{
+                    src: "javascript:void(0)",
+                    money: "20",
+                    fullMoney: "190"
+                },{
+                    src: "javascript:void(0)",
+                    money: "50",
+                    fullMoney: "399"
+                }
+            ];
+            var render = template.compile(tplHtml);
+            var html1 = render({list:list});
+            $("#dataBox1").html(html1);
+        });
+    })();
+</script>
+</html>

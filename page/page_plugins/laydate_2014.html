@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit">
+    <meta name="description" content="">
+    <title>日期插件</title>
+    <link rel="shortcut icon" href="">
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="https://cdn.bootcss.com/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <link href="../../css/common.css?112001" rel="stylesheet" />
+    <link rel="stylesheet" href="../../css/index.css?111601">
+    <script src="../../plugins/past/laydate/laydate.js"></script>
+</head>
+<body>
+<main class="content content-main">
+    <h1 class="main-title">日期插件</h1>
+    <article>
+        <header class="header-title">
+            <h4 class="title-text">laydate的旧版的基本用法</h4>
+            <p>官网：<a href="http://www.layui.com/laydate/">http://www.layui.com/laydate/</a></p>
+        </header>
+        <section>
+            <p>引入layer的js</p>
+            <h5 class="title-small">默认的日期</h5>
+            <input type="text" id="date" class="form-control">
+
+        </section>
+        <p></p>
+    </article>
+</main>
+</body>
+<script src="../../plugins/jquery.min.js"></script>
+<script src="../../plugins/layer/layer.js"></script>
+<script>
+    (function(){
+        $.extend({
+            initLayDate: function (options) {//对日期控件进行初始化
+                var settings = {
+                    elem: '#id', //需显示日期的元素选择器【必填】
+                    event: 'click', //触发事件
+                    format: 'YYYY-MM-DD hh:mm', //日期格式
+                    istime: true, //是否开启时间选择
+                    isclear: false, //是否显示清空
+                    istoday: true, //是否显示今天
+                    issure: true,  //是否显示确认
+                    festival: true, //是否显示节日
+                    min: '1900-01-01 00:00:00', //最小日期
+                    max: '2099-12-31 23:59:59', //最大日期
+                    start: laydate.now(),  //开始日期
+                    fixed: false, //是否固定在可视区域
+                    zIndex: 99999999, //css z-index
+                    choose: function (dates) { //选择日期时的回调函数
+                        console.log("当期选择的日期" + dates);
+                    }
+                };
+                options = jQuery.extend({}, settings, options);
+                laydate(options);
+                laydate.skin('lynn');//日期插件的样式类型
+            }
+        });
+        $(function(){
+            $.initLayDate({
+                elem:"#date"
+            });
+        });
+    })();
+</script>
+</html>

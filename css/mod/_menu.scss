@@ -1,0 +1,112 @@
+/*menu common style------------start*/
+$menu-height:60px;
+$menu-fs:18px;
+$m-li-padding:28px;
+.header{
+  width: 100%;
+  background-color: $menu-bg;
+  color: #fff;
+  height: $menu-height;
+  line-height: $menu-height;
+  z-index: 1;
+  @include box-shadow(0 1px 10px 0px $menu-bg);
+}
+.header-menu{
+  width: auto;
+  @extend .fl;
+  a{
+    color:#eef1f6;
+    text-align: center;
+    @extend .underline-none;
+  }
+  h1{
+    @extend .fl;
+    margin:0;
+    display: inline-block;
+    line-height: $menu-height;
+    a{
+      display: inline-block;
+    }
+  }
+}
+.menu-logo{
+  @extend .fl;
+  display: inline-block;
+  width: auto;
+  height: $menu-height;
+  color: #fff !important;
+  overflow: hidden;
+  font-size: $menu-fs;
+  font-weight: 600;
+  //background-color: #33374b;
+  .iconfont{
+    font-size: 46px;
+  }
+}
+.menu-nav{
+  height: $menu-height;
+  @extend .fl;
+  margin-left:20px;
+}
+.menu-box{
+  padding: 0;
+  li{
+    @extend .fl;
+    display: inline-block;
+    position: relative;
+    &:after{
+      content: "";
+      height: 4px;
+      position: absolute;
+      bottom: 2px;
+      left: 0;
+      background-color: $menu-bg;
+      width:0;
+      @include transition(width,$time);
+    }
+    &.active:after{
+      width: 100%;
+      background-color: $theme-color;
+    }
+    a{
+      font-size: $menu-fs;
+      display: inline-block;
+      height: $menu-height;
+      padding: 0 $m-li-padding;
+      @include transition(all,$time);
+      @extend .underline-none;
+    }
+  }
+}
+.menu-box li.active a, .menu-box li a:hover {
+  color: $theme-color;
+}
+/*right style*/
+.header-aside{
+  @extend .fr;
+}
+.header-user{
+  margin:0;
+  height:$menu-height;
+  line-height: $menu-height;
+  font-size:$menu-fs;
+  $size:6px;
+  cursor: pointer;
+  &:after{
+    content:"";
+    display: inline-block;
+    width:0;
+    height:0;
+    margin-left:$px5;
+    position:relative;
+    top:-$size / 2;
+    @include triangle-vertical(top,$size);
+    @include transition(border,.3s);
+  }
+  &:hover:after,&.hover:after{
+    top: -$size / 2;
+    border-top:none;
+    @include triangle-vertical(bottom,$size);
+  }
+}
+/*menu common style------------end*/

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit">
+    <meta name="description" content="">
+    <title>日期插件</title>
+    <link rel="shortcut icon" href="">
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="https://cdn.bootcss.com/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <link href="../../css/common.css?112001" rel="stylesheet" />
+    <link rel="stylesheet" href="../../css/index.css?111601">
+    <script src="../../plugins/laydate/laydate.js"></script>
+</head>
+<body>
+<main class="content content-main">
+    <h1 class="main-title">日期插件</h1>
+    <article>
+        <header class="header-title">
+            <h4 class="title-text">laydate的最新版的基本用法</h4>
+            <p>官网：<a href="http://www.layui.com/laydate/">http://www.layui.com/laydate/</a></p>
+        </header>
+        <section>
+            <p>引入layer的js</p>
+            <h5 class="title-small">默认的日期</h5>
+            <input type="text" id="date" class="form-control">
+            <h4 class="title-text">其他的选择器</h4>
+            <h5 class="title-small">年选择器</h5>
+            <input type="text" id="year" class="form-control">
+            <h5 class="title-small">月选择器</h5>
+            <input type="text" id="month" class="form-control">
+            <h5 class="title-small">时间【时分秒】选择器</h5>
+            <input type="text" id="time" class="form-control">
+            <h5 class="title-small">时间【年月日 时分秒】选择器</h5>
+            <input type="text" id="datetime" class="form-control">
+            <h5 class="title-small">时间选择回调【年月日 时分秒】选择器</h5>
+            <input type="text" id="change" class="form-control">
+            <h5 class="title-small">时间选择回调【年月日 时分秒】选择器</h5>
+            <input type="text" id="done" class="form-control">
+            <h5 class="title-small">自定义颜色,且选中日期进行关闭</h5>
+            <input type="text" id="color" class="form-control">
+            <h5 class="title-small">开启重大节日的标注</h5>
+            <input type="text" id="calendar" class="form-control">
+            <h5 class="title-small">赋值初始值</h5>
+            <input type="text" id="initial" class="form-control" value="2001-01-01 00:10:00">
+            <br>
+            <h5 class="title-small">赋值初始值</h5>
+            <input type="text" id="initDate" class="form-control" value="2001-01-01 00:10:00">
+            <br>
+
+        </section>
+        <p>缺点:<strong>除了默认的日期格式，其他的日期格式都需要点击确定按钮才行<br>
+            [或自己设置change之后的事件执行单击确定的事件]。好处：可以定义自己的日期样式</strong></p>
+        <br>
+        <a href="laydate_2014.html">过去的layer实例</a>
+        <br><br>
+    </article>
+</main>
+</body>
+<script src="../../plugins/jquery.min.js"></script>
+<script>
+    (function(){
+        $.extend({initLayDate: function (options) {//对日期控件进行初始化
+            var settings = {
+                elem: "#id",
+                type: "datetime",//datetime:年、月、日、时、分、秒,time:时分秒；date：年月日[默认]，month：年月
+                format:"yyyy-MM-dd HH:mm:ss",//如：yyyy年MM月dd日、HH时mm分ss秒、dd/MM/yyyy
+                value:new Date(),//当前的时间值
+                min: "2017-01-01 00:00:00",
+                max: "2099-01-01 00:00:00",//日期有效范围限定在：过去一周到未来一周:,min: -7 //7天前,max: 7 //7天后
+                showBottom:true,// - 是否显示底部栏
+                btns: ["clear","now", "confirm"],
+                theme: "molv",//多种主题:自定义背景色主题:red
+                calendar:true, //- 是否显示公历节日[默认：false]
+                mark: {
+                    '0-11-21': '生日'
+                },
+                change: function(value, date, endDate){
+                    //alert(value); //在控件上弹出value值
+                    //console.log(date);
+                    $(".laydate-btns-confirm").click();//确定事件的触发
+                },
+                done: function(value, date){
+                    if(date.year === 2017 && date.month === 11 && date.date === 21){ //点击2017年8月15日，弹出提示语
+                        laydateObj.hint('中国人民抗日战争胜利万岁');
+                    }
+                }
+            };
+            options = jQuery.extend({}, settings, options);
+            var laydateObj = laydate.render(options);
+        }});
+        $(function(){
+            //默认的日期
+            laydate.render({elem:'#date'});
+            //其他的选择器
+            //年选择器
+            laydate.render({
+                elem: '#year',
+                type: 'year'
+            });
+            //年月选择器
+            laydate.render({
+                elem: '#month',
+                type: 'month'
+            });
+            //时间选择器
+            laydate.render({
+                elem: '#time',
+                type: 'time'
+            });
+            //时间选择器
+            laydate.render({
+                elem: '#datetime',
+                type: 'datetime'
+            });
+            //选择回调：点击日期时触发
+            laydate.render({
+                elem: '#change',
+                type: 'datetime',
+                change: function(value, date, endDate){
+                    alert(value); //在控件上弹出value值
+                    console.log(date);
+                }
+            });
+            //点击清空、现在、确定均会触发。回调返回三个参数，分别代表：生成的值、日期时间对象、结束的日期时间对象
+            laydate.render({
+                elem: '#done',
+                type:"datetime",
+                value:new Date(),
+                format:"yyyy年MM月dd日 HH时mm分ss秒",
+                showBottom: false,
+                done: function(value, date, endDate){
+                    console.log(value); //得到日期生成的值，如：2017-08-18
+                    console.log(date); //得到日期时间对象：{year: 2017, month: 8, date: 18, hours: 0, minutes: 0, seconds: 0}
+                    console.log(endDate); //得结束的日期时间对象，开启范围选择（range: true）才会返回。对象成员同上。
+                }
+            });
+            //自定义颜色,且设置选择日期后关闭日期控件
+            laydate.render({
+                elem: '#color',
+                type: 'datetime',
+                theme:"#ff500b",
+                change: function(value, date, endDate){
+                    alert(value); //在控件上弹出value值
+                    console.log(date);
+                    $(".laydate-btns-confirm").click();
+                }
+            });
+            //标注特殊的日期
+            laydate.render({
+                elem: '#calendar',
+                type: 'datetime',
+                theme:"#ff500b",
+                calendar:true,
+                change: function(value, date, endDate){
+                    alert(value); //在控件上弹出value值
+                    console.log(date);
+                    $(".laydate-btns-confirm").click();
+                }
+            });
+            //初始化值
+            laydate.render({
+                elem: '#initial',
+                type: 'datetime',
+                theme:"#ff500b",
+                calendar:true,
+                change: function(value, date, endDate){
+                    alert(value); //在控件上弹出value值
+                    console.log(date);
+                    $(".laydate-btns-confirm").click();
+                }
+            });
+            $.initLayDate({
+                    elem: "#initDate",
+                    choose: function (dates) { //回调验证
+                        console.log(dates)
+                    }
+                });
+        });
+    })();
+</script>
+</html>

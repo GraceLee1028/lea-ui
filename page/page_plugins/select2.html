@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit">
+    <meta name="description" content="">
+    <title>select选择</title>
+    <link rel="shortcut icon" href="">
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="https://cdn.bootcss.com/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <link href="../../css/select2.min.css" rel="stylesheet">
+    <link href="../../css/common.css?112001" rel="stylesheet" />
+    <link rel="stylesheet" href="../../css/index.css?111601">
+</head>
+<body style="overflow-x: hidden;">
+<main class="content content-main">
+    <h1 class="main-title">选择框</h1>
+    <article>
+        <header class="header-title">
+            <h4 class="title-text">select2的基本用法</h4>
+            <p>官网：<a href="https://select2.org/">https://select2.org/</a>【引入select2的css和js】</p>
+        </header>
+        <section>
+            <h5 class="title-small">1、没有查询框的菜单</h5>
+            <select id="selectNotSearch" class="form-control">
+                <option selected>香蕉</option>
+                <option>苹果</option>
+                <option>葡萄</option>
+            </select>
+        </section>
+        <section>
+            <h5 class="title-small">2、有查询框的菜单</h5>
+            <select id="selectSearch" class="form-control">
+                <option>香蕉</option>
+                <option selected>苹果</option>
+                <option>葡萄</option>
+            </select>
+        </section>
+        <section>
+            <h5 class="title-small">3、先添加数据再select2 带有搜索框</h5>
+            <select id="selectAddData" class="form-control">
+                <option>香蕉</option>
+                <option selected>苹果</option>
+                <option>葡萄</option>
+            </select>
+        </section>
+        <section>
+            <h5 class="title-small">4、直接select2初始化数据</h5>
+            <select id="selectByData" class="form-control">
+                <option>你好</option>
+            </select>
+        </section>
+    </article>
+</main>
+</body>
+<script src="../../plugins/jquery.min.js"></script>
+<script src="../../plugins/select2.min.js"></script>
+<script>
+    (function(){
+        $(function(){
+            //无搜索框
+            $("#selectNotSearch").select2({
+                minimumResultsForSearch: Infinity
+            });
+            //有搜索框
+            $("#selectSearch").select2({
+                "language": {
+                    "noResults": function () {
+                        return "没有找到该活动标签";//【无结果后，显示中文提示】
+                    }
+                }
+            });
+            //先添加数据再select2 带有搜索框
+            var data = [
+                {
+                    "id": 1339238787,
+                    "name": "fff",
+                    "pid": 0
+                },
+                {
+                    "id": 1339238788,
+                    "name": "dsada",
+                    "pid": 1339238787
+                },
+                {
+                    "id": 1339238789,
+                    "name": "dada",
+                    "pid": 1339238787
+                },
+                {
+                    "id": 1340778700,
+                    "name": "女装",
+                    "pid": 0
+                },
+                {
+                    "id": 1343703119,
+                    "name": "休闲裤",
+                    "pid": 0
+                },
+                {
+                    "id": 1343703328,
+                    "name": "外套",
+                    "pid": 0
+                },
+                {
+                    "id": 1343703906,
+                    "name": "靴子",
+                    "pid": 0
+                },
+                {
+                    "id": 1343703907,
+                    "name": "皮衣",
+                    "pid": 0
+                },
+                {
+                    "id": 1345010948,
+                    "name": "热卖单品",
+                    "pid": 0
+                },
+                {
+                    "id": 1345012517,
+                    "name": "热卖单品专区",
+                    "pid": 1345010948
+                }
+            ];
+            var html = '<option value="">按店铺分类筛选</option>';
+            for (var i = 0; i < data.length; i++) {
+                var id = data[i]['id'];         //对应id
+                var name = data[i]['name'];     //对于名称
+                var pid = data[i]['pid'];       //对应父节点名称
+                if (pid != 0) {
+                    name = "|&nbsp;&nbsp;&nbsp;&nbsp;" + name;
+                }
+                html += '<option value="' + id + '">' + name + '</option>';
+            }
+            $("#selectAddData").empty().append(html).select2();
+            //直接select2初始化数据
+            var list = [
+                {
+                    children:[
+                        {id: "卖家促销", text: "卖家促销"},
+                        {id: "优惠促销", text: "优惠促销"},
+                        {id: "火热促销", text: "火热促销"}
+                    ],
+                    text:"促销"
+                }
+            ];
+            $("#selectByData").select2({ //此处用于select2的初始化数据
+                "language": {
+                    "noResults": function () {
+                        return "没有找到该活动标签";
+                    }
+                },
+                data: list
+            });
+        });
+    })();
+</script>
+</html>

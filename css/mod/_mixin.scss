@@ -1,0 +1,248 @@
+@mixin font-dpr($font-size){
+  font-size: $font-size;
+  [data-dpr="2"] &{
+    font-size: $font-size * 2;
+  }
+  [data-dpr="3"] &{
+    font-size: $font-size * 3;
+  }
+}
+@mixin radius($radius:3px){
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  border-radius: $radius;
+}
+@mixin ul-reset{
+  list-style: none;
+  margin:0;
+  padding: 0;
+  li{
+    list-style-image: none;
+    list-style-type: none;
+    margin:0;
+    padding: 0;
+  }
+}
+@mixin transform-all($trans-val){
+  -webkit-transform: $trans-val;
+  -moz-transform: $trans-val;
+  -ms-transform: $trans-val;
+  -o-transform: $trans-val;
+  transform: $trans-val;
+}
+@mixin transform-rotate($degree){
+  @include transform-all($trans-val:rotate($degree));
+}
+@mixin transform-translate($x,$y){
+  @include transform-all($trans-val:translate($x,$y));
+}
+@mixin transform-scale($size){
+  @include transform-all($trans-val:scale($size));
+}
+@mixin transition($property:all,$time:.5s,$func:ease){
+  -webkit-transition: $property $time $func;
+  -moz-transition: $property $time $func;
+  -ms-transition: $property $time $func;
+  -o-transition: $property $time $func;
+  transition: $property $time $func;
+}
+@mixin animation($animation){
+  -webkit-animation:$animation;
+  -o-animation: $animation;
+  animation: $animation;
+}
+@mixin animation-pro($property,$value){
+  -webkit-animation-#{$property}: $value;
+  -moz-animation-#{$property}: $value;
+  -o-animation-#{$property}: $value;
+  animation-#{$property}: $value;
+}
+@mixin clear-float{
+  &:before,&:after{
+    content:"";
+    display:table;
+  }
+  &:after{
+    clear:both;
+  }
+}
+@mixin opacity-el($opa){
+  opacity:$opa;
+  -ms-filter:alpha(opacity = $opa * 100);
+}
+//@mixin bg-opacity($opacity:.5){
+//  background: rgb(0,0,0); /*The Fallback color*/
+//  background: rgba(0, 0, 0,$opacity);
+//  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(GradientType=1,startColorstr=#80000000,endColorstr=#80000000)"; /*Filter for IE8 */
+//  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=1,startColorstr=#80000000, endColorstr=#80000000); /*Filter for older IEs */
+//}
+@mixin cursor-color($color,$textColor:#333){
+  color: $color;/*光标颜色*/
+  text-shadow: 0 0 0 $textColor;/*文本颜色*/
+  -webkit-text-fill-color: transparent;/*文本变成镂空*/
+  @supports (caret-color:red){
+    caret-color:$color;/*光标颜色*/
+    color:$textColor;
+  }
+}
+@mixin placeholder($color){
+  color:$color;
+  text-shadow: none;
+  -webkit-text-fill-color: initial;
+  text-overflow: ellipsis;
+}
+@mixin placeholder-color($color:#999) {
+  &::-webkit-input-placeholder{
+    @include placeholder($color)
+  }
+  &::-moz-placeholder{
+    @include placeholder($color)
+  }
+  &:-ms-input-placeholder{
+    @include placeholder($color)
+  }
+}
+@mixin user-select($select:none){
+  -webkit-user-select: $select;
+  -moz-user-select: $select;
+  -ms-user-select: $select;
+  user-select: $select;
+}
+@mixin single-overflow(){
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+/*multi overflow*/
+@mixin multi-overflow($line){
+  display: -webkit-box !important;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: $line;
+  overflow: hidden;
+}
+//feature
+//transparent
+@mixin property-transparent($property,$color,$opacity){
+  #{$property}: transparentize($color,1 - $opacity);
+}
+@mixin opacity($num:1){
+  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100 * $num);
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100 * $num);
+  opacity: $num;
+}
+@mixin box-shadow($shadow){
+  -webkit-box-shadow: $shadow;
+  -moz-box-shadow: $shadow;
+  box-shadow: $shadow;
+}
+@mixin linear-gradient($startColor,$endColor,$degree:left){
+  background: $endColor;
+  background: -moz-linear-gradient($degree, $startColor, $endColor);
+  background: -webkit-linear-gradient($degree,$startColor,$endColor);
+  background: -o-linear-gradient($degree, $startColor, $endColor);
+  background: linear-gradient($startColor, $endColor); /* */
+}
+//caret triangle
+@mixin triangle-vertical($vertical:bottom,$size:6px){
+  display:inline-block;
+  border-left:$size solid transparent;
+  border-right:$size solid transparent;
+  border-#{$vertical}:$size solid #fff;
+}
+@mixin triangle-hro($hro:left,$size:6px,$color:#fff){
+  display:inline-block;
+  border-top:$size solid transparent;
+  border-bottom:$size solid transparent;
+  border-#{$hro}:$size solid $color;
+}
+@mixin touch-action($action:manipulation){
+  -ms-touch-action:$action ;
+  touch-action: $action;
+}
+@mixin block-center{
+  display:block;
+  margin:{
+    left:auto;
+    right:auto;
+  }
+}
+@mixin img-ww($w:100%,$h:100%){
+  width:$w;
+  height:$h;
+}
+@mixin position($pos:absolute,$left:auto,$top:auto,$right:auto,$bottom:auto){
+  position: $pos;
+  left: $left;
+  right:$right;
+  top:$top;
+  bottom: $bottom;
+}
+@mixin h-radius($h:34px,$line-h:34px,$radius:34px){
+  line-height:$line-h ;
+  height:$h;
+  @include radius($radius);
+}
+@mixin float-set($float:left){
+  *display: inline;*zoom: 1;
+  float: $float;
+}
+@mixin clear-both{
+  &:before,&:after{
+    content: "";
+    display: table;
+  }
+  &:after{
+    clear: both;
+  }
+}
+@mixin outline-shadow-none{
+  outline: none;
+  @include box-shadow(none);
+}
+@mixin box-sizing($size:border-box){
+  -webkit-box-sizing: $size;
+  -moz-box-sizing: $size;
+  box-sizing: $size;
+}
+/*color---------*/
+/*--basic--*/
+$error:red;
+$success:rgb(46,199,16);
+$placeholder:rgb(188,180,204);
+$color:#444;
+$color-light:#666;
+$color-lighter:#999;
+$color-bold:#222;
+
+$bg:rgb(238,238,238);
+$foot-color:#fff;
+$yellow:rgb(255,138,0);
+$theme:rgb(250,120,95);
+$theme-hover: rgb(250, 104, 84);
+$time:.4s;
+$animate:ease;
+$line-h:1.42;
+$main-w:1200px;
+$border:#dedede;
+$border-light:#efefef;
+$mt:16px;
+$height:44px;
+$a-color:rgb(47,133,239);
+@mixin link-color($color:$theme,$default:#454545){
+  &{
+    color:$default;
+  }
+  &:hover,&:focus{
+    color:$color;
+    text-decoration: none;
+  }
+}
+@mixin line-link($color:$a-color){
+  &{
+    color:$color;
+  }
+  &:hover,&:focus{
+    color:$color;
+    text-decoration: underline;
+  }
+}

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit">
+    <meta name="description" content="">
+    <title>slimScroll和返回顶部</title>
+    <link rel="shortcut icon" href="">
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="https://cdn.bootcss.com/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <link href="../../css/common.css?111601" rel="stylesheet" />
+    <link rel="stylesheet" href="../../css/index.css?111601">
+</head>
+<body>
+<main class="content content-main">
+    <h1 class="main-title">scroll</h1>
+    <article style="max-height:600px;">
+        <header class="header-title">
+            <h4 class="title-text">slimscroll漂亮的滚动条</h4>
+        </header>
+        <h5 class="title-small">头</h5>
+        <p>slimScroll的api地址，主要是参数说明<a href="http://rocha.la/jQuery-slimScroll/">http://rocha.la/jQuery-slimScroll/</a></p>
+        <br><br><br><br>
+        <br><br><br><br>
+        <br><br><br><br>
+        <br><br><br><br>
+        <br><br><br><br>
+        <br><br><br><br>
+        <br><br><br><br>
+        <br><br><br><br>
+        <br><br><br><br>
+    </article>
+    <div class="fixed-right" id="back">
+        <i class="iconfont icon-back"></i>
+        <span></span>
+    </div>
+</main>
+</body>
+<script src="../../plugins/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/jQuery-slimScroll/1.3.8/jquery.slimscroll.min.js"></script>
+<script>
+    (function(){
+        //返回顶部
+        jQuery.fn.backTop = function (options) {
+            var ele = $(this), $win = $(window), doc = $("html,body");
+            var settings = {
+                top: 0,
+                autoHide: true,
+                offset: 80,//距离顶部的界定值
+                speed: 500,
+                position: true,
+                right: 0,
+                bottom: 70
+            };
+            var _options = $.extend(settings, options);
+            ele.css({
+                "cursor": "pointer"
+            });
+            if (_options.autoHide) {
+                ele.css({
+                    "display": "none"
+                });
+            }
+            if (_options.position) {
+                ele.css({
+                    "position": "fixed",
+                    "right": _options.right,
+                    "bottom": _options.bottom
+                });
+            }
+            ele.on("click", function () {
+                doc.animate({ scrollTop: _options.top }, _options.speed);
+            });
+            var $span = $(this).find("span");
+            ele.on('mouseenter', function () {
+                $span.html("回到顶部").css("display", "inline-block");
+            });
+            ele.on('mouseleave', function () {
+                $span.html("").css("display", "none");
+            });
+            $win.scroll(function () {
+                var st = $win.scrollTop();
+                //console.log(st);
+                if (_options.autoHide) {
+                    if (st > _options.offset) {
+                        ele.fadeIn(_options.speed);
+                    } else {
+                        ele.fadeOut(_options.speed);
+                    }
+                }
+            });
+        };
+        $("#back").backTop({ right: 20 });
+        function scroll(){
+            $("article").slimScroll({
+                color: "#ff500b",
+                size: "5px",
+                height: "100%",
+                alwaysVisible: true
+            });
+        }
+        scroll();
+        window.resize = scroll;
+    })();
+</script>
+</html>
