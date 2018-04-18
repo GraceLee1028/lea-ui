@@ -127,7 +127,10 @@
                 num_entries:40,
                 first_text:"首页",
                 last_text:"尾页",
-                link_has_button:true,
+                link_has_button: true,
+                button_error_callback: function (pageVal) {
+                    LayerInit.msgFail("第"+pageVal+"页不存在");
+                },
                 callback:function(index){
                     index++;
                     $("#result2").html("第"+index+"页");
