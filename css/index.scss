@@ -1,7 +1,9 @@
+@charset "UTF-8";
 @import "mod/mixin";
 $color: #393D49;
 $color-white:#efefef;
 $bg-color:#68665e;
+$active-bg:#53524c;
 $border-color:#ddd;
 //$theme-color:#12bbab;
 //$theme-hover-color:#0ba395;
@@ -56,7 +58,6 @@ $menu-width:220px;
   height:100%;
   overflow-x: hidden;
   @include user-select;
-  $active-bg:#53524c;
   h2{
     font-size:16px;
     margin:0;
@@ -84,7 +85,7 @@ $menu-width:220px;
       padding-top:0;
     }
   }
-  li.active h2,li[data-url]:hover,li[data-url].active{
+  li.active h2,li[data-id]:hover,li[data-id].active{
     color:$theme-color;
   }
   li>ul{
@@ -100,12 +101,68 @@ $menu-width:220px;
     }
   }
 }
+//右边内容
 .page-main{
   margin:0 0 0 $menu-width;
 }
-.L_iframe{
+$nav-h:40px;
+.nav-box{
+  width:10000000px;
+  height:$nav-h;
+  @include clear-both();
+  @include transition(margin-left,$time,$animate);
+  a{
+    display:inline-block;
+    height:100%;
+    overflow: hidden;
+    line-height: $nav-h;
+    padding:0 16px;
+    color:#555;
+    border-right:1px solid $active-bg;
+    float: left;
+    @include animation($animation:bgfade .6s ease alternate);
+    &:hover,&.focus{
+      color:#000;
+      text-decoration: none;
+    }
+    .iconfont{
+      vertical-align: middle;
+      margin-left:4px;
+    }
+    &.active{
+      color:#fff;
+      @include animation($animation:bgfade .6s ease);
+      @include animation-pro(fill-mode,forwards);
+      &:hover,&.focus{
+        color:#fff;
+      }
+    }
+  }
+}
+@keyframes bgfade {
+  0%{
+    background-color: #fff;
+  }
+  50%{
+    background-color: rgba($active-bg,.5);
+  }
+  100%{
+    background-color: rgba($active-bg,1);
+  }
+}
+.main-box{
+  border-top:2px solid $bg-color;
+  width:100%;
+  height:calc(100% - 40px);
+  overflow: hidden;
+}
+.lea_main{
   width:100%;
   height:100%;
+  display:none;
+  &.active{
+    display:block;
+  }
 }
 //menu left
 .page-menu{

@@ -22,19 +22,13 @@
     var indexObj = {
         init:function(){
             indexObj.menuInit();
+            indexObj.navMainTab();
         },
         menuInit: function(){
-            $("li","#pageMenu").click(function(event){
-                var $list = $(this),list_url_key = $list.data("url");
+            $("li","#pageMenu").on("click",function(event){
+                var $list = $(this),list_url_key = $list.data("id");
                 if(list_url_key){//当前页面存在点击
-                    var url = "page/input.html";
-                    $.each(urlJson,function(i,urlObj){
-                        if(urlObj.key == list_url_key){
-                            url = urlObj.url;
-                        }
-                    });
-                    $(".L_iframe").attr("src",url);
-                    $("li[data-url]").removeClass("active");
+                    $("li[data-id]").removeClass("active");
                     if($list.hasClass("menu-list")){
                         $("li.menu-list").removeClass("active");
                     }
@@ -48,7 +42,86 @@
                     }
                 }
                 event.stopPropagation();
-                console.log(111);
+            });
+        },
+        navMainTab:function(){
+            //导航和iframe
+            var $navMainBox = $("#navMainBox");
+            var $navBox = $navMainBox.find(".nav-box");
+            var $mainBox = $navMainBox.find(".main-box");
+            var mainDeal ={
+                init:function(id,text){
+                    var $a = $navBox.find(".nav-a[data-id='"+id+"']");
+                    var $main = $mainBox.find(".lea_main[data-id='"+id+"']");
+                    if(($a.length > 0||text=="")&&!$a.hasClass("active")){
+                        $navBox.find(".nav-a.active").removeClass("active");
+                        $mainBox.find(".lea_main.active").removeClass("active");
+                        $a.addClass("active");
+                        $main.addClass("active");
+                    }else if(text!=""&&$a.length<=0){//添加
+                        var url;
+                        $.each(urlJson,function(i,urlObj){
+                            if(urlObj.key == id){
+                                url = urlObj.url;
+                            }
+                        });
+                        $navBox.find(".nav-a.active").removeClass("active");
+                        $mainBox.find(".lea_main.active").removeClass("active");
+                        var a_html = '<a href="#" data-id="'+id+'" class="nav-a active">'+text+'<i class="iconfont icon-close-nav"></i></a>';
+                        var main_html = '<iframe class="lea_main active" data-id="'+id+'" name="main_'+id+'" width="100%" height="100%" src="'+url+'" frameborder="0"> </iframe>';
+                        $navBox.append(a_html);
+                        $mainBox.append(main_html);
+                    }
+                    mainDeal.dealNavShow();
+                },
+                dealNavShow:function(){
+                    var $aActive = $navBox.find(".nav-a.active");
+                    var w = document.documentElement.clientWidth||window.innerWidth;
+                    var nav_w = $(".page-menu").width();
+                    var a_w = $aActive.width();
+                    var a_left = $aActive.offset().left;
+                    var box_left = parseFloat($navBox.css("margin-left"));
+                    var prev_w = parseFloat($aActive.prev().css("width"));//当前单击按钮的前一个按钮
+                        //&&(a_w+a_left)>w
+                    var nav_a_w = a_left - nav_w;//按钮a距离左边aside的距离
+                    if(0<nav_a_w){//点击的是最右边的，则向左移动【有两个宽度就左移2个，没两个宽度就移动当前这个】
+                        if(nav_a_w < prev_w){//单击的按钮的前一个按钮有部分被遮住
+                            box_left = box_left+prev_w - nav_a_w;
+                        }else{//单击的按钮是最右边的
+                            var next_w = $aActive.next();//当前单击按钮的前一个按钮
+                            if(next_w.length>0){//存在下一个
+                                next_w = parseFloat(next_w.css("width"))
+                            }else{//不存在
+                                next_w = 0;
+                            }
+                            $navBox.find(".nav-a").each(function(){
+                                var $a = $(this);
+                            });
+                        }
+                    }else{//小于0[单击的按钮部分被遮住]
+                        box_left = box_left+Math.abs(nav_a_w)+prev_w;
+                    }
+                    $navBox.css({
+                        marginLeft:box_left
+                    });
+                },
+                tab:function(){//右上导航切换
+                    $navBox.on("click",".nav-a",function(){
+                        var $a = $(this),id = $a.data("id");
+                        mainDeal.init(id,"");
+                    });
+                },
+                close:function(){//关闭
+
+                }
+            };
+            mainDeal.tab();
+            $("li","#pageMenu").on("click",function(event){
+                var $list = $(this),id = $list.data("id");
+                if(id){//当前页面存在点击
+                    mainDeal.init(id,$list.html());
+                }
+                event.stopPropagation();
             });
         }
     };

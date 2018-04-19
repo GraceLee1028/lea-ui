@@ -10,7 +10,7 @@
     <link rel="shortcut icon" href="">
     <link href="css/animate.min.css" rel="stylesheet">
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://at.alicdn.com/t/font_480253_kb15rg0i3w2hjjor.css" rel="stylesheet">
+    <link href="https://at.alicdn.com/t/font_480253_kbwtzh7cq4k21emi.css" rel="stylesheet">
     <!--[if lt IE 9]>
     <script src="https://cdn.bootcss.com/html5shiv/r29/html5.min.js"></script>
     <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
@@ -26,44 +26,49 @@
     <aside class="page-menu">
         <menu class="leaui-menu" id="pageMenu">
             <ul class="list-none">
-                <li class="menu-list active" data-url="page_url_index"><h2 class="menu-title">主页</h2></li>
+                <li class="menu-list active" data-id="page_url_index"><h2 class="menu-title">主页</h2></li>
                 <li class="menu-list">
                     <h2 class="menu-title">页面元素</h2>
                     <ul class="animated list-none">
-                        <li data-url="page_url_color">颜色</li>
-                        <li data-url="page_url_button">按钮</li>
-                        <li data-url="page_url_form">表单</li>
-                        <li data-url="page_url_progress">进度条</li>
-                        <li data-url="page_url_alert">alert</li>
+                        <li data-id="page_url_color">颜色</li>
+                        <li data-id="page_url_button">按钮</li>
+                        <li data-id="page_url_form">表单</li>
+                        <li data-id="page_url_progress">进度条</li>
+                        <li data-id="page_url_alert">alert</li>
                     </ul>
                 </li>
                 <li class="menu-list">
                     <h2 class="menu-title">内置模块</h2>
                     <ul class="animated list-none">
-                        <li data-url="page_url_menu">菜单</li>
-                        <li data-url="page_url_popup">弹窗</li>
-                        <li data-url="page_url_scroll">滚动条slimscroll</li>
-                        <li data-url="page_url_select">选择框select</li>
-                        <li data-url="page_url_date">日期时间</li>
-                        <li data-url="page_url_pagination">分页</li>
-                        <li data-url="page_url_template">模板</li>
-                        <li data-url="page_url_upload">文件上传</li>
-                        <li data-url="page_url_validate">验证</li>
-                        <li data-url="page_url_cate">类目</li>
+                        <li data-id="page_url_menu">菜单</li>
+                        <li data-id="page_url_popup">弹窗</li>
+                        <li data-id="page_url_scroll">滚动条slimscroll</li>
+                        <li data-id="page_url_select">选择框select</li>
+                        <li data-id="page_url_date">日期时间</li>
+                        <li data-id="page_url_pagination">分页</li>
+                        <li data-id="page_url_template">模板</li>
+                        <li data-id="page_url_upload">文件上传</li>
+                        <li data-id="page_url_validate">验证</li>
+                        <li data-id="page_url_cate">类目</li>
                     </ul>
                 </li>
             </ul>
         </menu>
     </aside>
-    <article class="page-main">
-        <iframe class="L_iframe" name="iframe0" width="100%" height="100%" src="page/page_plugins/popup.html" frameborder="0">
-        </iframe>
-    </article>
+    <div  class="page-main" id="navMainBox">
+        <aside class="nav-box" style="margin-left:-100px;">
+            <a href="#" data-id="page_url_index" class="nav-a active">主页<i class="iconfont icon-close-nav"></i></a>
+        </aside>
+        <article class="main-box">
+            <iframe class="lea_main active" data-id="page_url_index" name="iframe0" width="100%" height="100%" src="page/page_plugins/popup.html" frameborder="0">
+            </iframe>
+        </article>
+    </div>
 </main>
 </body>
 <script src="plugins/jquery.min.js"></script>
 <script src="plugins/bootstrap.min.js"></script>
 <script src="plugins/layer/layer.js"></script>
 <script src="plugins/pluginCommon.js?18010501"></script>
-<script src="js/index.js?0412"></script>
+<script src="js/index.js?0419"></script>
 </html>
