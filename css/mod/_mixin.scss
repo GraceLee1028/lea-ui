@@ -206,28 +206,65 @@
 }
 /*color---------*/
 /*--basic--*/
-$error:red;
-$success:rgb(46,199,16);
-$placeholder:rgb(188,180,204);
-$color:#444;
+//text
+$color: #393D49;
 $color-light:#666;
 $color-lighter:#999;
 $color-bold:#222;
-
-$bg:rgb(238,238,238);
-$foot-color:#fff;
-$yellow:rgb(255,138,0);
-$theme:rgb(250,120,95);
-$theme-hover: rgb(250, 104, 84);
+$error:red;
+$success:rgb(46,199,16);
+$placeholder:rgb(188,180,204);
+$a-color:rgb(47,133,239);
+$color-danger:#ed5565;
+$color-hover-danger:#e84355;
+$color-disabled:#e2e2e2;
+$gray:#c2c2c2;
+$gray-light:#f2f2f2;
+$gray-hover:#b2b2b2;
+$color-tao:#ff500b;
+$color-white:#efefef;
+$cg:#009688;
+$ca:#393D49;
+$ct:#f0ad4e;
+$ct-hover: #e3992f;
+$cb:#1E9FFF;
+$cb-hover: #0c8aff;
+$cl:#01AAED;
+//theme
+$caside:#2F4056;
+$bg-color:#333;
+$active-bg:#222;
+$theme:#FF9800;
+$theme-hover:#d8850b;
 $time:.4s;
 $animate:ease;
 $line-h:1.42;
 $main-w:1200px;
-$border:#dedede;
+$border-color:#ddd;
 $border-light:#efefef;
+$radius:2px;
+//bg
+$foot-color:#fff;
+$yellow:rgb(255,138,0);
+//margin padding
 $mt:16px;
 $height:44px;
-$a-color:rgb(47,133,239);
+$px5:5px;
+$px10:10px;
+$px15:15px;
+$px20:20px;
+$gray-light:#f2f2f2;
+$padding:15px;
+$padding10:10px;
+$padding20:20px;
+////color button form input style
+
+
+
+//$theme-color:#12bbab;
+//$theme-hover-color:#0ba395;
+
+
 @mixin link-color($color:$theme,$default:#454545){
   &{
     color:$default;

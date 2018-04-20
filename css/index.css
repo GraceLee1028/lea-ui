@@ -10,18 +10,18 @@ html, body {
   top: 0; }
 
 .leaui-header {
-  background-color: #68665e;
+  background-color: rgba(255, 152, 0, 0.8);
   color: #efefef;
-  height: 60px;
-  line-height: 60px;
+  height: 80px;
+  line-height: 80px;
   padding: 0 15px;
-  border-bottom: 1px solid #68665e;
+  border-bottom: 1px solid #333;
   -webkit-box-shadow: 0 1px 2px #aaa;
   -moz-box-shadow: 0 1px 2px #aaa;
   box-shadow: 0 1px 2px #aaa; }
   .leaui-header h1 {
     margin: 0;
-    line-height: 60px; }
+    line-height: 80px; }
 
 body {
   height: 100%;
@@ -29,7 +29,7 @@ body {
 
 .con-page {
   width: 100%;
-  height: calc(100% - 60px);
+  height: 100%;
   overflow: hidden; }
 
 .page-menu, .page-main {
@@ -37,8 +37,7 @@ body {
   overflow: hidden; }
 
 .page-menu {
-  width: 220px;
-  top: 60px; }
+  width: 220px; }
 
 .leaui-menu {
   height: 100%;
@@ -55,11 +54,11 @@ body {
   .leaui-menu li.menu-list {
     border-left: 3px solid transparent; }
     .leaui-menu li.menu-list.active {
-      border-left: 3px solid #ff500b; }
+      border-left: 3px solid #FF9800; }
   .leaui-menu li:hover {
-    background-color: #53524c; }
+    background-color: #222; }
   .leaui-menu li.active {
-    background-color: #53524c; }
+    background-color: #222; }
     .leaui-menu li.active > ul {
       height: auto;
       -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100 * $num);
@@ -69,7 +68,7 @@ body {
       display: block;
       padding-top: 0; }
   .leaui-menu li.active h2, .leaui-menu li[data-id]:hover, .leaui-menu li[data-id].active {
-    color: #ff500b; }
+    color: #FF9800; }
   .leaui-menu li > ul {
     -webkit-transition: padding-top 1s ease;
     -moz-transition: padding-top 1s ease;
@@ -88,11 +87,25 @@ body {
       padding: 10px 15px; }
 
 .page-main {
-  margin: 0 0 0 220px; }
+  margin: 0 0 0 220px;
+  background-color: #333; }
+
+.nav-header {
+  width: 100%;
+  height: 80px;
+  background-color: rgba(255, 152, 0, 0.8);
+  position: relative;
+  padding-top: 10px; }
+
+.nh-title {
+  color: #fff;
+  font-size: 18px; }
 
 .nav-box {
   width: 10000000px;
   height: 40px;
+  position: absolute;
+  bottom: 0;
   -webkit-transition: margin-left 0.4s ease;
   -moz-transition: margin-left 0.4s ease;
   -ms-transition: margin-left 0.4s ease;
@@ -104,46 +117,38 @@ body {
   .nav-box:after {
     clear: both; }
   .nav-box a {
+    background-color: #f9f8ee;
     display: inline-block;
     height: 100%;
     overflow: hidden;
     line-height: 40px;
     padding: 0 16px;
     color: #555;
-    border-right: 1px solid #53524c;
+    border-right: 1px solid #222;
     float: left;
-    -webkit-animation: bgfade 0.6s ease alternate;
-    -o-animation: bgfade 0.6s ease alternate;
-    animation: bgfade 0.6s ease alternate; }
+    -webkit-transition: all 0.4s ease;
+    -moz-transition: all 0.4s ease;
+    -ms-transition: all 0.4s ease;
+    -o-transition: all 0.4s ease;
+    transition: all 0.4s ease; }
     .nav-box a:hover, .nav-box a.focus {
       color: #000;
       text-decoration: none; }
     .nav-box a .iconfont {
+      display: inline-block;
+      height: 100%;
       vertical-align: middle;
       margin-left: 4px; }
     .nav-box a.active {
-      color: #fff;
-      -webkit-animation: bgfade 0.6s ease;
-      -o-animation: bgfade 0.6s ease;
-      animation: bgfade 0.6s ease;
-      -webkit-animation-fill-mode: forwards;
-      -moz-animation-fill-mode: forwards;
-      -o-animation-fill-mode: forwards;
-      animation-fill-mode: forwards; }
+      color: #e2e2e2;
+      background-color: #222; }
       .nav-box a.active:hover, .nav-box a.active.focus {
         color: #fff; }
 
-@keyframes bgfade {
-  0% {
-    background-color: #fff; }
-  50% {
-    background-color: rgba(83, 82, 76, 0.5); }
-  100% {
-    background-color: #53524c; } }
 .main-box {
-  border-top: 2px solid #68665e;
+  border-top: 2px solid #333;
   width: 100%;
-  height: calc(100% - 40px);
+  height: calc(100% - 80px);
   overflow: hidden; }
 
 .lea_main {
@@ -154,11 +159,12 @@ body {
     display: block; }
 
 .page-menu {
-  background-color: #68665e;
+  background-color: #333;
   color: #efefef; }
 
 .content-main {
-  padding: 0 15px; }
+  padding: 0 15px;
+    padding-bottom: 30px; }
 
 .main-title {
   margin: 0;

@@ -1,18 +1,5 @@
 @charset "UTF-8";
 @import "mod/mixin";
-$color: #393D49;
-$color-white:#efefef;
-$bg-color:#68665e;
-$active-bg:#53524c;
-$border-color:#ddd;
-//$theme-color:#12bbab;
-//$theme-hover-color:#0ba395;
-$theme-color:#ff500b;
-$theme-hover-color:#ef4704;
-$gray-light:#f2f2f2;
-$padding:15px;
-$padding10:10px;
-$padding20:20px;
 @mixin border($c,$property:border){
   #{$property}: 1px solid $c;
 }
@@ -24,13 +11,14 @@ html,body{
   left:0;
   top:0;
 }
-$header-height:60px;
+$header-height:80px;
+$header-bg:rgba($theme,.8);
 .leaui-header{
-  background-color:$bg-color;
+  background-color:$header-bg;
   color:$color-white;
   height:$header-height;
   line-height: $header-height;
-  padding:0 $padding;
+  padding:0 $px15;
   @include border($bg-color,border-bottom);
   @include box-shadow(0 1px 2px #aaa);
   h1{margin:0;  line-height: $header-height;  }
@@ -41,7 +29,7 @@ body{
 }
 .con-page{
   width:100%;
-  height:calc(100% - 60px);
+  height:100%;
   overflow: hidden;
 }
 .page-menu,.page-main{
@@ -52,7 +40,6 @@ $menu-width:220px;
 .page-menu{
   @extend .fixed-left;
   width:$menu-width;
-  top:$header-height;
 }
 .leaui-menu{
   height:100%;
@@ -61,14 +48,14 @@ $menu-width:220px;
   h2{
     font-size:16px;
     margin:0;
-    padding:$padding10 $padding;
+    padding:$px10 $px15;
     cursor: default;
   }
   li{
     &.menu-list{
       border-left:3px solid transparent;
       &.active{
-        border-left:3px solid $theme-color;
+        border-left:3px solid $theme;
       }
     }
     &:hover{
@@ -86,32 +73,47 @@ $menu-width:220px;
     }
   }
   li.active h2,li[data-id]:hover,li[data-id].active{
-    color:$theme-color;
+    color:$theme;
   }
   li>ul{
     @include transition(padding-top,1s);
     padding-top:100px;
-    padding-left:$padding;
+    padding-left:$px15;
     height:0;
     @include opacity(0);
     display: none;
     li{
       cursor: pointer;
-      padding:$padding10 $padding;
+      padding:$px10 $px15;
     }
   }
 }
 //右边内容
 .page-main{
   margin:0 0 0 $menu-width;
+  background-color: $bg-color;
 }
 $nav-h:40px;
+.nav-header{
+  width:100%;
+  height:$header-height;
+  background-color: $header-bg;
+  position:relative;
+  padding-top: 10px;
+}
+.nh-title{
+  color:#fff;
+  font-size:18px;
+}
 .nav-box{
   width:10000000px;
   height:$nav-h;
+  position:absolute;
+  bottom:0;
   @include clear-both();
   @include transition(margin-left,$time,$animate);
   a{
+    background-color: #f9f8ee;
     display:inline-block;
     height:100%;
     overflow: hidden;
@@ -120,40 +122,30 @@ $nav-h:40px;
     color:#555;
     border-right:1px solid $active-bg;
     float: left;
-    @include animation($animation:bgfade .6s ease alternate);
+    @include transition(all,$time,$animate);
     &:hover,&.focus{
       color:#000;
       text-decoration: none;
     }
     .iconfont{
+      display:inline-block;
+      height:100%;
       vertical-align: middle;
       margin-left:4px;
     }
     &.active{
-      color:#fff;
-      @include animation($animation:bgfade .6s ease);
-      @include animation-pro(fill-mode,forwards);
+      color:#e2e2e2;
+      background-color: $active-bg;
       &:hover,&.focus{
         color:#fff;
       }
     }
   }
 }
-@keyframes bgfade {
-  0%{
-    background-color: #fff;
-  }
-  50%{
-    background-color: rgba($active-bg,.5);
-  }
-  100%{
-    background-color: rgba($active-bg,1);
-  }
-}
 .main-box{
   border-top:2px solid $bg-color;
   width:100%;
-  height:calc(100% - 40px);
+  height:calc(100% - 80px);
   overflow: hidden;
 }
 .lea_main{
@@ -171,24 +163,26 @@ $nav-h:40px;
 }
 //content
 .content-main{
-  padding:0 $padding;
+  padding:0 $px15{
+  bottom:30px;
+};
 }
 .main-title{
   margin:0;
-  padding:$padding10 0;
+  padding:$px10 0;
   @include border($border-color,border-bottom);
 }
 .header-title{
   border-top:1px solid $border-color;
-  margin-top:$padding * 2;
+  margin-top:$px15 * 2;
   .title-text{
     display:inline-block;
     font-size:20px;
     margin:0;
     position:relative;
     top:-11px;
-    left:$padding20;
-    padding: 0 $padding10;
+    left:$px20;
+    padding: 0 $px10;
     background-color: #fff;
     font-weight: 300;
   }

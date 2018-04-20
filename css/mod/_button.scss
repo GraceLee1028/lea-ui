@@ -3,7 +3,7 @@
   @include outline-shadow-none();
 }
 .title-small{
-  border-left:4px solid $theme-color;
+  border-left:4px solid $theme;
   padding:$px10 $px15;
   background-color: #eee;
 }
@@ -30,18 +30,18 @@
   background-color: white;
   color:$color;
   &:hover,&:active,&:focus{
-    color:$theme-color;
-    border-color: $theme-color;
+    color:$theme;
+    border-color: $theme;
   }
 }
 .leaui-btn-primary{
-  background-color: $theme-color;
-  border-color: $theme-color;
+  background-color: $theme;
+  border-color: $theme;
   color:#fff;
   &:hover,&:active,&:focus{
     color:#fff;
-    background-color:$theme-hover-color;
-    border-color: $theme-hover-color;
+    background-color:$theme-hover;
+    border-color: $theme-hover;
   }
 }
 .leaui-btn-info{
@@ -111,7 +111,7 @@
 }
 //文本按钮
 .leaui-label-primary{
-  background-color: $theme-color;
+  background-color: $theme;
 }
 .leaui-label-info{
   background-color: $cb;

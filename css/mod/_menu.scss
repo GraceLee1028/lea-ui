@@ -66,7 +66,7 @@ $m-li-padding:28px;
     }
     &.active:after{
       width: 100%;
-      background-color: $theme-color;
+      background-color: $theme;
     }
     a{
       font-size: $menu-fs;
@@ -79,7 +79,7 @@ $m-li-padding:28px;
   }
 }
 .menu-box li.active a, .menu-box li a:hover {
-  color: $theme-color;
+  color: $theme;
 }
 /*right style*/
 .header-aside{

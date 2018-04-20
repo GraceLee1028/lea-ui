@@ -19,11 +19,11 @@
     <link rel="stylesheet" href="css/index.css">
 </head>
 <body>
-<header class="leaui-header">
-    <h1 class="title">LEA_UI</h1>
-</header>
 <main class="content con-page clearfix">
     <aside class="page-menu">
+        <header class="leaui-header">
+            <h1 class="title">LEA_UI</h1>
+        </header>
         <menu class="leaui-menu" id="pageMenu">
             <ul class="list-none">
                 <li class="menu-list active" data-id="page_url_index"><h2 class="menu-title">主页</h2></li>
@@ -56,9 +56,12 @@
         </menu>
     </aside>
     <div  class="page-main" id="navMainBox">
-        <aside class="nav-box" style="margin-left:-100px;">
-            <a href="#" data-id="page_url_index" class="nav-a active">主页<i class="iconfont icon-close-nav"></i></a>
-        </aside>
+        <header class="nav-header">
+            <p class="nh-title">欢迎进入我的世界</p>
+            <div class="nav-box">
+                <a href="#" data-id="page_url_index" class="nav-a active">主页</a>
+            </div>
+        </header>
         <article class="main-box">
             <iframe class="lea_main active" data-id="page_url_index" name="iframe0" width="100%" height="100%" src="page/page_plugins/popup.html" frameborder="0">
             </iframe>
@@ -70,5 +73,5 @@
 <script src="plugins/bootstrap.min.js"></script>
 <script src="plugins/layer/layer.js"></script>
 <script src="plugins/pluginCommon.js?18010501"></script>
-<script src="js/index.js?0419"></script>
+<script src="js/index.js?042001"></script>
 </html>

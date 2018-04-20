@@ -36,16 +36,16 @@
       line-height: 44px;
       color: #000; }
       .menu-ul li a:hover {
-        color: #fa785f;
+        color: #FF9800;
         text-decoration: none; }
     .menu-ul li.active a {
-      color: #fa785f; }
+      color: #FF9800; }
 
 .menu-bottom {
   display: inline-block;
   width: 0;
   height: 3px;
-  background-color: #fa785f;
+  background-color: #FF9800;
   position: absolute;
   left: 0;
   top: 36px;
@@ -95,16 +95,16 @@
       padding: 0 6px;
       color: white; }
       .nav-tab.video ul li.active {
-        color: #fa785f; }
+        color: #FF9800; }
     .nav-tab.video ul li + li {
       margin-left: 26px; }
   .nav-tab ul li.active, .nav-tab ul li:hover {
-    color: #fa785f; }
+    color: #FF9800; }
   .nav-tab .bottom {
     content: "";
     width: 200px;
     height: 3px;
-    background-color: #fa6854;
+    background-color: #d8850b;
     position: absolute;
     left: 0;
     bottom: -1px;
