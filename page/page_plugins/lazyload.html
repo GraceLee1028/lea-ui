@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit">
+    <meta name="description" content="">
+    <title>懒加载lazyload</title>
+    <link rel="shortcut icon" href="">
+    <link rel="stylesheet" href="../../css/index.css?111601">
+    <style>
+        .lea-col-5{
+            width:20%;
+            height:200px;
+            position:relative;
+            margin-top:40px;
+            border:1px solid #66512c;
+            overflow: hidden;
+        }
+        .lazy{
+            width:100%;
+            height:auto;
+            position:absolute;
+            top:50%;
+            left:50%;
+            -webkit-transform: translate(-50%, -50%);
+            -moz-transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+            -o-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+        }
+    </style>
+</head>
+<body style="overflow-x: hidden;">
+<main class="content content-main">
+    <h1 class="main-title">懒加载</h1>
+    <h2>lazyload[echo.js也可以，特点：体积小]</h2>
+    <div class="lea-col-5">
+        <img src="../../imgs/load/load.gif" class="lazy" data-src="../../imgs/load/item.png">
+    </div>
+    <div class="lea-col-5">
+        <img src="../../imgs/load/load.gif" class="lazy" data-src="../../imgs/load/item.png">
+    </div>
+    <div class="lea-col-5">
+        <img src="../../imgs/load/load.gif" class="lazy" data-src="../../imgs/load/item.png">
+    </div>
+    <div class="lea-col-5">
+        <img src="../../imgs/load/load.gif" class="lazy" data-src="../../imgs/load/item.png">
+    </div>
+    <div class="lea-col-5">
+        <img src="../../imgs/load/load.gif" class="lazy" data-src="../../imgs/load/item.png">
+    </div>
+    <div class="lea-col-5">
+        <img src="../../imgs/load/load.gif" class="lazy" data-src="../../imgs/load/item.png">
+    </div>
+    <div class="lea-col-5">
+        <img src="../../imgs/load/load.gif" class="lazy" data-src="../../imgs/load/item.png">
+    </div>
+    <div class="lea-col-5">
+        <img src="../../imgs/load/load.gif" class="lazy" data-src="../../imgs/load/item1.png">
+    </div>
+    <div class="lea-col-5">
+        <img src="../../imgs/load/load.gif" class="lazy" data-src="../../imgs/load/item2.png">
+    </div>
+    <div class="lea-col-5">
+        <img src="../../imgs/load/load.gif" class="lazy" data-src="../../imgs/load/item3.png">
+    </div>
+    <div class="lea-col-5">
+        <img src="../../imgs/load/load.gif" class="lazy" data-src="../../imgs/load/item4.png">
+    </div>
+    <div class="lea-col-5">
+        <img src="../../imgs/load/load.gif" class="lazy" data-src="../../imgs/load/item5.png">
+    </div>
+    <div class="lea-col-5">
+        <img src="../../imgs/load/load.gif" class="lazy" data-src="../../imgs/load/item6.png">
+    </div>
+    <div class="lea-col-5">
+        <img src="../../imgs/load/load.gif" class="lazy" data-src="../../imgs/load/item7.png">
+    </div>
+    <div class="lea-col-5">
+        <img src="../../imgs/load/load.gif" class="lazy" data-src="../../imgs/load/item8.png">
+    </div>
+    <div class="lea-col-5">
+        <img src="../../imgs/load/load.gif" class="lazy" data-src="../../imgs/load/item9.png">
+    </div>
+    <div class="lea-col-5">
+        <img src="../../imgs/load/load.gif" class="lazy" data-src="../../imgs/load/item10.png">
+    </div>
+</main>
+</body>
+<script src="../../plugins/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery_lazyload/1.9.7/jquery.lazyload.js"></script>
+<script>
+    (function($){
+        var imgs = document.querySelectorAll(".lazy");
+        $(imgs).lazyload({
+            //图片延时多少毫秒加载
+            throttle: 3000,
+            data_attribute:"src",//真实图片属性data-src
+            skip_invisible : false//隐藏的图片忽视
+        });
+    })(jQuery);
+</script>
+</html>

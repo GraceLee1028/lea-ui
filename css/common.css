@@ -337,7 +337,8 @@ h5, .h5 {
 .title-small {
   border-left: 4px solid #FF9800;
   padding: 10px 15px;
-  background-color: #eee; }
+  background-color: #eee;
+  margin-bottom: 20x; }
 
 .leaui-btns .btn, .leaui-btns .label, .leaui-labels .btn, .leaui-labels .label {
   margin-right: 15px;

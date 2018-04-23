@@ -156,7 +156,8 @@ body {
   height: 100%;
   display: none; }
   .lea_main.active {
-    display: block; }
+    display: block;
+    background-color: #fff; }
 
 .page-menu {
   background-color: #333;

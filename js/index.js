@@ -17,7 +17,8 @@
         {key:"page_url_template",url:"page/page_plugins/template.html"},
         {key:"page_url_upload",url:"page/page_plugins/upload.html"},
         {key:"page_url_validate",url:"page/page_plugins/validate.html"},
-        {key:"page_url_cate",url:"page/page_plugins/category.html"}
+        {key:"page_url_cate",url:"page/page_plugins/category.html"},
+        {key:"page_url_lazy",url:"page/page_plugins/lazyload.html"}
     ];
     var indexObj = {
         init:function(){
