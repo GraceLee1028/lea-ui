@@ -19,3 +19,11 @@ h5{
     bottom:15px;
   }
 }
+.gradient-white{
+  font-weight:700;
+  @include gradient-text($theme,$menu-bg,right);
+}
+.gradient-theme{
+  font-weight:700;
+  @include gradient-text($theme,#fff,right);
+}

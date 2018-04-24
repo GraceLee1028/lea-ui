@@ -283,3 +283,9 @@ $padding20:20px;
     text-decoration: underline;
   }
 }
+@mixin gradient-text($sc,$ec,$dir:bottom){
+  color: $sc;
+  @include linear-gradient($sc, $ec, $dir);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}

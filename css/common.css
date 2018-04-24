@@ -895,4 +895,28 @@ h5 {
   margin-top: 10px;
   margin-bottom: 15px; }
 
+.gradient-white {
+  font-weight: 700;
+  color: #FF9800;
+  background: #202b39;
+  background: -moz-linear-gradient(right, #FF9800, #202b39);
+  background: -webkit-linear-gradient(right, #FF9800, #202b39);
+  background: -o-linear-gradient(right, #FF9800, #202b39);
+  background: linear-gradient(#FF9800, #202b39);
+  /* */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent; }
+
+.gradient-theme {
+  font-weight: 700;
+  color: #FF9800;
+  background: #fff;
+  background: -moz-linear-gradient(right, #FF9800, #fff);
+  background: -webkit-linear-gradient(right, #FF9800, #fff);
+  background: -o-linear-gradient(right, #FF9800, #fff);
+  background: linear-gradient(#FF9800, #fff);
+  /* */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent; }
+
 /*# sourceMappingURL=common.css.map */
