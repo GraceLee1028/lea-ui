@@ -109,12 +109,12 @@ h5, .h5 {
 
 /*style reset-----------------end*/
 /*common style-----------------start*/
-.underline-none, .header-menu a, .menu-box li a {
+.underline-none, .header-menu a, .nav-link li a {
   text-decoration: none; }
-  .underline-none:hover, .header-menu a:hover, .menu-box li a:hover, .underline-none:active, .header-menu a:active, .menu-box li a:active, .underline-none:focus, .header-menu a:focus, .menu-box li a:focus {
+  .underline-none:hover, .header-menu a:hover, .nav-link li a:hover, .underline-none:active, .header-menu a:active, .nav-link li a:active, .underline-none:focus, .header-menu a:focus, .nav-link li a:focus {
     text-decoration: none; }
 
-.fl, .header-menu, .header-menu h1, .menu-logo, .menu-nav, .menu-box li {
+.fl, .nav li, .header-menu, .header-menu h1, .menu-logo, .menu-nav {
   *display: inline;
   *zoom: 1;
   float: left; }
@@ -338,7 +338,7 @@ h5, .h5 {
   border-left: 4px solid #FF9800;
   padding: 10px 15px;
   background-color: #eee;
-  margin-bottom: 20x; }
+  margin-bottom: 20px; }
 
 .leaui-btns .btn, .leaui-btns .label, .leaui-labels .btn, .leaui-labels .label {
   margin-right: 15px;
@@ -560,6 +560,26 @@ h5, .h5 {
   -moz-box-shadow: 0 1px 10px 0px #202b39;
   box-shadow: 0 1px 10px 0px #202b39; }
 
+.nav {
+  list-style: none;
+  margin: 0;
+  padding: 0; }
+  .nav li {
+    list-style-image: none;
+    list-style-type: none;
+    margin: 0;
+    padding: 0; }
+  .nav li {
+    display: inline-block;
+    position: relative; }
+  .nav a {
+    display: inline-block; }
+    .nav a {
+      color: #454545; }
+    .nav a:hover, .nav a:focus {
+      color: #FF9800;
+      text-decoration: none; }
+
 .header-menu {
   width: auto; }
   .header-menu a {
@@ -587,39 +607,36 @@ h5, .h5 {
   height: 60px;
   margin-left: 20px; }
 
-.menu-box {
-  padding: 0; }
-  .menu-box li {
-    display: inline-block;
-    position: relative; }
-    .menu-box li:after {
-      content: "";
-      height: 4px;
-      position: absolute;
-      bottom: 2px;
-      left: 0;
-      background-color: #202b39;
-      width: 0;
-      -webkit-transition: width 0.4s ease;
-      -moz-transition: width 0.4s ease;
-      -ms-transition: width 0.4s ease;
-      -o-transition: width 0.4s ease;
-      transition: width 0.4s ease; }
-    .menu-box li.active:after {
-      width: 100%;
-      background-color: #FF9800; }
-    .menu-box li a {
-      font-size: 18px;
-      display: inline-block;
-      height: 60px;
-      padding: 0 28px;
-      -webkit-transition: all 0.4s ease;
-      -moz-transition: all 0.4s ease;
-      -ms-transition: all 0.4s ease;
-      -o-transition: all 0.4s ease;
-      transition: all 0.4s ease; }
-
-.menu-box li.active a, .menu-box li a:hover {
+.nav-link li:after {
+  content: "";
+  height: 4px;
+  position: absolute;
+  bottom: 2px;
+  left: 0;
+  background-color: #202b39;
+  width: 0;
+  -webkit-transition: width 0.4s ease;
+  -moz-transition: width 0.4s ease;
+  -ms-transition: width 0.4s ease;
+  -o-transition: width 0.4s ease;
+  transition: width 0.4s ease; }
+.nav-link li a {
+  font-size: 18px;
+  height: 60px;
+  padding: 0 28px;
+  -webkit-transition: all 0.4s ease;
+  -moz-transition: all 0.4s ease;
+  -ms-transition: all 0.4s ease;
+  -o-transition: all 0.4s ease;
+  transition: all 0.4s ease;
+  color: #eef1f6; }
+.nav-link li:hover a {
+  color: #FF9800;
+  background-color: #202b39; }
+.nav-link li.active:after {
+  width: 100%;
+  background-color: #FF9800; }
+.nav-link li.active a {
   color: #FF9800; }
 
 /*right style*/

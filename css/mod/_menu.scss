@@ -11,6 +11,18 @@ $m-li-padding:28px;
   z-index: 1;
   @include box-shadow(0 1px 10px 0px $menu-bg);
 }
+.nav{
+  @include ul-reset();
+  li{
+    @extend .fl;
+    display: inline-block;
+    position: relative;
+  }
+  a{
+    display: inline-block;
+    @include link-color();
+  }
+}
 .header-menu{
   width: auto;
   @extend .fl;
@@ -48,12 +60,8 @@ $m-li-padding:28px;
   @extend .fl;
   margin-left:20px;
 }
-.menu-box{
-  padding: 0;
+.nav-link{
   li{
-    @extend .fl;
-    display: inline-block;
-    position: relative;
     &:after{
       content: "";
       height: 4px;
@@ -64,22 +72,31 @@ $m-li-padding:28px;
       width:0;
       @include transition(width,$time);
     }
-    &.active:after{
-      width: 100%;
-      background-color: $theme;
-    }
     a{
       font-size: $menu-fs;
-      display: inline-block;
       height: $menu-height;
       padding: 0 $m-li-padding;
       @include transition(all,$time);
+      color:#eef1f6;
       @extend .underline-none;
     }
+    &:hover{
+      a{
+        color:$theme;
+        background-color: $menu-bg;
+      }
+    }
+    &.active{
+      &:after{
+        width: 100%;
+        background-color: $theme;
+      }
+      a{
+        color:$theme;
+      }
+    }
+
   }
-}
-.menu-box li.active a, .menu-box li a:hover {
-  color: $theme;
 }
 /*right style*/
 .header-aside{

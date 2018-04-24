@@ -131,6 +131,8 @@ body {
     -ms-transition: all 0.4s ease;
     -o-transition: all 0.4s ease;
     transition: all 0.4s ease; }
+    .nav-box a:last-child {
+      border-right: 0; }
     .nav-box a:hover, .nav-box a.focus {
       color: #000;
       text-decoration: none; }

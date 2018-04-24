@@ -1,0 +1,137 @@
+@import "../mod/mixin";
+.cw-con{
+  margin-top:18px;
+  background-color: #efefef;
+  padding:20px;
+}
+$w-img-wh:82px;
+@mixin bg-set($top:0,$left:0){
+  top:$top; left:$left;
+}
+$wi-h:300px;
+@mixin later-item{
+  width: 500px;
+  height:500px;
+  @include bg-set(-110px,-110px);
+  margin-left: 0;
+}
+.welfare-item{
+  width:254px;
+  height:$wi-h;
+  background-color: #fff;
+  position:relative;
+  text-align: center;
+  overflow: hidden;
+  margin-bottom: 20px;
+  @include block-center();
+  &>.bg{
+    z-index:1;
+    position: absolute;
+    width:$w-img-wh;
+    height:$w-img-wh;
+    @include bg-set(26px,50%);
+    margin-left:-$w-img-wh / 2;
+    @include radius(50%);
+    @include transform-rotate(45deg);
+  }
+  &.yi{
+    .bg{
+      background-color: rgb(255,69,92);
+    }
+  }
+  &.guide{
+    .bg{
+      background-color: rgb(54,200,222);
+    }
+  }
+
+  &.service{
+    .bg{
+      background-color: rgb(189,109,248);
+    }
+    .text{
+      margin-top: 30px;
+      margin-bottom: 21px;
+    }
+  }
+  &>*{
+    position:relative;
+    z-index:2;
+  }
+
+  &>img{
+    margin-top:26px;
+    width:$w-img-wh;
+    height:$w-img-wh;
+  }
+  .title{
+    font-size:20px;
+  }
+  .text{
+    color:#333;
+    font-size:16px;
+    line-height: 2;
+    margin-top:8px;
+  }
+  .theme-line{
+    font-size:16px;
+    margin-top:18px;
+    display:inline-block;
+  }
+  &:hover,&.hover{
+    @include box-shadow($shadow:0 0 20px #ddd);
+    .bg{
+      @include animation($animation:alls 600ms linear);
+      @include later-item;
+      margin: 0;
+      border-radius: 0;
+      color: #fff;
+    }
+    .title,.text,.theme-line{
+      @include animation($animation:words 10ms linear);
+      @include animation-pro(fill-mode,forwards );
+      @include animation-pro(delay,50ms);
+    }
+    .theme-line{
+      &:focus{
+        color:#fff;
+      }
+    }
+  }
+}
+@-webkit-keyframes alls{
+  0% {
+    width:$w-img-wh;
+    height:$w-img-wh;
+    margin-left:-$w-img-wh / 2;
+    @include bg-set(26px,50%);
+    @include radius(50%);
+  }
+  100% {
+    @include later-item;
+    @include radius(50%);
+  }
+}
+@keyframes alls {
+  0% {
+    width:$w-img-wh;
+    height:$w-img-wh;
+    margin-left:-$w-img-wh / 2;
+    @include bg-set(26px,50%);
+    @include radius(50%);
+  }
+  100% {
+    @include later-item;
+    @include radius(50%);
+  }
+}
+@keyframes words {
+  100% {
+    color:#fff;
+  }
+}
+@-webkit-keyframes words{
+  100% {
+    color:#fff;
+  }
+}

@@ -16,6 +16,15 @@
     <![endif]-->
     <link href="../../css/common.css?112001" rel="stylesheet" />
     <link rel="stylesheet" href="../../css/index.css?111601">
+    <style>
+        .img-box img{
+            display:inline-block;
+            width:200px;
+            height:auto;
+            margin-left:20px;
+            margin-top:20px;
+        }
+    </style>
 </head>
 <body style="overflow-x: hidden;">
 <main class="content content-main">
@@ -26,14 +35,24 @@
         </header>
         <section>
             <h5 class="title-small">own本地上传</h5>
+
             <form class="">
                 <div class="form-group">
                     <label for="upload">文件上传</label>
                     <label class="btn btn-icon leaui-btn-primary"><i class="iconfont icon-upload"></i>文件上传
-                        <input type="file" id="upload" class="hide"></label>
+                        <input type="file" id="upload" class="hide" multiple></label>
                     <p class="help-block">增加属性 accept="image/*" 导致文件选择框延迟弹出</p>
+                    <p>图片为：</p>
+                    <div class="img-box" id="imgView"></div>
                 </div>
             </form>
+        </section>
+        <section>
+            <h5 class="title-small">web uploader文件上传</h5>
+            官网：<a href="http://fex.baidu.com/webuploader/">http://fex.baidu.com/webuploader/</a>
+            <h5 class="title-small">DropzoneJS是一个开源库，提供拖放文件上传与图片预览</h5>
+            官网：<a href="https://github.com/enyo/dropzone">https://github.com/enyo/dropzone</a>
+
         </section>
     </article>
 </main>
@@ -41,26 +60,70 @@
 <script src="../../plugins/jquery.min.js"></script>
 <script>
     (function(){
-        $.fn.uploadLea = function(){
+        $.fn.uploadLea = function(options){
             var $this = this;//这里this为jquery
+            options = $.extend({
+                type:['jpeg','jpg','png'],
+                maxsize:1,//兆M
+                imgView:""
+            },options||{});
+            var view = document.querySelector(options.imgView);
             $this.change(function(){
-                var uploadObj = {
-
-                };
+                view.innerHTML = "";
                 var _file = this,files = _file.files;
-                if(files){
-                    console.log(files);
+                if(files){//火狐
                     for(var i = 0,len=files.length;i<len;i++){
-                        console.log(files[0]);
-
+                        var file = files[i], isOk = judge(file);
+                        if(!isOk){//图片没问题
+                            preview(file);
+                        }else{
+                            if(isOk == 1){
+                                alert("文件只接受类型为"+options.type.join("、")+"的文件");
+                            }else{
+                                alert("图片大小最多为"+options.maxsize+"M(兆)");
+                            }
+                            return;//file值为空
+                        }
                     }
-                }else{
-                    console.log(_file.value)
+
                 }
+                console.log(_file.value);
+                console.log(files);
             });
+            //类型,大小判断
+            function judge(file){
+                var name = file.name;
+                var type = name.substring(name.lastIndexOf(".")+1).toLowerCase();
+                if(options.type.indexOf(type)>0){
+                    //大小
+                    if(file.size/1024/1024>options.maxsize){
+                        return 2;//图片超出范围
+                    }
+                    return 0;//正确
+                }else{
+                    return 1;//类型错误
+                }
+            }
+            //本地预览
+            function preview(file){
+                var img = new Image();
+                //方法会读取指定的 Blob 或 File 对象。
+                // 读取操作完成的时候，readyState 会变成已完成（DONE），并触发 loadend 事件，
+                // 同时 result 属性将包含一个data:URL格式的字符串
+                var reader = new FileReader();
+                reader.addEventListener("load", function () {
+                    img.src = reader.result;
+                    view.appendChild(img);
+                }, false);
+                reader.readAsDataURL(file);
+            }
         };
         $(function(){
-            $("#upload").uploadLea();
+            $("#upload").uploadLea({
+//                type:['png'],
+                imgView:"#imgView",
+                maxsize:"0.5"
+            });
         });
     })();
 </script>

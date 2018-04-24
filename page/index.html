@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit">
     <meta name="description" content="">
-    <title>按钮</title>
+    <title>主页</title>
     <link rel="shortcut icon" href="">
     <link href="../css/bootstrap.min.css" rel="stylesheet">
     <!--[if lt IE 9]>
@@ -15,10 +15,53 @@
     <![endif]-->
     <link href="../css/common.css?111601" rel="stylesheet" />
     <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="../css/page/index.css">
 </head>
 <body>
 <main class="content content-main">
     <h1 class="main-title">主页</h1>
+    <article>
+        <header class="header-title"><h4 class="title-text">动画animation</h4></header>
+        <section>
+            <div class="cw-con clearfix">
+                <div class="col-md-4 col-sm-6">
+                    <div class="welfare-item yi">
+                        <div class="bg"></div>
+                        <img src="../imgs/index/w-yi.png">
+                        <h3 class="title">易掌柜</h3>
+                        <p class="text">
+                            跨平台一键批量打印<br>
+                            轻松管理多网店订单
+                        </p>
+                        <a class="theme-line" href="#">立即体验&gt;&gt; </a>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <div class="welfare-item guide">
+                        <div class="bg"></div>
+                        <img src="../imgs/index/w-guide.png">
+                        <h3 class="title">入驻指南</h3>
+                        <p class="text">
+                            享受入驻指导服务<br>
+                            新手社区及时回复
+                        </p>
+                        <a class="theme-line" href="#">立即体验&gt;&gt; </a>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <div class="welfare-item service">
+                        <div class="bg"></div>
+                        <img src="../imgs/index/w-service.png">
+                        <h3 class="title">全天候8小时服务</h3>
+                        <p class="text">
+                            工作人员7*8的服务
+                        </p>
+                        <a class="theme-line" href="#">立即体验&gt;&gt; </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </article>
     <article>
         <header class="header-title">
             <h4 class="title-text">常用导航</h4>
@@ -29,7 +72,7 @@
                     <menu class="header-menu clearfix" role="menu">
                         <h1><a href="#" class="menu-logo" title="甩手铺货">甩手铺货</a></h1>
                         <nav class="menu-nav" role="navigation">
-                            <ul id="mainNav" class="menu-box">
+                            <ul id="mainNav" class="nav nav-link">
                                 <li class="active"><a href="#">首页</a></li>
                                 <li><a href="#">铺货任务</a></li>
                                 <li><a href="#">已代销商品</a></li>
@@ -63,15 +106,41 @@
 </main>
 </body>
 <script src="../plugins/jquery.min.js"></script>
-<script src="../plugins/pluginCommon.js"></script>
 <script>
     (function(){
+        jQuery.fn.stepInit = function (options) {
+            var $step = this;
+            options = $.extend({
+                step: 0, //第几步 0:第一步
+                part: false,//是否把文字和横线分解【文字一步，横线一步】
+                finish: false,//当前步骤时，是否文字和横线都完成
+                data: ['步骤一', '步骤二', '步骤三']
+            }, options || {});
+            $step.empty();//清空
+            var span = "";
+            //console.log(options);
+            for (var i = 0; i < options.data.length; i++) {
+                if (i == options.step) {
+                    if (options.part && options.finish == false) {
+                        span += '<span class="current"><i>' + (i + 1) + '</i>' + options.data[i] + '</span>'
+                    } else {
+                        span += '<span class="current finish"><i>' + (i + 1) + '</i>' + options.data[i] + '</span>'
+                    }
+                } else if (i < options.step) {
+                    span += '<span class="current finish"><i>' + (i + 1) + '</i>' + options.data[i] + '</span>'
+                } else {
+                    span += '<span><i>' + (i + 1) + '</i>' + options.data[i] + '</span>'
+                }
+            }
+            $step.html(span);
+
+        };
         $(function(){
-            $("#titleTips").titleTipsInit();
-            $("#titleTips1").titleTipsInit({
+            $("#titleTips").stepInit();
+            $("#titleTips1").stepInit({
                 data:["找回密码","设置密码"]
             });
-            $("#titleTips2").titleTipsInit({
+            $("#titleTips2").stepInit({
                 step:1,//1:表示第二步
                 data:["第一张","第二张"]
             });
