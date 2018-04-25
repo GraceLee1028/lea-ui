@@ -51,40 +51,33 @@ body {
     margin: 0;
     padding: 10px 15px;
     cursor: default; }
-  .leaui-menu li.menu-list {
-    border-left: 3px solid transparent; }
-    .leaui-menu li.menu-list.active {
-      border-left: 3px solid #FF9800; }
-  .leaui-menu li:hover {
-    background-color: #222; }
+  .leaui-menu li {
+    -webkit-transition: all 0.4s ease;
+    -moz-transition: all 0.4s ease;
+    -ms-transition: all 0.4s ease;
+    -o-transition: all 0.4s ease;
+    transition: all 0.4s ease; }
+    .leaui-menu li > ul {
+      padding-top: 100px;
+      padding-left: 15px;
+      display: none; }
+      .leaui-menu li > ul li {
+        cursor: pointer;
+        padding: 10px 15px; }
+    .leaui-menu li.menu-list {
+      border-left: 3px solid transparent; }
+      .leaui-menu li.menu-list.active {
+        border-left: 3px solid #FF9800; }
+    .leaui-menu li:hover {
+      background-color: #222; }
   .leaui-menu li.active {
     background-color: #222; }
     .leaui-menu li.active > ul {
-      height: auto;
-      -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100 * $num);
-      filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100 * $num);
-      opacity: 1;
-      padding-bottom: 10px;
       display: block;
+      padding-bottom: 10px;
       padding-top: 0; }
   .leaui-menu li.active h2, .leaui-menu li[data-id]:hover, .leaui-menu li[data-id].active {
     color: #FF9800; }
-  .leaui-menu li > ul {
-    -webkit-transition: padding-top 1s ease;
-    -moz-transition: padding-top 1s ease;
-    -ms-transition: padding-top 1s ease;
-    -o-transition: padding-top 1s ease;
-    transition: padding-top 1s ease;
-    padding-top: 100px;
-    padding-left: 15px;
-    height: 0;
-    -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100 * $num);
-    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100 * $num);
-    opacity: 0;
-    display: none; }
-    .leaui-menu li > ul li {
-      cursor: pointer;
-      padding: 10px 15px; }
 
 .page-main {
   margin: 0 0 0 220px;
@@ -117,12 +110,13 @@ body {
   .nav-box:after {
     clear: both; }
   .nav-box a {
-    background-color: #f9f8ee;
     display: inline-block;
     height: 100%;
-    overflow: hidden;
     line-height: 40px;
     padding: 0 16px;
+    cursor: pointer;
+    background-color: #f9f8ee;
+    overflow: hidden;
     color: #555;
     border-right: 1px solid #222;
     float: left;

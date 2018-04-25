@@ -52,6 +52,16 @@ $menu-width:220px;
     cursor: default;
   }
   li{
+    @include transition(all,$time,$animate);
+    &>ul{
+      padding-top:100px;
+      padding-left:$px15;
+      display:none;
+      li{
+        cursor: pointer;
+        padding:$px10 $px15;
+      }
+    }
     &.menu-list{
       border-left:3px solid transparent;
       &.active{
@@ -65,28 +75,15 @@ $menu-width:220px;
   li.active{
     background-color: $active-bg;
     &>ul{
-      height:auto;
-      @include opacity(1);
-      padding-bottom: 10px;
       display:block;
+      padding-bottom: 10px;
       padding-top:0;
     }
   }
   li.active h2,li[data-id]:hover,li[data-id].active{
     color:$theme;
   }
-  li>ul{
-    @include transition(padding-top,1s);
-    padding-top:100px;
-    padding-left:$px15;
-    height:0;
-    @include opacity(0);
-    display: none;
-    li{
-      cursor: pointer;
-      padding:$px10 $px15;
-    }
-  }
+
 }
 //右边内容
 .page-main{
@@ -113,12 +110,13 @@ $nav-h:40px;
   @include clear-both();
   @include transition(margin-left,$time,$animate);
   a{
-    background-color: #f9f8ee;
     display:inline-block;
     height:100%;
-    overflow: hidden;
     line-height: $nav-h;
     padding:0 16px;
+    cursor: pointer;
+    background-color: #f9f8ee;
+    overflow: hidden;
     color:#555;
     border-right:1px solid $active-bg;
     float: left;

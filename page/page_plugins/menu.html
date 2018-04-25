@@ -22,29 +22,86 @@
     <h1 class="main-title">菜单</h1>
     <article>
         <header class="header-title">
-            <h4 class="title-text">菜单的基本用法</h4>
+            <h4 class="title-text">常用导航</h4>
         </header>
         <section>
-            <h5 class="title-small">1、页面头部的菜单</h5>
-            <div class="header-menu1">
-                <ul class="list-none menu-ul">
+            <h5 class="title-small">导航一</h5>
+            <header class="header">
+                <div class="container">
+                    <menu class="header-menu fl clearfix" role="menu">
+                        <h1 class="header-logo"><a href="#" title="甩手铺货">甩手铺货</a></h1>
+                        <nav class="menu-nav" role="navigation">
+                            <ul id="mainNav" class="nav nav-link">
+                                <li class="active"><a href="#">首页</a></li>
+                                <li><a href="#">铺货任务</a></li>
+                                <li><a href="#">已代销商品</a></li>
+                                <li><a href="#">代销订单</a></li>
+                            </ul>
+                        </nav>
+                    </menu>
+                    <aside class="header-aside clearfix" id="headerAside">
+                        <h2 class="header-user">oubasoft<i class=""></i></h2>
+                    </aside>
+                </div>
+            </header>
+        </section>
+        <section>
+            <h5 class="title-small">导航二</h5>
+            <div class="header-menu one" id="menuOne">
+                <ul class="nav nav-link-one">
                     <li class="active"><a href="javascript:void(0);"><span>首页</span></a></li>
                     <li><a href="#"><span>免费公开课</span></a></li>
                     <li><a href="#"><span>vip课程</span></a></li>
                     <li><a href="#"><span>全部课程</span></a></li>
                     <li><a href="#"><span>课程问答</span></a></li>
                 </ul>
-                <div class="menu-bottom"></div>
+                <div class="nav-border"></div>
             </div>
         </section>
+    </article>
+    <article>
+        <header class="header-title">
+            <h4 class="title-text">导航切换</h4>
+        </header>
         <section>
-            <h5 class="title-small">2、只是改变数据的切换【享用同一个框】</h5>
-            <div class="nav-tab">
+            <h5 class="title-small">1、只是改变数据的切换【享用同一个框】</h5>
+            <div class="nav nav-tab" id="navTabOne">
                 <ul>
                     <li data-type="tao" class="active"><span>淘宝免费课程</span></li>
                     <li data-type="pin"><span>拼多多免费课程</span></li>
                 </ul>
                 <div class="bottom"></div>
+            </div>
+        </section>
+        <section>
+            <h5 class="title-small">2、改变框</h5>
+            <div id="navTabTwo" class="nav-tab-box">
+                <div class="nav nav-tab two">
+                    <ul>
+                        <li data-type="tao" class="active"><span>铺货到淘宝</span></li>
+                        <li data-type="pin"><span>铺货到拼多多</span></li>
+                        <li data-type="zan"><span>铺货到有赞</span></li>
+                        <li data-type="dian"><span>铺货到微店</span></li>
+                        <li data-type="mo"><span>铺货到蘑菇街</span></li>
+                    </ul>
+                </div>
+                <div class="tab-box">
+                    <div class="tab-item">
+                        淘宝
+                    </div>
+                    <div class="tab-item">
+                        拼多多
+                    </div>
+                    <div class="tab-item">
+                        有赞
+                    </div>
+                    <div class="tab-item">
+                        微店
+                    </div>
+                    <div class="tab-item">
+                        蘑菇街
+                    </div>
+                </div>
             </div>
         </section>
     </article>
@@ -53,9 +110,9 @@
 <script src="../../plugins/jquery.min.js"></script>
 <script>
     (function(){
-        $.fn.menuClick = function(options){
+        jQuery.fn.menuClick = function(options){
             var setting = {
-                border:'.menu-bottom',
+                border:'',
                 padding:16,
                 click:"",
                 hasContent:false //是否有关联切换的内容【默认没有】
@@ -63,9 +120,8 @@
             options = $.extend(setting,options||{});
             var $this = this;
             var setBottom = function(){
-                var $active = $this.find("li.active");
-                if($active.length > 0){
-                    var $actSpan = $active.find("span");
+                var $active = $this.find("li.active"),$actSpan = $active.find("span");
+                if(options.border != ""){
                     var actL = $active.offset().left,spanW = parseInt($actSpan.css("width"));
                     var actFirst = $this.find("li").eq(0).offset().left;
                     var padding = (parseInt($active.css("width")) - spanW)/2;
@@ -74,17 +130,16 @@
                         "width":spanW+options.padding,
                         "left":left+"px"
                     });
-                    if(options.hasContent){
-                        var index = $active.index();
-                        console.log(index);
-                        var $tabBox = $this.siblings(".tab-box");
-                        var $items = $tabBox.find(".tab-item");
-                        $items.removeClass("active");
-                        $items.eq(index).addClass("active");
-                    }
-                    if(options.click != ""){
-                        options.click($active);
-                    }
+                }
+                if(options.hasContent){
+                    var index = $active.index();
+                    var $tabBox = $this.find(".tab-box");
+                    var $items = $tabBox.find(".tab-item");
+                    $items.removeClass("active");
+                    $items.eq(index).addClass("active");
+                }
+                if(options.click != ""){
+                    options.click($active);
                 }
             };
             setBottom();
@@ -98,9 +153,11 @@
         };
         $(function(){
             //1
-            $(".header-menu1").menuClick();
+            $("#menuOne").menuClick({
+                border:".nav-border"
+            });
             //2
-            $(".nav-tab").menuClick({
+            $("#navTabOne").menuClick({
                 border:".bottom",
                 padding:100,
                 click:function($active){
@@ -110,6 +167,15 @@
                     }else{//拼
                         console.log("拼多多+");
                     }
+                }
+            });
+            //3
+            $("#navTabTwo").menuClick({
+                hasContent:true,
+                padding:100,
+                click:function($active){
+                    var type = $active.data("type");
+                    console.log("clcik");
                 }
             });
         });

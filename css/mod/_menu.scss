@@ -1,112 +1,117 @@
 /*menu common style------------start*/
+@import "mixin";
 $menu-height:60px;
 $menu-fs:18px;
 $m-li-padding:28px;
-.header{
-  width: 100%;
-  background-color: $menu-bg;
-  color: #fff;
-  height: $menu-height;
-  line-height: $menu-height;
-  z-index: 1;
-  @include box-shadow(0 1px 10px 0px $menu-bg);
-}
 .nav{
-  @include ul-reset();
+  font-size:$menu-fs;
+  @include user-select();
+  @include clear-float();
   li{
     @extend .fl;
     display: inline-block;
+    cursor: pointer;
     position: relative;
-  }
-  a{
-    display: inline-block;
-    @include link-color();
-  }
-}
-.header-menu{
-  width: auto;
-  @extend .fl;
-  a{
-    color:#eef1f6;
-    text-align: center;
-    @extend .underline-none;
-  }
-  h1{
-    @extend .fl;
-    margin:0;
-    display: inline-block;
-    line-height: $menu-height;
     a{
+      @include transition(all,$time,$animate);
       display: inline-block;
+      text-align: center;
+      padding:0;
+      &:hover,&:focus{
+        background-color: #fff;
+      }
     }
   }
 }
-.menu-logo{
-  @extend .fl;
+.nav-link{
+  font-size: $menu-fs;
+  li{
+    @extend %line-height;
+    padding: 0 $m-li-padding;
+    a{
+      position: relative;
+      &:after{
+        content: "";
+        height: 4px;
+        position: absolute;
+        bottom: 2px;
+        left: 0;
+        background-color: $bg-color;
+        width:0;
+        @include transition(left,$time);
+      }
+      &:hover,&:focus{
+        color:$theme;
+        background-color: $bg-color;
+      }
+    }
+    &.active{
+      a{
+        &:after{
+          width: 100%;
+          background-color: $theme;
+        }
+        color:$theme;
+      }
+    }
+  }
+}
+
+.header-menu{
+  width: auto;
+  @include clear-float();
+}
+.header-logo{
   display: inline-block;
   width: auto;
-  height: $menu-height;
-  color: #fff !important;
-  overflow: hidden;
-  font-size: $menu-fs;
+  margin:0;
+  @extend .fl;
+  font-size: 20px;
   font-weight: 600;
+  a{
+    display: inline-block;
+  }
+}
+.menu-nav{
+  @extend .fl;
+}
+%line-height{
+  height: $menu-height;
+  line-height: $menu-height;
+}
+/*one*/
+.header{
+  width: 100%;
+  height: auto;
+  font-size:$menu-fs;
+  background-color: $bg-color;
+  color: #fff;
+  z-index: 1;
+  @include box-shadow(0 1px 10px 0px $bg-color);
+}
+.header-menu{
+  a{
+    color:#eef1f6;
+  }
+}
+.header-logo{
+  @extend %line-height;
+  color: #fff !important;
   //background-color: #33374b;
   .iconfont{
     font-size: 46px;
   }
 }
 .menu-nav{
-  height: $menu-height;
-  @extend .fl;
   margin-left:20px;
-}
-.nav-link{
-  li{
-    &:after{
-      content: "";
-      height: 4px;
-      position: absolute;
-      bottom: 2px;
-      left: 0;
-      background-color: $menu-bg;
-      width:0;
-      @include transition(width,$time);
-    }
-    a{
-      font-size: $menu-fs;
-      height: $menu-height;
-      padding: 0 $m-li-padding;
-      @include transition(all,$time);
-      color:#eef1f6;
-      @extend .underline-none;
-    }
-    &:hover{
-      a{
-        color:$theme;
-        background-color: $menu-bg;
-      }
-    }
-    &.active{
-      &:after{
-        width: 100%;
-        background-color: $theme;
-      }
-      a{
-        color:$theme;
-      }
-    }
-
-  }
 }
 /*right style*/
 .header-aside{
   @extend .fr;
 }
 .header-user{
+  @extend %line-height;
   margin:0;
-  height:$menu-height;
-  line-height: $menu-height;
-  font-size:$menu-fs;
   $size:6px;
   cursor: pointer;
   &:after{
@@ -124,6 +129,103 @@ $m-li-padding:28px;
     top: -$size / 2;
     border-top:none;
     @include triangle-vertical(bottom,$size);
+  }
+}
+/*two*/
+.header-menu.one{
+  font-size:18px;
+  position:relative;
+}
+.nav-link-one{
+  li{
+    a{
+      padding:0 40px;
+      height:44px;
+      line-height: 44px;
+      color:#000;
+      &:hover{
+        color:$theme;
+        text-decoration: none;
+      }
+    }
+    &.active{
+      a{
+        color:$theme;
+      }
+    }
+  }
+}
+.nav-border{
+  display:inline-block;
+  width:0;
+  height:3px;
+  background-color: $theme;
+  position:absolute;
+  left:0;
+  top:36px;
+  @include transition(left,$time,$animate);
+}
+//three
+.nav-tab{
+  width:100%;
+  @extend %line-height;
+  position:relative;
+  border-bottom:1px solid $yellow;
+  li{
+    padding:0 50px;
+    @include transition();
+  }
+  li.active,li:hover{
+    color:$theme;
+  }
+  .bottom{
+    content:"";
+    width:200px;
+    height:3px;
+    background-color: $theme-hover;
+    position:absolute;
+    left:0;
+    bottom:-1px;
+    @include transition(left,.4s,ease);
+  }
+}
+//four
+.nav-tab-box{
+  background-color: #efefef;
+  padding: 2px;
+}
+.nav-tab.two{
+  width:100%;
+  height:40px;
+  line-height: 40px;
+  border:0;
+  li{
+    background-color: #efefef;
+    text-align: center;
+    padding:0 10px;
+  }
+  li+li{
+    margin-left:5px;
+  }
+  li.active{
+    background-color: #fff;
+    color:$theme;
+    &:hover,&:focus{
+      color:$theme;
+    }
+  }
+  li:hover{
+    color:$theme;
+  }
+}
+.tab-box{
+  .tab-item{
+    background-color: #fff;
+    display:none;
+    padding: 15px;
+  }
+  .tab-item.active{
+    display:block;
   }
 }
 /*menu common style------------end*/

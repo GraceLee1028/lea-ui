@@ -204,6 +204,11 @@
   -moz-box-sizing: $size;
   box-sizing: $size;
 }
+@mixin appearance($value:none){
+  -webkit-appearance: $value;
+  -moz-appearance: $value;
+  appearance: $value;
+}
 /*color---------*/
 /*--basic--*/
 //text
@@ -257,14 +262,6 @@ $gray-light:#f2f2f2;
 $padding:15px;
 $padding10:10px;
 $padding20:20px;
-////color button form input style
-
-
-
-//$theme-color:#12bbab;
-//$theme-hover-color:#0ba395;
-
-
 @mixin link-color($color:$theme,$default:#454545){
   &{
     color:$default;

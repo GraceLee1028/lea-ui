@@ -1,7 +1,7 @@
 /*reset style-----------------start*/
 @import "mixin";
 html {
-  -ms-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;//旋转屏幕时，字体大小调整的问题
   -webkit-text-size-adjust: 100%; }
 body {
   height: auto;
@@ -24,6 +24,9 @@ a{
   &,&:focus{
     text-decoration: none;
   }
+}
+input{
+  @include appearance;//ios和安卓自带的特殊样式
 }
 input:focus, button:focus, select:focus, select{
   outline: none; }

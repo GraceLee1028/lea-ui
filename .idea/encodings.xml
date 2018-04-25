@@ -4,5 +4,6 @@
     <file url="file://$PROJECT_DIR$/css/mod/_menu.scss" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/css/mod/_pagination.scss" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/css/page/index.scss" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/css/page/menu.scss" charset="UTF-8" />
   </component>
 </project>
