@@ -19,6 +19,35 @@ h5{
     bottom:15px;
   }
 }
+//content
+@mixin border($c,$property:border){
+  #{$property}: 1px solid $c;
+}
+.content-main{
+  padding:0 $px15{
+  bottom:30px;
+};
+}
+.main-title{
+  margin:0;
+  padding:$px10 0;
+  @include border($border-color,border-bottom);
+}
+.header-title{
+  border-top:1px solid $border-color;
+  margin-top:$px15 * 2;
+  .title-text{
+    display:inline-block;
+    font-size:20px;
+    margin:0;
+    position:relative;
+    top:-11px;
+    left:$px20;
+    padding: 0 $px10;
+    background-color: #fff;
+    font-weight: 300;
+  }
+}
 .gradient-white{
   font-weight:700;
   @include gradient-text($theme,$menu-bg,right);

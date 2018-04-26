@@ -3,6 +3,7 @@
  */
 (function(){
     var urlJson = [
+        //pc
         {key:"page_url_color",url:"page/page_element/color.html"},
         {key:"page_url_button",url:"page/page_element/button.html"},
         {key:"page_url_form",url:"page/page_element/form.html"},
@@ -20,7 +21,13 @@
         {key:"page_url_upload",url:"page/page_plugins/upload.html"},
         {key:"page_url_validate",url:"page/page_plugins/validate.html"},
         {key:"page_url_cate",url:"page/page_plugins/category.html"},
-        {key:"page_url_lazy",url:"page/page_plugins/lazyload.html"}
+        {key:"page_url_lazy",url:"page/page_plugins/lazyload.html"},
+        //可视化数据
+        {key:"chart_url_echarts",url:"page/mobile_plugins/echarts.html"},
+
+        //mobile
+        {key:"mobile_url_refresh",url:"page/mobile_plugins/refresh.html"}
+
     ];
     jQuery.fn.menuRelate = function(options){
         var $left_li = this;

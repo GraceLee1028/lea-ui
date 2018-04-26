@@ -161,27 +161,4 @@ body {
   background-color: #333;
   color: #efefef; }
 
-.content-main {
-  padding: 0 15px;
-    padding-bottom: 30px; }
-
-.main-title {
-  margin: 0;
-  padding: 10px 0;
-  border-bottom: 1px solid #ddd; }
-
-.header-title {
-  border-top: 1px solid #ddd;
-  margin-top: 30px; }
-  .header-title .title-text {
-    display: inline-block;
-    font-size: 20px;
-    margin: 0;
-    position: relative;
-    top: -11px;
-    left: 20px;
-    padding: 0 10px;
-    background-color: #fff;
-    font-weight: 300; }
-
 /*# sourceMappingURL=index.css.map */

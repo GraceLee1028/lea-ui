@@ -1,0 +1,44 @@
+@charset "UTF-8";
+@import "../mod/_mixin";
+.content{
+  width:100%;
+  height:100%;
+  overflow: hidden;
+}
+$h:44px;
+.content-title{
+  width:100%;
+  height:$h;
+  line-height: $h;
+  @include position(fixed,$top:0);
+  font-size:18px;
+  text-align: center;
+  background-color: $theme;
+  color:#fff;
+  @include box-shadow(0 1px 20px 0 $theme);
+  .back{
+    font-size:14px;
+    @include float-set(right);
+  }
+}
+.mescroll{
+  @include position(fixed,$top:44px,$bottom:0);
+  height:auto !important;
+}
+.ms-box{
+  width:100%;
+  height:auto;
+  padding: 0 15px;
+}
+.ms-box>*{
+  display:block;
+  line-height: 40px;
+}
+.ms-box>*{
+  border-bottom:1px solid #ddd;
+}
+.mescroll-totop{
+  width:80px !important;
+  height:72px !important;
+  cursor: pointer;
+}

@@ -163,31 +163,5 @@ $nav-h:40px;
   background-color: $bg-color;
   color:$color-white;
 }
-//content
-.content-main{
-  padding:0 $px15{
-  bottom:30px;
-};
-}
-.main-title{
-  margin:0;
-  padding:$px10 0;
-  @include border($border-color,border-bottom);
-}
-.header-title{
-  border-top:1px solid $border-color;
-  margin-top:$px15 * 2;
-  .title-text{
-    display:inline-block;
-    font-size:20px;
-    margin:0;
-    position:relative;
-    top:-11px;
-    left:$px20;
-    padding: 0 $px10;
-    background-color: #fff;
-    font-weight: 300;
-  }
-}
 //表单 style start
 

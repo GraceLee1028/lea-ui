@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit">
+    <meta name="description" content="">
+    <title>视频，音频</title>
+    <link rel="shortcut icon" href="">
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="https://cdn.bootcss.com/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <link href="../../css/common.css?0426" rel="stylesheet" />
+    <style>
+        .video1{
+            width:100%;
+            height:auto;
+        }
+    </style>
+</head>
+<body>
+<main class="content content-main">
+    <h1 class="main-title">video:不支持IE8及以下</h1>
+    <article>
+        <header class="header-title">
+            <h4 class="title-text">video</h4>
+        </header>
+        <section>
+            <h5 class="title-small">video视频:src视频路径</h5>
+            <video src="http://www.w3school.com.cn/i/movie.ogg"></video>
+        </section>
+        <section>
+            <h5 class="title-small">video视频:proload视频在页面加载时进行加载，并预备播放【存在autoplay属性时，该值忽视】</h5>
+            <video src="http://www.w3school.com.cn/i/movie.ogg" preload="load"></video>
+        </section>
+        <section>
+            <h5 class="title-small">video视频:autoplay则视频在就绪后马上播放。</h5>
+            <video class="video1" src="http://www.w3school.com.cn/i/movie.ogg" autoplay></video>
+        </section>
+        <section>
+            <h5 class="title-small">video视频:controls：该属性向用户显示控件，比如播放按钮。</h5>
+            <video src="http://www.w3school.com.cn/i/movie.ogg" autoplay controls></video>
+        </section>
+        <section>
+            <h5 class="title-small">video视频:loop：播放完成后，继续播放。</h5>
+            <video src="http://www.w3school.com.cn/i/movie.ogg" autoplay controls loop></video>
+        </section>
+
+    </article>
+</main>
+</body>
+</html>

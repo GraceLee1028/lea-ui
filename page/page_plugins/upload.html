@@ -14,8 +14,7 @@
     <script src="https://cdn.bootcss.com/html5shiv/r29/html5.min.js"></script>
     <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <link href="../../css/common.css?112001" rel="stylesheet" />
-    <link rel="stylesheet" href="../../css/index.css?111601">
+    <link href="../../css/common.css?0426" rel="stylesheet" />
     <style>
         .img-box img{
             display:inline-block;
@@ -100,10 +99,11 @@
                         img.src = reallocalpath;
                     }else {
                         // 非IE6版本的IE由于安全问题直接设置img的src无法显示本地图片，但是可以通过滤镜来实现
-                        img.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod='image',src=\""
-                                + (reallocalpath||_file.value) + "\")";
+                        //img.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod='image',src=\""
+                                //+ (reallocalpath||_file.value) + "\")";
                         // 设置img的src为base64编码的透明图片 取消显示浏览器默认图片
                         //img.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==';
+                        img.src=_file.value;
                     }
                     view.appendChild(img);
                 }
