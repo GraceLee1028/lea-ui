@@ -1,6 +1,6 @@
 {
 "version": 3,
-"mappings": "AAmHA,kBAAkB;AAgGlB,kBAAkB;AAClB,aAAa",
+"mappings": "AA8GA,kBAAkB;AAyGlB,kBAAkB;AAClB,aAAa",
 "sources": ["../mod/_mixin.scss"],
 "names": [],
 "file": "menu.css"

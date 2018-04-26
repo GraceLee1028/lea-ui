@@ -99,16 +99,18 @@ body {
   height: 40px;
   position: absolute;
   bottom: 0;
+  *zoom: 1;
   -webkit-transition: margin-left 0.4s ease;
   -moz-transition: margin-left 0.4s ease;
   -ms-transition: margin-left 0.4s ease;
   -o-transition: margin-left 0.4s ease;
   transition: margin-left 0.4s ease; }
-  .nav-box:before, .nav-box:after {
-    content: "";
-    display: table; }
   .nav-box:after {
-    clear: both; }
+    content: "";
+    display: table;
+    clear: both;
+    line-height: 0;
+    visibility: hidden; }
   .nav-box a {
     display: inline-block;
     height: 100%;

@@ -144,7 +144,7 @@
                     clearInterval(window.proTimer);
                 } else {
                     currentPercent += perAdd;
-                    $proBar.css("width", currentPercent + "%")
+                    $proBar.css("width", currentPercent + "%");
                     $proBar.attr("aria-valuenow", currentPercent);
                 }
             }, 500);
@@ -153,7 +153,6 @@
         if (options.finishNum < options.allNum) {
             window.proTimer = timerAdd();
         } else {
-            width = 100;
             $proBar.css("width", "100%");
             $proBar.attr("aria-valuenow", "100");
         }

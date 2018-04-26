@@ -35,7 +35,7 @@
         </header>
         <section>
             <h5 class="title-small">own本地上传</h5>
-
+            <p>IE10浏览器支持FileReader对象,IE10+支持FileList对象【下面的files】</p>
             <form class="">
                 <div class="form-group">
                     <label for="upload">文件上传</label>
@@ -85,11 +85,32 @@
                             return;//file值为空
                         }
                     }
+                }else{
+                    var isIE6 = navigator.userAgent.match(/MSIE 6.0/)!= null;
+                    var img = new Image();
+                    _file.select();
+                    _file.blur();
+                    var path = document.selection.createRange().text;
+//                    var fso = new ActiveXObject("Scripting.FileSystemObject");
+//                    fileSize = fso.GetFile(path).size;
+                    var reallocalpath = document.selection.createRange().text;
 
+                    // IE6浏览器设置img的src为本地路径可以直接显示图片
+                    if (isIE6) {
+                        img.src = reallocalpath;
+                    }else {
+                        // 非IE6版本的IE由于安全问题直接设置img的src无法显示本地图片，但是可以通过滤镜来实现
+                        img.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod='image',src=\""
+                                + (reallocalpath||_file.value) + "\")";
+                        // 设置img的src为base64编码的透明图片 取消显示浏览器默认图片
+                        //img.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==';
+                    }
+                    view.appendChild(img);
                 }
                 console.log(_file.value);
-                console.log(files);
+                console.log(files);//ie10及以上支持该属性和多个同时上传
             });
+
             //类型,大小判断
             function judge(file){
                 var name = file.name;

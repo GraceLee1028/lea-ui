@@ -176,11 +176,14 @@ h5, .h5 {
 .col-5 {
   width: 20% !important; }
 
-.clearfix:before, .clearfix:after {
-  content: "";
-  display: table; }
-.clearfix:after {
-  clear: both; }
+.clearfix {
+  *zoom: 1; }
+  .clearfix:after {
+    content: "";
+    display: table;
+    clear: both;
+    line-height: 0;
+    visibility: hidden; }
 
 .show {
   display: block !important; }

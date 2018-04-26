@@ -8,6 +8,8 @@
         {key:"page_url_form",url:"page/page_element/form.html"},
         {key:"page_url_progress",url:"page/page_element/progress.html"},
         {key:"page_url_alert",url:"page/page_element/alert.html"},
+        {key:"page_url_video",url:"page/page_element/video.html"},
+
         {key:"page_url_menu",url:"page/page_plugins/menu.html"},
         {key:"page_url_popup",url:"page/page_plugins/popup.html"},
         {key:"page_url_scroll",url:"page/page_plugins/scroll.html"},
@@ -161,10 +163,12 @@
                 $menuBox.on("click",".close-main",function(event){
                     var $a = $(this).parents(".nav-a"),id = $a.data("id");
                     var $main = $mainBox.find(".lea_main[data-id='"+id+"']");
-                    if($a.hasClass("active")){
+                    if($a.hasClass("active")){//选中
                         var $next = $a.next();
                         var select_one = function($one){
                             id = $one.data("id");
+                            console.log(id);
+                            //
                             $one.addClass("active");
                             $mainBox.find(".lea_main[data-id='"+id+"']").addClass("active");
                         };
@@ -173,12 +177,13 @@
                         }else{
                             select_one($a.prev());
                         }
+                        console.log(id);
+                        menuLeft.dealLeftTab($("li[data-id='"+id+"']"),id);
+                        menuRight.dealMenu(id);
                     }
-                    console.log("------------close");
                     $a.remove();
                     $main.remove();
-                    menuLeft.dealLeftTab($("li[data-id='"+id+"']"),id);
-                    menuRight.dealMenu(id);
+                    console.log("------------close");
                     event.stopPropagation();
                 });
             },

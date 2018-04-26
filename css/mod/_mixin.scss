@@ -1,3 +1,4 @@
+@charset "UTF-8";
 @mixin font-dpr($font-size){
   font-size: $font-size;
   [data-dpr="2"] &{
@@ -70,12 +71,6 @@
   opacity:$opa;
   -ms-filter:alpha(opacity = $opa * 100);
 }
-//@mixin bg-opacity($opacity:.5){
-//  background: rgb(0,0,0); /*The Fallback color*/
-//  background: rgba(0, 0, 0,$opacity);
-//  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(GradientType=1,startColorstr=#80000000,endColorstr=#80000000)"; /*Filter for IE8 */
-//  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=1,startColorstr=#80000000, endColorstr=#80000000); /*Filter for older IEs */
-//}
 @mixin cursor-color($color,$textColor:#333){
   color: $color;/*光标颜色*/
   text-shadow: 0 0 0 $textColor;/*文本颜色*/
@@ -129,6 +124,14 @@
   -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100 * $num);
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100 * $num);
   opacity: $num;
+}
+//背景透明度，兼容ie8
+@mixin bg-opacify($sc,$ec){
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled='true', startColorstr='#{ie-hex-str($sc)}', endColorstr='#{ie-hex-str($ec)}');
+  background-color:$sc;
+  :root &{
+    filter:none;//ie9及以上滤镜
+  }
 }
 @mixin box-shadow($shadow){
   -webkit-box-shadow: $shadow;
@@ -187,13 +190,14 @@
   float: $float;
 }
 @mixin clear-both{
-  &:before,&:after{
+  &:after{
     content: "";
     display: table;
-  }
-  &:after{
     clear: both;
+    line-height:0;
+    visibility:hidden;
   }
+  *zoom:1;//ie6-ie7
 }
 @mixin outline-shadow-none{
   outline: none;
