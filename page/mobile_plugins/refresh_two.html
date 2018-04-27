@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1,user-scalable=no">
+    <meta name="renderer" content="webkit">
+    <meta name="description" content="">
+    <title>多个mescroll</title>
+    <link rel="shortcut icon" href="">
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="https://cdn.bootcss.com/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <link href="../../css/common.css?111601" rel="stylesheet" />
+    <link href="../../css/page/refresh.css?0427" rel="stylesheet" />
+</head>
+<body class="one">
+<main class="content">
+    <h1 class="content-title">单个mescroll</h1>
+    <p>切换刷新数据，不缓存数据</p>
+    <div id="mescroll" class="mescroll">
+        <!--模拟的轮播,菜单 可在down.callback中配置刷新轮播数据-->
+        <img class="swiper" src="../../imgs/load/load.gif"/>
+        <ul class="nav nav-block">
+            <li class="active" data-index="0">全部</li>
+            <li data-index="1">新闻</li>
+            <li data-index="2">娱乐</li>
+        </ul>
+        <div class="ms-box" id="msListBox"></div>
+    </div>
+</main>
+</body>
+<link rel="stylesheet" href="../../plugins/mescroll/mescroll.min.css">
+<script src="../../plugins/mescroll/mescroll.min.js"></script>
+<script src="../../plugins/jquery.min.js"></script>
+<script>
+    (function(){
+        var type = $(".nav .active").data("index");
+        //示例2
+        var msObj= {
+            ms:"",
+            init:function(){
+                this.ms = new MeScroll("mescroll", { //第一个参数"mescroll"对应上面布局结构div的id
+                    //如果您的下拉刷新是重置列表数据,那么down完全可以不用配置,具体用法参考第一个基础案例
+                    //解析: down.callback默认调用mescroll.resetUpScroll(),而resetUpScroll会将page.num=1,再触发up.callback
+                    down: {
+                        htmlContent: '<p class="downwarp-progress"></p><p class="downwarp-tip">下拉刷新正在</p>', //布局内容
+                        auto:true,//是否在初始化完毕之后自动执行一次下拉刷新的回调 callback【此处不执行】
+                        callback: function(mescroll) {
+                            mescroll.resetUpScroll();//重置刷新，并触发up的callback，数据默认第一页
+                        }
+                    },
+                    up: {
+                        isBounce: false, //如果您的项目是在iOS的微信,QQ,Safari等浏览器访问的,建议配置此项.解析(必读)
+                        use:true,//初始化上拉加载
+                        callback: msObj.upCallback , //上拉加载的回调
+                        toTop:{ //配置回到顶部按钮
+                            src : "../../imgs/refresh/top.png", //默认滚动到1000px显示,可配置offset修改
+                            offset : 200
+                        },
+                        loadFull:{//如果列表数据过少,不足以滑动触发上拉加载,是否自动加载下一页,直到满屏或无数据
+                            use : true,
+                            delay : 100
+                        },
+                        empty: {
+                            //第一页无任何数据,显示的空提示布局; 需配置warpId或clearEmptyId才生效;
+                            warpId:null, //父布局的id; 如果此项有值,将不使用clearEmptyId的值;
+                            icon: "../../imgs/refresh/fish.gif", //图标,默认null
+                            tip: "暂无相关数据~", //提示
+                            btntext: "去逛逛 >", //按钮,默认""
+                            btnClick: function(){//点击按钮的回调,默认null
+                                alert("点击了按钮,具体逻辑自行实现");
+                            },
+                            supportTap: false //默认点击事件用onclick,会有300ms的延时;如果您的运行环境支持tap,则可配置true;
+                        },
+                        clearId: null, //加载第一页时需清空数据的列表id; 如果此项有值,将不使用clearEmptyId的值;【设置此值才能第一页时，清空数据】
+                        clearEmptyId: "msListBox", //相当于同时设置了clearId和empty.warpId; 简化写法,默认null;
+                        htmlNodata:'<p class="upwarp-nodata">--亲，数据到底了--</p>'
+                    }
+                });
+            },
+            upCallback:function(page){
+                //上拉加载的回调 page = {num:1, size:10}; num:当前页 默认从1开始, size:每页数据条数,默认10
+                //假数据
+                setTimeout(function(){
+                    var current_page_num = 10,totalSize;
+                    if(type == 2){//设置无数据
+                        current_page_num = 0;
+                        totalSize = 0;
+                    }else if(type == 1){
+                        totalSize = 5;
+                    }else{
+                        totalSize= 34;//4页
+                    }
+                    console.log("type----------------"+type);
+                    console.log(current_page_num);
+                    //重置列表数据
+                    console.log(msObj.ms);
+                    msObj.ms.endSuccess(totalSize);
+                    //msObj.ms.endBySize(current_page_num, totalSize);
+                    msObj.setList(page,totalSize);
+                },3000);
+            },
+            setList:function(page,totalSize){
+                var html="",box = document.querySelector("#msListBox");
+                page = page||{num:1,size:10};
+                var size = page.size;
+                var counter = (size*(page.num-1));
+                for(var i = 0;i<size;i++){
+                    var current = counter + i+1 ;
+                    if(current > totalSize){
+                        return;
+                    }
+                    html = current+ "、欢迎----mescroll";
+                    var p = document.createElement("p");
+                    p.innerHTML = html;
+                    box.appendChild(p);
+                }
+            }
+        };
+        $(".nav li").click(function(){
+            var i=$(this).attr("data-index");
+            if(type!=i) {
+                //更改列表条件
+                type=i;
+                $(".nav .active").removeClass("active");
+                $(this).addClass("active");
+                msObj.ms.resetUpScroll();
+            }
+        });
+        window.onload = function(){
+            msObj.init();
+        };
+    })();
+</script>
+</html>

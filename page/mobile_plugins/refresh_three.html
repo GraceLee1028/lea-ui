@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1,user-scalable=no">
+    <meta name="renderer" content="webkit">
+    <meta name="description" content="">
+    <title>多个mescroll</title>
+    <link rel="shortcut icon" href="">
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="https://cdn.bootcss.com/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <link href="../../css/common.css?111601" rel="stylesheet" />
+    <link href="../../css/page/refresh.css?0427" rel="stylesheet" />
+    <style>
+
+    </style>
+</head>
+<body class="one">
+<main class="content">
+    <header class="header-fixed">
+        <h1 class="content-title">多个mescroll</h1>
+        <ul class="nav nav-block">
+            <li class="active" data-index="0">全部</li>
+            <li data-index="1">新闻</li>
+            <li data-index="2">娱乐</li>
+        </ul>
+    </header>
+    <div id="mescroll0" class="mescroll active ms-fixed">
+        <div class="ms-box" id="msListBox0"></div>
+    </div>
+    <div id="mescroll1" class="mescroll ms-fixed">
+        <div class="ms-box" id="msListBox1"></div>
+    </div>
+    <div id="mescroll2" class="mescroll ms-fixed">
+        <div class="ms-box" id="msListBox2"></div>
+    </div>
+</main>
+</body>
+<link rel="stylesheet" href="../../plugins/mescroll/mescroll.min.css">
+<script src="../../plugins/mescroll/mescroll.min.js"></script>
+<script src="../../plugins/jquery.min.js"></script>
+<script>
+    (function(){
+        var index = parseInt($(".nav .active").data("index"));
+        var msArr = [];
+        //示例2
+        var msObj= {
+            init:function(msId,listId){
+                return new MeScroll(msId, { //第一个参数"mescroll"对应上面布局结构div的id
+                    up: {
+                        isBounce: false, //如果您的项目是在iOS的微信,QQ,Safari等浏览器访问的,建议配置此项.解析(必读)
+                        use:true,//初始化上拉加载
+                        callback: msObj.upCallback , //上拉加载的回调
+                        toTop:{ //配置回到顶部按钮
+                            src : "../../imgs/refresh/top.png", //默认滚动到1000px显示,可配置offset修改
+                            offset : 200
+                        },
+                        loadFull:{//如果列表数据过少,不足以滑动触发上拉加载,是否自动加载下一页,直到满屏或无数据
+                            use : true,
+                            delay : 100
+                        },
+                        empty: {
+                            //第一页无任何数据,显示的空提示布局; 需配置warpId或clearEmptyId才生效;
+                            icon: "../../imgs/refresh/fish.gif", //图标,默认null
+                            tip: "暂无相关数据~", //提示
+                            btntext: "去逛逛 >", //按钮,默认""
+                            btnClick: function(){//点击按钮的回调,默认null
+                                alert("点击了按钮,具体逻辑自行实现");
+                            },
+                            supportTap: false //默认点击事件用onclick,会有300ms的延时;如果您的运行环境支持tap,则可配置true;
+                        },
+                        clearEmptyId: listId, //相当于同时设置了clearId和empty.warpId; 简化写法,默认null;
+                        htmlNodata:'<p class="upwarp-nodata">--亲，数据到底了--</p>'
+                    }
+                });
+            },
+            upCallback:function(page){
+                //上拉加载的回调 page = {num:1, size:10}; num:当前页 默认从1开始, size:每页数据条数,默认10
+                //假数据
+                setTimeout(function(){
+                    var current_page_num = 10,totalSize;
+                    if(index == 2){//设置无数据
+                        current_page_num = 0;
+                        totalSize = 0;
+                    }else if(index == 1){
+                        totalSize = 5;
+                        current_page_num = Math.min(totalSize,10);
+                    }else{
+                        totalSize= 34;//4页
+                    }
+                    console.log("index----------------"+index);
+                    //重置列表数据
+                    msArr[index].endBySize(current_page_num, totalSize);
+                    msObj.setList(page,totalSize);
+                },3000);
+            },
+            setList:function(page,totalSize){
+                var html="",box = document.querySelector("#msListBox"+index);
+                page = page||{num:1,size:10};
+                var size = page.size;
+                var counter = (size*(page.num-1));
+                for(var i = 0;i<size;i++){
+                    var current = counter + i+1 ;
+                    if(current > totalSize){
+                        return;
+                    }
+                    html = current+ "、欢迎----mescroll";
+                    var p = document.createElement("p");
+                    p.innerHTML = html;
+                    box.appendChild(p);
+                }
+            }
+        };
+        $(".nav li").click(function(){
+            var i=$(this).attr("data-index");
+            if(index!=i) {//切换
+                //更改列表条件
+                $(".nav .active").removeClass("active");
+                $(this).addClass("active");
+                //隐藏当前的列表和隐藏按钮
+                $(".mescroll.active").removeClass('active');
+                msArr[i].hideTopBtn();//隐藏顶部按钮
+                //处理单击的对应列表。
+                index=i;
+                $(".mescroll").eq(index).addClass('active');
+                var curMescroll=msArr[index];
+                if(curMescroll){//当前
+                    //检查是否需要显示回到到顶按钮
+                    var curScrollTop=curMescroll.getScrollTop();
+                    if(curScrollTop>=curMescroll.optUp.toTop.offset){
+                        curMescroll.showTopBtn();
+                    }else{
+                        curMescroll.hideTopBtn();
+                    }
+                }else{
+                    msArr[index] = msObj.init("mescroll"+index,"msListBox"+index);
+                }
+
+            }
+        });
+        window.onload = function(){
+            msArr[0] = msObj.init("mescroll0","msListBox0");
+        };
+    })();
+</script>
+</html>

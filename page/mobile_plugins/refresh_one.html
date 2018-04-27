@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1,user-scalable=no">
     <meta name="renderer" content="webkit">
     <meta name="description" content="">
     <title>基本用法</title>
@@ -16,11 +16,11 @@
     <link href="../../css/common.css?111601" rel="stylesheet" />
     <link href="../../css/page/refresh.css" rel="stylesheet" />
 </head>
-<body>
+<body class="one">
 <main class="content">
     <h1 class="content-title">基础用法</h1>
-    <div id="mescroll_2" class="mescroll">
-        <div class="ms-box"></div>
+    <div id="mescroll" class="mescroll">
+        <div class="ms-box" id="msListBox"></div>
     </div>
 </main>
 </body>
@@ -32,14 +32,17 @@
         var msObj= {
             ms:"",
             init:function(){
-                this.ms = new MeScroll("mescroll_2", { //第一个参数"mescroll"对应上面布局结构div的id
+                this.ms = new MeScroll("mescroll", { //第一个参数"mescroll"对应上面布局结构div的id
                     //如果您的下拉刷新是重置列表数据,那么down完全可以不用配置,具体用法参考第一个基础案例
                     //解析: down.callback默认调用mescroll.resetUpScroll(),而resetUpScroll会将page.num=1,再触发up.callback
                     down: {
-                        auto:false,//是否在初始化完毕之后自动执行一次下拉刷新的回调 callback【此处不执行】
-                        callback: this.downCallback //下拉刷新的回调,别写成downCallback(),多了括号就自动执行方法了
+                        auto:false,//是否在初始化完毕之后自动执行一次下拉刷新的回调 callback
+                        callback: function(mescroll) {
+                            mescroll.resetUpScroll();//重置刷新,第一页的数据，并触发up的callback
+                        }
                     },
                     up: {
+                        auto: true, //是否在初始化时以上拉加载的方式自动加载第一页数据; 默认false
                         callback: msObj.upCallback , //上拉加载的回调
                         loadFull:{//如果列表数据过少,不足以滑动触发上拉加载,是否自动加载下一页,直到满屏或无数据
                             use : true,
@@ -49,6 +52,8 @@
                             src : "../../imgs/refresh/top.png", //默认滚动到1000px显示,可配置offset修改
                             offset : 200
                         },
+                        clearId: "msListBox",//加载第一页时需清空数据的列表id;[使初始化数据时，先清空数据]
+                        htmlNodata:'<p class="upwarp-nodata">--亲，数据到底了--</p>',
                         isBounce: false //如果您的项目是在iOS的微信,QQ,Safari等浏览器访问的,建议配置此项.解析(必读)
                     }
                 });
@@ -64,19 +69,20 @@
                 //上拉加载的回调 page = {num:1, size:10}; num:当前页 默认从1开始, size:每页数据条数,默认10
                 //假数据
                 setTimeout(function(){
-                    msObj.ms.endSuccess(10, true);
+                    var hasNext = page.num <= 4;
+                    msObj.ms.endSuccess(10, hasNext);
                     msObj.setList(page);
                 },5000);
             },
             setList:function(page){
-                var html="",box = document.querySelector("#mescroll_2 .ms-box");
+                var html="",box = document.querySelector("#mescroll .ms-box");
                 page = page||{num:1,size:10};
-                if(page.num==1){
-                    box.innerHTML = "";
-                }
+                console.log(page);
                 var size = page.size;
+                var counter = (size*(page.num-1));
                 for(var i = 0;i<size;i++){
-                    html =((size*(page.num-1)) + i+1 )+ "、欢迎----mescroll";
+                    var current = counter + i+1 ;
+                    html = current+ "、欢迎----mescroll";
                     var p = document.createElement("p");
                     p.innerHTML = html;
                     box.appendChild(p);

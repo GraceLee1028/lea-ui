@@ -1,5 +1,34 @@
 @charset "UTF-8";
 @import "../mod/_mixin";
+//mobile nav
+@mixin flex-dir($dir:row){
+  flex-direction: $dir;
+  -webkit-flex-direction: $dir;
+}
+@mixin flex($dir:row){
+  display:flex;
+  display:-webkit-flex;
+  @include flex-dir($dir);
+}
+@mixin flex-flow($dir){
+  flex-flow: $dir nowrap;
+  -webkit-flex-flow: $dir nowrap;
+}
+.nav-block{
+  height:40px;
+  line-height: 40px;
+  border:1px solid #cccccc;
+  @include flex();
+  flex:1;
+  text-align: center;
+  li{
+    flex:1;
+    &.active{
+      border-bottom:2px solid $theme;
+    }
+  }
+}
+
 .content{
   width:100%;
   height:100%;
@@ -21,10 +50,6 @@ $h:44px;
     @include float-set(right);
   }
 }
-.mescroll{
-  @include position(fixed,$top:44px,$bottom:0);
-  height:auto !important;
-}
 .ms-box{
   width:100%;
   height:auto;
@@ -37,8 +62,35 @@ $h:44px;
 .ms-box>*{
   border-bottom:1px solid #ddd;
 }
+
+//mescroll
+.one .mescroll{
+  @include position(fixed,$top:44px,$bottom:0);
+  height:auto !important;
+}
 .mescroll-totop{
   width:80px !important;
   height:72px !important;
   cursor: pointer;
+}
+.empty-btn{
+  line-height: 1.2;
+}
+.header-fixed,.ms-fixed{
+  width:100%;
+}
+.header-fixed{
+  @include position(fixed,$left:0,$top:0);
+  .content-title{
+    position: relative;
+  }
+}
+body .content-fixed,.ms-fixed{
+  @include position(fixed,$left:0,$right:0,$top:84px,$bottom:0);
+}
+.ms-fixed{
+  display:none;
+  &.active{
+    display:block;
+  }
 }
