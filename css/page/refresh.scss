@@ -64,9 +64,9 @@ $h:44px;
 }
 
 //mescroll
-.one .mescroll{
+.one .ms-fixed{
+  display:block;
   @include position(fixed,$top:44px,$bottom:0);
-  height:auto !important;
 }
 .mescroll-totop{
   width:80px !important;

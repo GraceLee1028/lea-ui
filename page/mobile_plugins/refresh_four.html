@@ -15,28 +15,15 @@
     <![endif]-->
     <link href="../../css/common.css?111601" rel="stylesheet" />
     <link href="../../css/page/refresh.css?0427" rel="stylesheet" />
-    <style>
-
-    </style>
 </head>
-<body>
+<body class="one">
 <main class="content">
-    <header class="header-fixed">
-        <h1 class="content-title">多个mescroll</h1>
-        <ul class="nav nav-block">
-            <li class="active" data-index="0">全部</li>
-            <li data-index="1">新闻</li>
-            <li data-index="2">娱乐</li>
-        </ul>
-    </header>
-    <div id="mescroll0" class="mescroll active ms-fixed">
-        <div class="ms-box" id="msListBox0"></div>
-    </div>
-    <div id="mescroll1" class="mescroll ms-fixed">
-        <div class="ms-box" id="msListBox1"></div>
-    </div>
-    <div id="mescroll2" class="mescroll ms-fixed">
-        <div class="ms-box" id="msListBox2"></div>
+    <h1 class="content-title">上拉刷新，下拉加载</h1>
+    <div class="ms-fixed active">
+        <a class="btn leaui-btn-white active hro-center" id="changeDownLock">锁定下拉加载</a>
+        <div id="mescroll0" class="mescroll">
+            <div class="ms-box" id="msListBox0"></div>
+        </div>
     </div>
 </main>
 </body>
@@ -45,18 +32,11 @@
 <script src="../../plugins/jquery.min.js"></script>
 <script>
     (function(){
-        var index = parseInt($(".nav .active").data("index"));
-        var msArr = [];
-        //示例2
+        var ms,index = 0;
+        //示例
         var msObj= {
             init:function(msId,listId){
                 return new MeScroll(msId, { //第一个参数"mescroll"对应上面布局结构div的id
-                    down: {
-                        auto:true,//是否在初始化完毕之后自动执行一次下拉刷新的回调 callback【此处不执行】
-                        callback: function(mescroll) {
-                            mescroll.resetUpScroll();//重置刷新，并触发up的callback，数据默认第一页
-                        }
-                    },
                     up: {
                         isBounce: false, //如果您的项目是在iOS的微信,QQ,Safari等浏览器访问的,建议配置此项.解析(必读)
                         use:true,//初始化上拉加载
@@ -86,8 +66,6 @@
             },
             upCallback:function(page){
                 //上拉加载的回调 page = {num:1, size:10}; num:当前页 默认从1开始, size:每页数据条数,默认10
-                //假数据
-                console.log(page);
                 setTimeout(function(){
                     var current_page_num = 10,totalSize;
                     if(index == 2){//设置无数据
@@ -99,14 +77,13 @@
                     }else{
                         totalSize= 34;//4页
                     }
-                    console.log("index----------------"+index);
                     //重置列表数据
-                    msArr[index].endBySize(current_page_num, totalSize);
+                    ms.endBySize(current_page_num, totalSize);
                     msObj.setList(page,totalSize);
                 },3000);
             },
             setList:function(page,totalSize){
-                var html="",box = document.querySelector("#msListBox"+index);
+                var html="",box = document.querySelector("#msListBox0");
                 page = page||{num:1,size:10};
                 var size = page.size;
                 var counter = (size*(page.num-1));
@@ -122,32 +99,25 @@
                 }
             }
         };
-        $(".nav li").click(function(){
-            var i=$(this).attr("data-index");
-            if(index!=i) {//切换
-                //更改列表条件
-                $(".nav .active").removeClass("active");
-                $(this).addClass("active");
-                $(".mescroll.active").removeClass('active');
-                index=i;
-                $(".mescroll").eq(index).addClass('active');
-                if(msArr[index]){//当前
-                    //检查是否需要显示回到到顶按钮
-                    var curMescroll=msArr[index];
-                    var curScrollTop=curMescroll.getScrollTop();
-                    if(curScrollTop>=curMescroll.optUp.toTop.offset){
-                        curMescroll.showTopBtn();
-                    }else{
-                        curMescroll.hideTopBtn();
-                    }
-                }else{
-                    msArr[index] = msObj.init("mescroll"+index,"msListBox"+index);
-                }
-
-            }
-        });
         window.onload = function(){
-            msArr[0] = msObj.init("mescroll0","msListBox0");
+            var tag = 1;
+            $("#changeDownLock").on("click",function(){
+                var txt = "",$txt = $(this);
+                switch (tag){
+                    case 1:
+                        tag = 2;
+                        txt = "释放下拉刷新";
+                        ms.lockDownScroll(true);//锁定
+                        break;
+                    case 2:
+                        tag = 1;
+                        txt = "锁定下拉刷新";
+                        ms.lockDownScroll(false);//锁定
+                        break;
+                }
+                $txt.html(txt);
+            });
+            ms = msObj.init("mescroll0","msListBox0");
         };
     })();
 </script>

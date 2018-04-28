@@ -63,6 +63,7 @@
             init:function(msId,listId){
                 return new MeScroll(msId, { //第一个参数"mescroll"对应上面布局结构div的id
                     up: {
+                        use:true,
                         isBounce: false, //如果您的项目是在iOS的微信,QQ,Safari等浏览器访问的,建议配置此项.解析(必读)
                         callback: msObj.upCallback , //上拉加载的回调
                         toTop:{ //配置回到顶部按钮

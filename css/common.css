@@ -375,7 +375,7 @@ h5, .h5 {
 .leaui-btn-white {
   background-color: white;
   color: #393D49; }
-  .leaui-btn-white:hover, .leaui-btn-white:active, .leaui-btn-white:focus {
+  .leaui-btn-white:hover, .leaui-btn-white:active, .leaui-btn-white:focus, .leaui-btn-white.active {
     color: #FF9800;
     border-color: #FF9800; }
 

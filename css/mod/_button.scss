@@ -30,7 +30,7 @@
 .leaui-btn-white{
   background-color: white;
   color:$color;
-  &:hover,&:active,&:focus{
+  &:hover,&:active,&:focus,&.active{
     color:$theme;
     border-color: $theme;
   }

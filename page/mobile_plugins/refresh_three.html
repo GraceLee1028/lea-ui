@@ -15,11 +15,8 @@
     <![endif]-->
     <link href="../../css/common.css?111601" rel="stylesheet" />
     <link href="../../css/page/refresh.css?0427" rel="stylesheet" />
-    <style>
-
-    </style>
 </head>
-<body class="one">
+<body>
 <main class="content">
     <header class="header-fixed">
         <h1 class="content-title">多个mescroll</h1>
@@ -123,11 +120,10 @@
                 $(this).addClass("active");
                 //隐藏当前的列表和隐藏按钮
                 $(".mescroll.active").removeClass('active');
-                msArr[i].hideTopBtn();//隐藏顶部按钮
+                msArr[index].hideTopBtn();//隐藏顶部按钮
                 //处理单击的对应列表。
-                index=i;
-                $(".mescroll").eq(index).addClass('active');
-                var curMescroll=msArr[index];
+                $(".mescroll").eq(i).addClass('active');
+                var curMescroll=msArr[i];
                 if(curMescroll){//当前
                     //检查是否需要显示回到到顶按钮
                     var curScrollTop=curMescroll.getScrollTop();
@@ -137,9 +133,9 @@
                         curMescroll.hideTopBtn();
                     }
                 }else{
-                    msArr[index] = msObj.init("mescroll"+index,"msListBox"+index);
+                    msArr[i] = msObj.init("mescroll"+i,"msListBox"+i);
                 }
-
+                index=i;
             }
         });
         window.onload = function(){
