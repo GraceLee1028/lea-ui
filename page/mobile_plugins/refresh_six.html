@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1,user-scalable=no">
     <meta name="renderer" content="webkit">
     <meta name="description" content="">
-    <title>多个mescroll</title>
+    <title>单个mescroll,吸附悬顶效果</title>
     <link rel="shortcut icon" href="">
     <link href="../../css/bootstrap.min.css" rel="stylesheet">
     <!--[if lt IE 9]>
@@ -19,15 +19,41 @@
 <body class="one">
 <main class="content">
     <h1 class="content-title">单个mescroll</h1>
-    <div id="mescroll" class="mescroll ms-fixed">
+    <div id="mescroll" class="mescroll ms-fixed active">
         <!--模拟的轮播,菜单 可在down.callback中配置刷新轮播数据-->
         <img class="swiper" src="../../imgs/load/load.gif"/>
-        <ul class="nav nav-block">
-            <li class="active" data-index="0">全部</li>
-            <li data-index="1">新闻</li>
-            <li data-index="2">娱乐</li>
-        </ul>
-        <div class="ms-box" id="msListBox"></div>
+        <!--
+				悬浮菜单:
+				1.ios的悬停效果,通过给navWarp添加sticky样式来实现
+				2.android和pc端悬停效果,通过监听mescroll的scroll事件,控制navContent是否为fixed定位来实现
+			-->
+        <div id="navWarp">
+            <div id="navContent" class="scrollx mescroll-touch-x">
+                <div id="scrollxContent" class="scrollx-content">
+                    <ul id="nav" class="nav nav-normal">
+                        <li class="active" data-index="0">首页</li>
+                        <li data-index="1">奶粉</li>
+                        <li data-index="2">面膜</li>
+                        <li data-index="3">图书</li>
+                        <li data-index="4">果汁</li>
+                        <li data-index="5">奶瓶</li>
+                        <li data-index="6">美素</li>
+                        <li data-index="7">璐拉</li>
+                        <li data-index="8">启赋</li>
+                        <li data-index="9">雅培</li>
+                        <li data-index="10">花王</li>
+                        <li data-index="11">韩蜜</li>
+                        <li data-index="12">华英</li>
+                        <li data-index="13">花影</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!--upscrollWarp用于装载上拉进度和数据列表,避免清空列表不满屏,导致点击悬浮菜单时会滑下来-->
+        <div id="upscrollWarp">
+            <!--展示上拉加载的数据列表-->
+            <div class="ms-box" id="msListBox"></div>
+        </div>
     </div>
 </main>
 </body>
@@ -42,15 +68,6 @@
             ms:"",
             init:function(){
                 this.ms = new MeScroll("mescroll", { //第一个参数"mescroll"对应上面布局结构div的id
-                    //如果您的下拉刷新是重置列表数据,那么down完全可以不用配置,具体用法参考第一个基础案例
-                    //解析: down.callback默认调用mescroll.resetUpScroll(),而resetUpScroll会将page.num=1,再触发up.callback
-                    down: {
-                        htmlContent: '<p class="downwarp-progress"></p><p class="downwarp-tip">下拉刷新正在</p>', //布局内容
-                        auto:true,//是否在初始化完毕之后自动执行一次下拉刷新的回调 callback【此处不执行】
-                        callback: function(mescroll) {
-                            mescroll.resetUpScroll();//重置刷新，并触发up的callback，数据默认第一页
-                        }
-                    },
                     up: {
                         isBounce: false, //如果您的项目是在iOS的微信,QQ,Safari等浏览器访问的,建议配置此项.解析(必读)
                         use:true,//初始化上拉加载
@@ -76,6 +93,7 @@
                         },
                         clearId: null, //加载第一页时需清空数据的列表id; 如果此项有值,将不使用clearEmptyId的值;【设置此值才能第一页时，清空数据】
                         clearEmptyId: "msListBox", //相当于同时设置了clearId和empty.warpId; 简化写法,默认null;
+                        warpId: "upscrollWarp", //让上拉进度装到upscrollWarp里面
                         htmlNodata:'<p class="upwarp-nodata">--亲，数据到底了--</p>'
                     }
                 });
@@ -89,16 +107,44 @@
                         current_page_num = 0;
                         totalSize = 0;
                     }else if(type == 1){
+                        current_page_num = 5;
                         totalSize = 5;
+                    }else if(type==0){
+                        totalSize = 20;
+                    }else if(type==3){
+                        current_page_num = 3;
+                        totalSize = 3;
+                    }else if(type==4){
+                        current_page_num =4;
+                        totalSize = 4;
+                    }else if(type==5){
+                        current_page_num =5;
+                        totalSize = 5;
+                    }else if(type==6){
+                        current_page_num =6;
+                        totalSize = 6;
+                    }else if(type==7){
+                        current_page_num =7;
+                        totalSize = 7;
+                    }else if(type==8){
+                        current_page_num =8;
+                        totalSize = 8;
+                    }else if(type==9){
+                        current_page_num =0;
+                        totalSize = 0;
+                    }else if(type==11){
+                        current_page_num =2;
+                        totalSize = 2;
+                    }else if(type==12){
+                        current_page_num =3;
+                        totalSize = 3;
                     }else{
+                        current_page_num = (page.num == 4)?4:10;
                         totalSize= 34;//4页
                     }
-                    console.log("type----------------"+type);
-                    console.log(current_page_num);
                     //重置列表数据
                     console.log(msObj.ms);
-                    msObj.ms.endSuccess(totalSize);
-                    //msObj.ms.endBySize(current_page_num, totalSize);
+                    msObj.ms.endBySize(current_page_num, totalSize);
                     msObj.setList(page,totalSize);
                 },3000);
             },
@@ -119,6 +165,28 @@
                 }
             }
         };
+        function sticky(ms,navWarp,navContent){//悬浮
+            navWarp=document.querySelector("#"+navWarp);
+            if(ms.os.ios){
+                //ios的悬停效果,通过给navWarp添加nav-sticky样式来实现
+                navWarp.classList.add("nav-sticky");
+            }else{
+                //android和pc端悬停效果,通过监听mescroll的scroll事件,控制navContent是否为fixed定位来实现
+                navWarp.style.height=navWarp.offsetHeight+"px";//固定高度占位,避免悬浮时列表抖动
+                navContent=document.querySelector("#"+navContent);
+                console.log("ms.optup:");
+                console.log(ms.optUp);
+                ms.optUp.onScroll=function(mescroll, y, isUp){
+                    console.log("up --> onScroll 列表当前滚动的距离 y = " + y + ", 是否向上滑动 isUp = " + isUp);
+                    console.log(navWarp.offsetTop);
+                    if(y>=navWarp.offsetTop){
+                        navContent.classList.add("nav-fixed");
+                    }else{
+                        navContent.classList.remove("nav-fixed");
+                    }
+                }
+            }
+        }
         $(".nav li").click(function(){
             var i=$(this).attr("data-index");
             if(type!=i) {
@@ -126,11 +194,20 @@
                 type=i;
                 $(".nav .active").removeClass("active");
                 $(this).addClass("active");
-                msObj.ms.resetUpScroll();
+                msObj.ms.hideTopBtn();//隐藏顶部按钮【单个scroll】
+                msObj.ms.resetUpScroll();//重置数据
+                //菜单项居中动画
+                var scrollxContent=document.getElementById("scrollxContent");
+                var star = scrollxContent.scrollLeft;//当前位置
+                var end = this.offsetLeft + this.clientWidth/2 - document.body.clientWidth/2; //居中
+                msObj.ms.getStep(star, end, function(step,timer){
+                    scrollxContent.scrollLeft=step; //从当前位置逐渐移动到中间位置,默认时长300ms
+                });
             }
         });
         window.onload = function(){
             msObj.init();
+            sticky(msObj.ms,"navWarp","navContent");
         };
     })();
 </script>

@@ -15,12 +15,19 @@
     <![endif]-->
     <link href="../../css/common.css?111601" rel="stylesheet" />
     <link href="../../css/page/refresh.css?0427" rel="stylesheet" />
+    <style>
+        #changeDownLock{
+            margin-top:4px;
+        }
+    </style>
 </head>
-<body class="one">
+<body>
 <main class="content">
-    <h1 class="content-title">上拉刷新，下拉加载</h1>
-    <div class="ms-fixed active">
+    <header class="header-fixed">
+        <h1 class="content-title">上拉刷新，下拉加载</h1>
         <a class="btn leaui-btn-white active hro-center" id="changeDownLock">锁定下拉加载</a>
+    </header>
+    <div class="content-fixed">
         <div id="mescroll0" class="mescroll">
             <div class="ms-box" id="msListBox0"></div>
         </div>

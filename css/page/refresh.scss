@@ -21,6 +21,7 @@
   @include flex();
   flex:1;
   text-align: center;
+  background-color: #fff;
   li{
     flex:1;
     &.active{
@@ -66,7 +67,7 @@ $h:44px;
 //mescroll
 .one .ms-fixed{
   display:block;
-  @include position(fixed,$top:44px,$bottom:0);
+  @include position(fixed,$top:44px,$bottom:0,$right:0,$left:0);
 }
 .mescroll-totop{
   width:80px !important;
@@ -89,8 +90,41 @@ body .content-fixed,.ms-fixed{
   @include position(fixed,$left:0,$right:0,$top:84px,$bottom:0);
 }
 .ms-fixed{
+  height:auto !important;
   display:none;
   &.active{
     display:block;
+  }
+}
+.nav-fixed{
+  z-index: 9999;
+  position: fixed;
+  top: 44px;
+  left: 0;
+  right:0;
+  width: 100%;
+}
+//scroll nav
+.scrollx{
+  height:44px;
+  line-height: 44px;
+  overflow: hidden;
+  background-color: rgba(#efefef,.8);
+}
+.scrollx-content {
+  width: 100%;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+.nav.nav-normal{
+  li{
+    float:none;
+    padding:0 6px;
+    margin-bottom:50px;
+    &.active{
+      float:none;
+      color: $theme;
+      background-color: rgba(#fff,.6);
+    }
   }
 }

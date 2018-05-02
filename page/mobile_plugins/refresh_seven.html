@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1,user-scalable=no">
     <meta name="renderer" content="webkit">
     <meta name="description" content="">
-    <title>swiper的nav切换</title>
+    <title>多个mescroll,悬浮吸顶和轮播</title>
     <link rel="shortcut icon" href="">
     <link href="../../css/bootstrap.min.css" rel="stylesheet">
     <!--[if lt IE 9]>
@@ -22,33 +22,50 @@
 <main class="content">
     <header class="header-fixed">
         <h1 class="content-title">轮播mescroll切换</h1>
-        <ul class="nav nav-block">
-            <li class="active" data-index="0">全部</li>
-            <li data-index="1">新闻</li>
-            <li data-index="2">笑话</li>
-            <li data-index="3">娱乐</li>
-        </ul>
     </header>
-    <div class="swiper-container content-fixed" id="swiper">
-        <div class="swiper-wrapper">
-            <!--全部-->
-            <div id="mescroll0" class="mescroll swiper-slide">
-                <div class="ms-box" id="msListBox0"></div>
-            </div>
-            <!--新闻-->
-            <div id="mescroll1" class="mescroll swiper-slide">
-                <div class="ms-box" id="msListBox1"></div>
-            </div>
-            <!--笑话-->
-            <div id="mescroll2" class="mescroll swiper-slide">
-                <div class="ms-box" id="msListBox2"></div>
-            </div>
-            <!--娱乐-->
-            <div id="mescroll3" class="mescroll swiper-slide">
-                <div class="ms-box" id="msListBox3"></div>
+    <div id="mescroll" class="mescroll ms-fixed active">
+        <!--模拟的轮播,菜单 可在down.callback中配置刷新轮播数据-->
+        <img class="swiper" src="../../imgs/load/load.gif"/>
+        <!--
+				悬浮菜单:
+				1.ios的悬停效果,通过给navWarp添加sticky样式来实现
+				2.android和pc端悬停效果,通过监听mescroll的scroll事件,控制navContent是否为fixed定位来实现
+			-->
+        <div id="navWarp">
+            <ul id="navContent" class="nav nav-block">
+                <li class="active" data-index="0">全部</li>
+                <li data-index="1">新闻</li>
+                <li data-index="2">娱乐</li>
+            </ul>
+        </div>
+        <!--upscrollWarp用于装载上拉进度和数据列表,避免清空列表不满屏,导致点击悬浮菜单时会滑下来-->
+
+        <div class="swiper-container content-fixed" id="swiper">
+            <div class="swiper-wrapper">
+                <!--全部-->
+                <div id="upscrollWarp0" class="swiper-slide">
+                    <!--展示上拉加载的数据列表-->
+                    <div class="ms-box" id="msListBox0"></div>
+                </div>
+                <!--新闻-->
+                <div id="upscrollWarp1" class="swiper-slide">
+                    <!--展示上拉加载的数据列表-->
+                    <div class="ms-box" id="msListBox1"></div>
+                </div>
+                <!--笑话-->
+                <div id="upscrollWarp2" class="swiper-slide">
+                    <!--展示上拉加载的数据列表-->
+                    <div class="ms-box" id="msListBox2"></div>
+                </div>
+                <!--娱乐-->
+                <div id="upscrollWarp3" class="swiper-slide">
+                    <!--展示上拉加载的数据列表-->
+                    <div class="ms-box" id="msListBox3"></div>
+                </div>
             </div>
         </div>
     </div>
+
 </main>
 </body>
 <script src="../../plugins/mescroll/mescroll.min.js"></script>
