@@ -67,7 +67,31 @@
         var msObj= {
             ms:"",
             init:function(){
-                this.ms = new MeScroll("mescroll", { //第一个参数"mescroll"对应上面布局结构div的id
+                this.ms = new MeScroll("mescroll", {
+                    down: {
+                        auto:false,//是否在初始化完毕之后自动执行一次下拉刷新的回调 callback【此处不执行】
+                        callback: function(mescroll) {
+                            mescroll.resetUpScroll();//这里会重置下来刷新，并触发up的callback
+                        },
+                        htmlContent: '<p class="downwarp-progress"></p><p class="downwarp-tip">下拉刷新 </p>', //布局内容
+                        inOffset: function(mescroll) {
+                            console.log("down --> inOffset");
+                            //进入指定距离offset范围内那一刻的回调
+                            if(mescroll.downTipDom) mescroll.downTipDom.innerHTML = "下拉刷新1";
+                            if(mescroll.downProgressDom) mescroll.downProgressDom.classList.remove("mescroll-rotate");
+                        },
+                        outOffset: function(mescroll) {
+                            console.log("down --> outOffset");
+                            //下拉超过指定距离offset那一刻的回调
+                            if(mescroll.downTipDom) mescroll.downTipDom.innerHTML = "释放更新2";
+                        },
+                        showLoading: function(mescroll) {
+                            console.log("down --> showLoading");
+                            //触发下拉刷新的回调
+                            if(mescroll.downTipDom) mescroll.downTipDom.innerHTML = "<img src='../../imgs/refresh/on-loading.gif'>";
+                            if(mescroll.downProgressDom) mescroll.downProgressDom.classList.add("mescroll-rotate");
+                        }
+                    },
                     up: {
                         isBounce: false, //如果您的项目是在iOS的微信,QQ,Safari等浏览器访问的,建议配置此项.解析(必读)
                         use:true,//初始化上拉加载
@@ -174,8 +198,6 @@
                 //android和pc端悬停效果,通过监听mescroll的scroll事件,控制navContent是否为fixed定位来实现
                 navWarp.style.height=navWarp.offsetHeight+"px";//固定高度占位,避免悬浮时列表抖动
                 navContent=document.querySelector("#"+navContent);
-                console.log("ms.optup:");
-                console.log(ms.optUp);
                 ms.optUp.onScroll=function(mescroll, y, isUp){
                     console.log("up --> onScroll 列表当前滚动的距离 y = " + y + ", 是否向上滑动 isUp = " + isUp);
                     console.log(navWarp.offsetTop);
