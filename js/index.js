@@ -88,6 +88,7 @@
                     $conBox.append(con_html);
                 }
                 menuLeft.dealLeftTab($("li[data-id='"+id+"']"),id);
+                menuRight.addUrlFlag(id);
                 menuRight.dealMenu(id);
             },
             addUrlFlag:function(id){//地址添加标记以及根据标记刷新页面
@@ -106,7 +107,6 @@
                 }
             },
             dealMenu:function(id){//处理右边上面导航栏的处理以及地址处理
-                menuRight.addUrlFlag(id);
                 var $aActive = $menuBox.find(".nav-a.active");
                 var w = document.documentElement.clientWidth||window.innerWidth;
                 var nav_w = $(".page-menu").width();
@@ -122,7 +122,10 @@
                 }else{//剩余空间不够用时。
                     var a_w = parseInt($aActive.css("width"));//按钮a宽度
                     var a_left = $aActive.offset().left;//按钮a的left
-                    var prev_w = parseFloat($aActive.prev().css("width"));//按钮a的prev按钮的宽度
+                    var prev_w = 0;
+                    if($aActive.prev()){
+                        prev_w = parseFloat($aActive.prev().css("width"));//按钮a的prev按钮的宽度
+                    }
                     var nav_a_w = a_left - nav_w; //按钮a距离左边导航右侧的距离
                     if(0 < nav_a_w){//①按钮a的左边没有被遮住
                         if(nav_a_w < prev_w){//③按钮a的prev按钮被遮住
@@ -151,7 +154,12 @@
                             }
                         }
                     }else{//②按钮a左边部分被遮住
-                        box_left = box_left+Math.abs(nav_a_w)+prev_w;
+                        console.log(nav_a_w);
+                        if(prev_w){
+                            box_left = box_left+Math.abs(nav_a_w)+prev_w;
+                        }else{
+                            box_left = box_left+Math.abs(nav_a_w);
+                        }
                     }
                 }
                 $menuBox.css({
@@ -184,13 +192,12 @@
                         }else{
                             select_one($a.prev());
                         }
-                        console.log(id);
                         menuLeft.dealLeftTab($("li[data-id='"+id+"']"),id);
-                        menuRight.dealMenu(id);
+                        menuRight.addUrlFlag(id);
                     }
                     $a.remove();
                     $main.remove();
-                    console.log("------------close");
+                    menuRight.dealMenu(id);
                     event.stopPropagation();
                 });
             },

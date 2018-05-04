@@ -1,0 +1,132 @@
+/*multi overflow*/
+/*color---------*/
+/*--basic--*/
+.nav-block {
+  height: 40px;
+  line-height: 40px;
+  border: 1px solid #cccccc;
+  display: flex;
+  display: -webkit-flex;
+  flex-direction: row;
+  -webkit-flex-direction: row;
+  flex: 1;
+  text-align: center;
+  background-color: #fff; }
+  .nav-block li {
+    flex: 1; }
+    .nav-block li.active {
+      border-bottom: 2px solid #FF9800; }
+
+.content {
+  width: 100%;
+  height: 100%;
+  overflow: hidden; }
+
+.content-title {
+  width: 100%;
+  height: 44px;
+  line-height: 44px;
+  position: fixed;
+  left: auto;
+  right: auto;
+  top: 0;
+  bottom: auto;
+  font-size: 18px;
+  text-align: center;
+  background-color: #FF9800;
+  color: #fff;
+  -webkit-box-shadow: 0 1px 20px 0 #FF9800;
+  -moz-box-shadow: 0 1px 20px 0 #FF9800;
+  box-shadow: 0 1px 20px 0 #FF9800; }
+  .content-title .back {
+    font-size: 14px;
+    *display: inline;
+    *zoom: 1;
+    float: right; }
+
+.ms-box {
+  width: 100%;
+  height: auto;
+  padding: 0 15px; }
+
+.ms-box > * {
+  display: block;
+  line-height: 40px; }
+
+.ms-box > * {
+  border-bottom: 1px solid #ddd; }
+
+.one .ms-fixed {
+  display: block;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 44px;
+  bottom: 0; }
+
+.mescroll-totop {
+  width: 80px !important;
+  height: 72px !important;
+  cursor: pointer; }
+
+.empty-btn {
+  line-height: 1.2; }
+
+.header-fixed, .ms-fixed {
+  width: 100%; }
+
+.header-fixed {
+  position: fixed;
+  left: 0;
+  right: auto;
+  top: 0;
+  bottom: auto; }
+  .header-fixed .content-title {
+    position: relative; }
+
+body .content-fixed, .ms-fixed {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 84px;
+  bottom: 0; }
+
+.ms-fixed {
+  height: auto !important;
+  display: none; }
+  .ms-fixed.active {
+    display: block; }
+
+.nav-fixed {
+  z-index: 9999;
+  position: fixed;
+  top: 44px;
+  left: 0;
+  right: 0;
+  width: 100%; }
+
+.scrollx {
+  height: 44px;
+  line-height: 44px;
+  overflow: hidden;
+  background-color: rgba(239, 239, 239, 0.8); }
+
+.scrollx-content {
+  width: 100%;
+  overflow-x: auto;
+  white-space: nowrap; }
+
+.downwarp-tip img {
+  height: 80px;
+  width: auto; }
+
+.nav.nav-normal li {
+  float: none;
+  padding: 0 6px;
+  margin-bottom: 50px; }
+  .nav.nav-normal li.active {
+    float: none;
+    color: #FF9800;
+    background-color: rgba(255, 255, 255, 0.6); }
+
+/*# sourceMappingURL=refresh.css.map */
