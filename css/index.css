@@ -58,24 +58,21 @@ body {
     -o-transition: all 0.4s ease;
     transition: all 0.4s ease; }
     .leaui-menu li > ul {
-      padding-top: 100px;
       padding-left: 15px;
-      display: none; }
+      display: none;
+      padding-bottom: 10px;
+      padding-top: 0; }
       .leaui-menu li > ul li {
         cursor: pointer;
         padding: 10px 15px; }
     .leaui-menu li.menu-list {
       border-left: 3px solid transparent; }
       .leaui-menu li.menu-list.active {
-        border-left: 3px solid #FF9800; }
+        border-color: #FF9800; }
     .leaui-menu li:hover {
       background-color: #222; }
   .leaui-menu li.active {
     background-color: #222; }
-    .leaui-menu li.active > ul {
-      display: block;
-      padding-bottom: 10px;
-      padding-top: 0; }
   .leaui-menu li.active h2, .leaui-menu li[data-id]:hover, .leaui-menu li[data-id].active {
     color: #FF9800; }
 

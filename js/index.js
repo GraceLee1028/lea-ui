@@ -32,31 +32,54 @@
     jQuery.fn.menuRelate = function(options){
         var $left_li = this;
         options = $.extend({
-            mainBox:"#navMainBox" //右侧内容容器
+            mainBox:"#navMainBox", //右侧内容容器
+            menuContainer:""//左侧内容容器
         },options||{});
         var menuLeft = {
-            init:function($li,id){
-                if(id){//当前页面存在点击
-                    this.dealLeftTab($li,id);
-                }else{//伸缩
-                    if($li.hasClass("active")){//收缩
+            toggle:function($li,type){
+                console.log("toggle");
+                var $list = $li.children(".animated"),h = $list.css("height");
+                if(type=="show"){
+                    $li.addClass("active");
+                    $list.css({
+                        "height":0,
+                        "display":"block"
+                    });
+                    $list.animate({
+                        height:h
+                    },300)
+                }else{//隐藏
+                    $list.animate({height:0},80,function(){
                         $li.removeClass("active");
-                    }else{//展开
-                        var $boss = $li.parents(".menu-list.first");
-                        if(!$boss.hasClass("active")){//总父元素没展开
-                            $(".menu-list.first.active").find(".menu-list").removeClass("active").end().removeClass("active");
-                            $boss.find(".menu-list").addClass("active").end().addClass("active");
-                        }
-                        $li.addClass("active");
-                    }
+                        $list.css({height:"auto",display:"none"});
+                    });
                 }
             },
-            dealLeftTab:function($li,id){//处理导航的样式【导航之前的切换】
+            toggleDeal:function($li){
+                if($li.hasClass("active")){//当前收缩
+                    menuLeft.toggle($li,"hide");
+                }else{
+                    //关闭已展开的
+                    var $activeLi = $(".menu-list.active");
+                    menuLeft.toggle($activeLi,"hide");
+                    //未展开的展开
+                    menuLeft.toggle($li,"show");
+                }
+            },
+            dealLeftLink:function($li,id){//单击左侧为链接li时处理
                 $("li[data-id]").removeClass("active");
-                var $boss = $li.parents(".menu-list.first");
-                if(!$boss.hasClass("active")){//父元素没展开
-                    $(".menu-list.first.active").find(".menu-list").removeClass("active").end().removeClass("active");
-                    $boss.find(".menu-list").addClass("active").end().addClass("active");
+                var $menuList = $li.parents(".menu-list");
+                //关闭展开的
+                var $activeLi;
+                if(!$li.hasClass("first")){
+                    $activeLi = $li.parents(".first").siblings(".menu-list.active");
+                }else{
+                    $activeLi = $li.siblings(".menu-list.active");
+                }
+                menuLeft.toggle($activeLi,"hide");
+                if(!$menuList.hasClass("active")){
+                    //展开相对应的链接
+                    menuLeft.toggle($menuList,"show");
                 }
                 $li.addClass("active");
             }
@@ -87,9 +110,6 @@
                     $menuBox.append(a_html);
                     $conBox.append(con_html);
                 }
-                menuLeft.dealLeftTab($("li[data-id='"+id+"']"),id);
-                menuRight.addUrlFlag(id);
-                menuRight.dealMenu(id);
             },
             addUrlFlag:function(id){//地址添加标记以及根据标记刷新页面
                 var parent_href = window.parent.location.href;
@@ -101,12 +121,12 @@
                         id=parent_href.substring(hasId+1);
                         console.log("+++++++refresh");
                         if(id!="page_url_index"){
-                            $("li[data-id='"+id+"']","#pageMenu").trigger("click");
+                            $("li[data-id='"+id+"']",options.menuContainer).trigger("click");
                         }
                     }
                 }
             },
-            dealMenu:function(id){//处理右边上面导航栏的处理以及地址处理
+            dealMenuOffset:function(id){//处理右边上面导航栏的处理以及地址处理
                 var $aActive = $menuBox.find(".nav-a.active");
                 var w = document.documentElement.clientWidth||window.innerWidth;
                 var nav_w = $(".page-menu").width();
@@ -171,6 +191,9 @@
                     var $a = $(this),id = $a.data("id");
                     if(!$a.hasClass("close-main")){
                         menuRight.menuAddTab(id,"");
+                        menuLeft.dealLeftLink($("li[data-id='"+id+"']"),id);
+                        menuRight.addUrlFlag(id);
+                        menuRight.dealMenuOffset(id);
                     }
                 });
             },
@@ -192,12 +215,12 @@
                         }else{
                             select_one($a.prev());
                         }
-                        menuLeft.dealLeftTab($("li[data-id='"+id+"']"),id);
+                        menuLeft.dealLeftLink($("li[data-id='"+id+"']"),id);
                         menuRight.addUrlFlag(id);
                     }
                     $a.remove();
                     $main.remove();
-                    menuRight.dealMenu(id);
+                    menuRight.dealMenuOffset(id);
                     event.stopPropagation();
                 });
             },
@@ -208,21 +231,28 @@
             }
         };
         $left_li.on("click",function(event){
-            var $list = $(this),id = $list.data("id");
-            menuLeft.init($list,id);
+            console.log("++++click");
+            var $li = $(this),id = $li.data("id");
             //右侧菜单关联处理
             if(id){//当前页面存在点击
-                menuRight.menuAddTab(id,$list.html());
+                menuRight.menuAddTab(id,$li.html());//right nav
+                menuLeft.dealLeftLink($("li[data-id='"+id+"']"),id);//left nav
+                menuRight.addUrlFlag(id);//url flag
+                menuRight.dealMenuOffset(id);//right nav offset
+            }else{//伸缩
+                menuLeft.toggleDeal($li,id);
             }
             event.stopPropagation();
         });
-        menuRight.init();
+        menuRight.init();//初始化右边导航条
     };
     var indexObj = {
         init:function(){
-            $("li","#pageMenu").menuRelate();
+            var _container = "#pageMenu";
+            $("li",_container).menuRelate({
+                menuContainer:_container
+            });
         }
-
     };
     $(indexObj.init)
 })();
