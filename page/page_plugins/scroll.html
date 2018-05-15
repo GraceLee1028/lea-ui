@@ -13,6 +13,7 @@
     <script src="https://cdn.bootcss.com/html5shiv/r29/html5.min.js"></script>
     <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <link href="https://at.alicdn.com/t/font_480253_iku91wudbwjw0zfr.css" rel="stylesheet">
     <link href="../../css/common.css?0426" rel="stylesheet" />
 </head>
 <body>
@@ -50,7 +51,7 @@
             var settings = {
                 top: 0,
                 autoHide: true,
-                offset: 80,//距离顶部的界定值
+                offset: 10,//距离顶部的界定值
                 speed: 500,
                 position: true,
                 right: 0,
@@ -84,7 +85,7 @@
             });
             $win.scroll(function () {
                 var st = $win.scrollTop();
-                //console.log(st);
+                console.log(st);
                 if (_options.autoHide) {
                     if (st > _options.offset) {
                         ele.fadeIn(_options.speed);

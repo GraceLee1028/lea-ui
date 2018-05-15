@@ -851,28 +851,30 @@ h5, .h5 {
 .layui-layer-setwin .layui-layer-close {
   z-index: 10; }
 
-.layui-layer-iframe .layui-layer-btn, .layui-layer-page .layui-layer-btn {
-  padding: 3px !important; }
-
 .layui-layer.layui-layer-page {
   box-shadow: none; }
 
 .layui-layer-btn {
-  background-color: #efeeee; }
-
-.layui-layer-btn a {
-  margin: 10px 6px 0 6px !important; }
-
-.layui-layer-btn .layui-layer-btn0 {
-  border-color: #ff6000 !important;
-  background-color: #ff6000 !important; }
-
-.layui-layer-btn {
-  padding: 10px !important; }
+  background-color: #efeeee;
+  padding: 0 !important; }
+  .layui-layer-btn .layui-layer-btn0 {
+    border-color: #ff6000 !important;
+    background-color: #ff6000 !important; }
+  .layui-layer-btn .layui-layer-btn1:hover, .layui-layer-btn .layui-layer-btn1:focus {
+    background-color: #fff;
+    color: #222; }
+  .layui-layer-btn a {
+    margin: 10px 6px !important; }
 
 .layui-layer-hui {
   background-color: rgba(0, 0, 0, 0.6);
   color: #fff; }
+
+.layui-layer-content {
+  padding: 15px; }
+
+.layui-layer-resize {
+  display: none; }
 
 /*layer style-----------------end*/
 /*select2 style-----------------start*/

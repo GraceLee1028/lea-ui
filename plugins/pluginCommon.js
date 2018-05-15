@@ -5,186 +5,46 @@
  * update 20171130 by lifeng
  */
 /*----------js公用方法------------- start*/
-if (!String.prototype.trim) {
-    String.prototype.trim = function () {    //首尾空格 去掉
-        var regEx = /(^\s*)|(\s*$)/g;
-        return this.replace(regEx, '');
-    };
+//地址相关处理
+function Url(url){
+    this.url = decodeURIComponent(url||window.location.href);
 }
-window.LayerInit = {
-    options: {
-        scrollbar:true,
-        shade:.2,
-        shadeClose:false
-    },
-    init: function (options) {
-        options = options || {};
-        window.LayerInit.options = jQuery.extend({}, window.LayerInit.options, options);
-        //console.log(window.LayerInit.options);
-        //弹窗全局设置
-        layer.config({
-            anim: 9 //默认动画风格
-        });
-    },
-    changeTitle: function (title, index) {//修改某个层的标题，index: 某个层
-        layer.title(title, index);
-    },
-    load: function (options) { //加载
-        options = jQuery.extend({
-            type:0
-        },options||{});
-        var index = layer.load(options.type, {
-            area: '60px',
-            shadeClose:false,
-            content:options.content,
-            shade: LayerInit.options.shade
-        });
-        return index;
-    },
-    loadMsg: function(msg){
-        var url = "../../asserts/images/loading.gif";
-        msg = "<img src="+url+" / class='load-img'>" + msg;
-        var index = layer.alert(msg, {
-            title:false,
-            closeBtn:0,
-            btn:[],
-            offset: '250px',
-            scrollbar:false,
-            shade: LayerInit.options.shade
-        });
-        return index;
-    },
-    alert: function (content, icon) {//信息提示
-        icon = icon || 1;
-        var index = layer.alert(content, {
-            icon: icon,
-            offset: '250px',
-            scrollbar:false,
-            shade: LayerInit.options.shade
-        });
-        return index;
-    },
-    confirm: function (options) {
-        var btn = options.btn || ['确定', '取消'];
-        var index = layer.confirm(options.msg, {
-            icon:options.icon||-1,
-            title: options.title || '提示',
-            area: options.area || ['410px', 'auto'],
-            closeBtn: options.closeBtn||1,
-            btn: btn, //按钮,[]:无按钮，【“确定”】:一个按钮
-            success: function (layero, index) {
-                $(document).off('keydown').on('keydown', function (e) {
-                    if (e.keyCode == 13) {
-                        $(".layui-layer").focus();
-                        if (options.yes) { options.yes(index); }
-                        if (e && e.preventDefault) {
-                            e.preventDefault();
-                        } else {
-                            window.event.returnValue = false;
-                        }
-                    }
-                })
-            },
-            offset: '250px',
-            shadeClose: LayerInit.options.shadeClose,
-            scrollbar:false,
-            shade: LayerInit.options.shade
-        }, function () {//确定事件
-            if (options.yes) { options.yes(index); }
-        }, function () {//取消事件
-            if (options.cancel) { options.cancel(); }
-            layer.close(index);
-        });
-        return index;
-    },
-    openImg: function (options, ele) {//弹出图片
-        var index = layer.open({
-            type: 1,
-            title: options.title || false,
-            closeBtn: 1,
-            area: options.area || "auto",
-            //            skin: 'layui-layer-nobg', //没有背景色
-            shadeClose: LayerInit.options.shadeClose,
-            scrollbar:false,
-            shade: LayerInit.options.shade,
-            content: options.content //content[$(#id)]
-        });
-        if (ele) { ele.blur(); }
-        return index;
-    },
-    openContent: function (options) {//弹出本地的部分隐藏的html
-        var index = layer.open({
-            type: 1,
-            title: options.title || false,
-            closeBtn: 1,
-            btn: options.btn,//例如：[]:无按钮，【“确定”】:一个按钮
-            shadeClose: LayerInit.options.shadeClose,
-            scrollbar:LayerInit.options.scrollbar,
-            shade: LayerInit.options.shade,
-            area: options.area || ['450px', 'auto'],
-            yes: function () {//存在确定按钮时的事件
-                if (options.yes) { options.yes(index); }
-                //关闭弹窗代码：layer.close(index);
-            },
-            btn2: function (index, layero) {//按钮【按钮二】的回调
-                if (options.btn2) {//当按钮二需要执行的方法和关闭按钮的方法不一样时，执行btn2()
-                    options.btn2(index);
-                    //关闭弹窗代码：layer.close(index);
-                } else {//反之，执行cancel方法
-                    if (options.cancel) { options.cancel(); }
-                    layer.close(index);
-                }
-                //return false 开启该代码可禁止点击该按钮关闭
-            },
-            cancel: function(){
-                if (options.cancel) { options.cancel();}
-                layer.close(index);
-            },
-            content: options.content //content[$(#id)]
-        });
-        return index;
-    },
-    openIframe: function (options) { //打开一个iframe页面
-        var index = layer.open({
-            type: 2,
-            title: options.title,
-            shadeClose: LayerInit.options.shadeClose,
-            scrollbar:LayerInit.options.scrollbar,
-            shade: LayerInit.options.shade,
-            area: options.area || ['360px', '90%'],
-            content: options.url || "http://www.baidu.com" //iframe的url
-        });
-        return index;
-    }
-};
-window.CL = {
-    //授权公用
-    authAli:function(){//1688授权
-        LayerInit.confirm({
-            title:"1688授权过期提示",
-            area:["400px","204px"],
-            btn:["立即进行1688接口授权"],
-            yes:function(index){
-                layer.msg("立即授权");
-                layer.close(index);
-            },
-            msg:"<p class='p-text'>您的1688接口授权已经过期，需要重新授权才能铺货商品和同步库存。是否立即进行1688接口授权</p>"
-        });
-    },
-    //检测是否是网址
-    isUrl: function (val) {
-        //console.log(val);
+Url.prototype = {
+    constructor:Url,
+    isUrl: function () {//检测是否是网址
+        var val = this.url;
         if (val.indexOf("?")) {
             val = val.split("?")[0];
-            var regUrl = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
-            //var regUrl = /^(https?:\/\/)?/;
-            return regUrl.test(val);
         }
-        return false;
+        var regUrl = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
+        return regUrl.test(val);
+    },
+    getUrlArgs: function(){//得到地址传递的参数，返回： 参数对象
+        var argsString = (this.url.indexOf('?') === -1)?"":this.url.substring(this.url.indexOf('?')+1);
+        var obj={};
+        if(argsString !== ""){
+            argsString = argsString.split('&');
+            for(var i=0;i<argsString.length;i++){
+                var key = argsString[i].split('=')[0];
+                obj[key] = argsString[i].split('=')[1];
+            }
+        }
+        return obj;
+    }
+};
+//value 处理【trim,类型判断】
+function ValueO(val){
+    this.value = val;
+}
+ValueO.prototype = {
+    constructor:ValueO,
+    trim:function(){
+        var reg = /(^\s*)|(\s*$)/g;
+        this.value.replace(reg, '')
     },
     //逗号全角转半角
-    toCDB:function(str){
-        var tmp = "";
+    toCDB:function(){
+        var tmp = "",str = this.value;
         for (var i = 0; i < str.length; i++) {
             if (str.charCodeAt(i) > 65248 && str.charCodeAt(i) < 65375) {
                 tmp += String.fromCharCode(str.charCodeAt(i) - 65248);
@@ -194,96 +54,52 @@ window.CL = {
         }
         return tmp
     },
-    deleteLastComma:function(val){//删除尾部的逗号[全角半角都删除]
+    deleteLastComma:function(){//删除尾部的逗号[全角半角都删除]
         var reg = /(\,|\，)+$/;
-        return val.replace(reg,"");
+        return this.value.replace(reg,"");
     },
-    isString: function (val) {
-        return typeof val === "string";
-    },
-    isNumber: function (val) {
-        return typeof val === "number";
-    },
-    isUndefined: function(val){
-        return typeof val === "undefined";
-    },
-    isFunction:function(func){
-        return func instanceof Function;
-    },
-    isArray: function (val) {
-        return val instanceof Array;
-    },
-    //得到地址传递的参数，返回： 参数对象
-    getUrlArgs: function(url){
-        url = url || window.location.href;
-        url = decodeURIComponent(url);
-        var argsString = (url.indexOf('?') === -1)?"":url.substring(url.indexOf('?')+1);
-        var arrObj={};
-        if(argsString !== ""){
-            argsString = argsString.split('&');
-            for(var i=0;i<argsString.length;i++){
-                var key = argsString[i].split('=')[0];
-                arrObj[key] = argsString[i].split('=')[1];
-            }
-        }
-        return arrObj;
-    },
-    /*数组删除项*/
-    remove: function(arr, item){
-        var newArr = [];
-        for(var i = 0,len = arr.length;i < len;i++){
-            if(arr[i]==item){
-                continue;
-            }
-            newArr.push(arr[i]);
-        }
-        return newArr;
-    },
-    /**
-     * 唯一的[对 对象数组进行去重 通过某个属性 ]
-     * @param arr 对象数组
-     * @param property 对象中的某个属性
-     * @returns {Array}去重后的对象数组
-     */
-    getUniqueArr: function(arr,property){ //对对象数组进行去重
-        var typeArr = [],property = property||'clazz';
-        for(var i=0;i<arr.length;i++){
-            if(typeArr.indexOf(arr[i][property]) === -1){
-                typeArr.push(arr[i][property]);
-            }
-        }
-        return typeArr;
-    },
-    decimalDeal: function(value,decimal){//小数点处理，小数位为.00时，转换为整数
+    decimalDeal: function(decimal){//小数点处理，小数位为.00时，转换为整数
         decimal = decimal||2;
-        value = value.toFixed(decimal).toString();
-        if(parseInt(value.substring(value.indexOf('.')+1)) == 0){
-            value = parseInt(value);
+        var val = this.value.toFixed(decimal).toString();
+        if(parseInt(val.substring(val.indexOf('.')+1)) == 0){
+            val = parseInt(val);
         }
-        return value;
+        this.value = val;
     },
-    getCurrentPath: function () {//得到当前url的路径
-        return location.pathname;
+    isString: function () {
+        return typeof this.value === "string";
     },
-    getBodyWH: function () {//得到当前页面实际宽，可视区域高
-        var clientW = (document.documentElement.clientWidth || document.body.clientWidth);
-        var clientH = (document.documentElement.clientHeight || document.body.clientHeight);
-        var w = clientW < 1200 ? 1000 : clientW;
-        return { w: w, h: clientH };
+    isNumber: function () {
+        return typeof this.value === "number";
     },
+    isUndefined: function(){
+        return typeof this.value === "undefined";
+    },
+    isFunction:function(){
+        return this.value instanceof Function;
+    },
+    isArray: function () {
+        return this.value instanceof Array;
+    }
+};
+function Time(time,format){
+    this.time = time;
+    this.format = 1;
+}
+Time.prototype = {
+    constructor:Time,
     /**
      *时间戳转换成具体的时间，进行不同格式的显示
      * @param time 时间戳[毫秒]
      * @param typeFormat 返回时间的格式【默认格式：1】【1:2017年04月25日 07:15:10】
      * @returns {*}【 2:2017-04-25 07:15】 【3:2017-04-25 23:59】(某天时间的最后时间)【4：时间对象】
      */
-    getTimeDetail: function (time, typeFormat) {
-        var dateTime;
-        typeFormat = typeFormat || 1;
-        if(time === 'now'){
+    getTimeDetail: function () {
+        var dateTime,typeFormat =this.format;
+        if(this.time === 'now'){
             dateTime = new Date();
         }else{
-            dateTime = new Date(time);
+            dateTime = new Date(this.time);
         }
         var zeroAdd = function (val) {
             if (val < 10) {
@@ -317,7 +133,9 @@ window.CL = {
         if(typeof startDate === "string"){
             startDate = new Date(startDate.replace(/\-/g,'/'));
         }
-        var dayLast = window.CL.getTimeDetail(startDate,3).replace(/\-/g,'/');//当前某天的最后时间
+        this.time = startDate;
+        this.format = 3;
+        var dayLast = this.getTimeDetail().replace(/\-/g,'/');//当前某天的最后时间
         var seconds = (new Date(dayLast)).getTime();
         return (seconds + (day-1)*24*60*60*1000);
     },
@@ -346,6 +164,15 @@ window.CL = {
     },
     removeSeconds: function(val){//删除秒
         return val.substring(0,val.length-3);
+    }
+};
+console.log(Time);
+window.CL = {
+    getBodyWH: function () {//得到当前页面实际宽，可视区域高
+        var clientW = (document.documentElement.clientWidth || document.body.clientWidth);
+        var clientH = (document.documentElement.clientHeight || document.body.clientHeight);
+        var w = clientW < 1200 ? 1000 : clientW;
+        return { w: w, h: clientH };
     },
     //阻止默认事件
     preventDefault:function(e) {
@@ -354,6 +181,15 @@ window.CL = {
         } else {
             window.event.returnValue = false;
         }
+    },
+    getScrollTop:function(){
+        return document.documentElement.scrollTop||window.pageYOffset||document.body.scrollTop;
+
+    },
+    setScrollTop:function(val){
+        document.documentElement.scrollTop = val;
+        window.pageYOffset = val;
+        document.body.scrollTop = val;
     }
 };
 /*----------js公用方法-------------end*/
@@ -568,58 +404,6 @@ $.extend({
         jQuery('[data-toggle="tooltip"]').tooltip();
     }
 });
-//底部内容滚动fixed【始终在可视区域内】
-jQuery.fn.fixedBottom = function (options) {
-    "use strict";
-    options = options || {};
-    var $fixedEle = this;//$(".fixed-section");
-    var bodyHeight = CL.getBodyWH().h;
-    //console.log(bodyHeight);
-    var fixedEleHeight = $fixedEle.css("height");
-    var fixedObj = {
-        settings: {
-            mainEle: $("#mainSection")
-        },
-        getEleOffset: function () {
-            var posTop = $fixedEle.offset().top;
-            var scrollTop = document.body.scrollTop;
-            var isVisual = (scrollTop + bodyHeight) - (posTop + parseInt(fixedEleHeight));
-            //console.log(isVisual);
-            if (isVisual <= 0) {//该元素在可视区域以下，设置fixed
-                $fixedEle.addClass("active");
-                fixedObj.settings.mainEle.css("marginBottom", fixedEleHeight);
-            } else {//可视区域内，清除fixed
-                $fixedEle.removeClass("active");
-            }
-            $fixedEle.css('width', fixedObj.settings.mainEle.width());
-            return posTop;
-        },
-        fixedScroll: function (offSetTop) {//浏览器滚动时，判断是清除浮动还是添加浮动
-            $(window).off("scroll").on('scroll', function () {
-                var scrollTop = document.body.scrollTop;
-                var diff = (scrollTop + bodyHeight) - (offSetTop + parseInt(fixedEleHeight));
-                if (diff >= 0) {
-                    $fixedEle.removeClass("active");
-                    fixedObj.settings.mainEle.css("marginBottom", 0);
-                } else {
-                    $fixedEle.addClass("active");
-                    fixedObj.settings.mainEle.css("marginBottom", fixedEleHeight);
-                }
-            });
-        },
-        winResize: function () {
-            $(window).resize(function () {
-                $fixedEle.css('width', fixedObj.settings.mainEle.width());
-                bodyHeight = CL.getBodyWH().h;
-            });
-        }
-    };
-    fixedObj.settings = jQuery.extend({}, fixedObj.settings, options);
-    $fixedEle.removeClass('active');
-    var offestTop = fixedObj.getEleOffset();
-    fixedObj.fixedScroll(offestTop);
-    fixedObj.winResize();
-};
 //全选
 jQuery.fn.checkAll = function (options) {
     "use strict";
@@ -833,16 +617,7 @@ jQuery.fn.toggleClick = function (options) {//.tabs-menu
         set();
     });
 };
-//设置进度条的进度
-jQuery.fn.proWidth = function(options){
-    var $this = this;//默认显示的内容
-    options = $.extend({
-        width: "10%"//百分比数值
-    },options||{});
-    var $proBar = $this.find(".progress-bar");
-    $proBar.attr("aria-valuenow",options.width.substr(0,options.width.length-1));
-    $proBar.css("width",options.width);
-};
+
 //添加错误信息
 jQuery.fn.dealErrorMsg = function (options) {
     var $this = this;//默认显示的内容

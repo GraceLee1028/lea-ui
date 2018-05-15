@@ -45,7 +45,7 @@
                     //如果您的下拉刷新是重置列表数据,那么down完全可以不用配置,具体用法参考第一个基础案例
                     //解析: down.callback默认调用mescroll.resetUpScroll(),而resetUpScroll会将page.num=1,再触发up.callback
                     down: {
-                        htmlContent: '<p class="downwarp-progress"></p><p class="downwarp-tip">下拉刷新正在</p>', //布局内容
+                        htmlContent: '<p class="downwarp-progress"></p><p class="downwarp-tip">下拉刷新</p>', //布局内容
                         auto:true,//是否在初始化完毕之后自动执行一次下拉刷新的回调 callback【此处不执行】
                         callback: function(mescroll) {
                             mescroll.resetUpScroll();//重置刷新，并触发up的callback，数据默认第一页

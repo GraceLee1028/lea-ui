@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit">
+    <meta name="description" content="">
+    <title>菜单</title>
+    <link rel="shortcut icon" href="">
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="https://cdn.bootcss.com/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <link href="../../css/common.css?0426" rel="stylesheet" />
+    <link rel="stylesheet" href="../../css/plugins/menu.css?0306">
+</head>
+<body style="overflow-x: hidden;">
+<main class="content content-main">
+    <h1 class="main-title">菜单</h1>
+
+</main>
+</body>
+<script src="../../plugins/jquery.min.js"></script>
+<script>
+    (function(){
+        jQuery.fn.fixedBottom = function (options) {
+            "use strict";
+            options = options || {};
+            var $fixedEle = this;//$(".fixed-section");
+            var bodyHeight = CommonL.getBodyWH().h;
+            var fixedEleHeight = $fixedEle.css("height");
+            var fixedObj = {
+                settings: {
+                    mainEle: $("#mainSection")
+                },
+                getScrollTop:function(){
+                    return document.documentElement.scrollTop||window.pageYOffset||document.body.scrollTop;
+                },
+                getBodyWH: function () {//得到当前页面实际宽，可视区域高
+                    var clientW = (document.documentElement.clientWidth || document.body.clientWidth);
+                    var clientH = (document.documentElement.clientHeight || document.body.clientHeight);
+                    var w = clientW < 1200 ? 1000 : clientW;
+                    return { w: w, h: clientH };
+                },
+                getEleOffset: function () {
+                    var posTop = $fixedEle.offset().top;
+                    var scrollTop = getScrollTop();
+                    var isVisual = (scrollTop + bodyHeight) - (posTop + parseInt(fixedEleHeight));
+                    if (isVisual <= 0) {//该元素在可视区域以下，设置fixed
+                        $fixedEle.addClass("active");
+                        fixedObj.settings.mainEle.css("marginBottom", fixedEleHeight);
+                    } else {//可视区域内，清除fixed
+                        $fixedEle.removeClass("active");
+                    }
+                    $fixedEle.css('width', fixedObj.settings.mainEle.width());
+                    return posTop;
+                },
+                fixedScroll: function (offSetTop) {//浏览器滚动时，判断是清除浮动还是添加浮动
+                    $(window).off("scroll").on('scroll', function () {
+                        var scrollTop = getScrollTop();
+                        var diff = (scrollTop + bodyHeight) - (offSetTop + parseInt(fixedEleHeight));
+                        if (diff >= 0) {
+                            $fixedEle.removeClass("active");
+                            fixedObj.settings.mainEle.css("marginBottom", 0);
+                        } else {
+                            $fixedEle.addClass("active");
+                            fixedObj.settings.mainEle.css("marginBottom", fixedEleHeight);
+                        }
+                    });
+                },
+                winResize: function () {
+                    $(window).resize(function () {
+                        $fixedEle.css('width', fixedObj.settings.mainEle.width());
+                        bodyHeight = fixedObj.getBodyWH().h;
+                    });
+                }
+            };
+            fixedObj.settings = jQuery.extend({}, fixedObj.settings, options);
+            $fixedEle.removeClass('active');
+            var offestTop = fixedObj.getEleOffset();
+            fixedObj.fixedScroll(offestTop);
+            fixedObj.winResize();
+        };
+        $(function(){
+
+        });
+    })();
+</script>
+</html>

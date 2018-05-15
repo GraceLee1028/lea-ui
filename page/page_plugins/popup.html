@@ -13,7 +13,7 @@
     <script src="https://cdn.bootcss.com/html5shiv/r29/html5.min.js"></script>
     <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <link href="../../css/common.css?0426" rel="stylesheet" />
+    <link href="../../css/common.css?0515" rel="stylesheet" />
 </head>
 <body>
 <main class="content content-main">
@@ -23,12 +23,30 @@
             <h4 class="title-text">layer弹窗【只需引入layer的js】</h4>
         </header>
         <section>
-            <h5 class="title-small">弹出消息、loading加载、tips</h5>
-            <button type="button" id="layerMsg">hello</button>
-            <button type="button" id="layerLoad">loading</button>
-            <button type="button" id="layerTip">tip</button>
-            <button type="button" id="layerConfirm">confirm</button>
-            <a href="javascript:void(0);" id="layerConfirm0">confirm000</a>
+            <h5 class="title-small">tips</h5>
+            <button type="button" class="btn btn-default" id="tip">tip</button>
+            <button type="button" class="btn btn-theme" id="msg">hello</button><br>
+            <h5 class="title-small">loading,loading msg</h5>
+            <button type="button" class="btn btn-danger" id="load">loading</button>
+            <button type="button" class="btn btn-danger" id="loadClose">close  loading</button>
+            <button type="button" class="btn btn-danger" id="loadMsg">loading msg</button>
+            <h5 class="title-small">confirm,alert</h5>
+            <button type="button" class="btn btn-info" id="alert">alert</button>
+            <button type="button" class="btn btn-info" id="confirm">confirm</button>
+            <button type="button" class="btn btn-info" id="confirmTwo">confirm three button</button>
+            <a href="javascript:void(0);" class="btn leaui-btn-info" id="confirmBack">confirm callback</a>
+            <h5 class="title-small">图片打开</h5>
+            <button type="button" class="btn leaui-btn-warning" id="openImg">open img</button>
+            <button type="button" class="btn leaui-btn-warning" id="openPhotos">open photos</button>
+            <div id="layer-photos-demo" class="layer-photos-demo">
+                <img layer-pid="图片id，可以不写" layer-src="../../imgs/refresh/banner.gif" src="../../imgs/refresh/banner.gif" alt="图片名">
+            </div>
+            <h5 class="title-small">open打开</h5>
+            <button type="button" class="btn leaui-btn-white" id="openOne">open no button</button>
+            <button type="button" class="btn leaui-btn-white" id="openTwo">open one button</button>
+            <button type="button" class="btn leaui-btn-white" id="openThree">open three button</button>
+            <button type="button" class="btn leaui-btn-white" id="openFour">open three button</button>
+            <button type="button" class="btn leaui-btn-white" id="openFive">open no title</button>
             <h5>更多用法在<a href="http://layer.layui.com/">http://layer.layui.com/</a>中</h5>
         </section>
     </article>
@@ -36,5 +54,116 @@
 </body>
 <script src="../../plugins/jquery.min.js"></script>
 <script src="../../plugins/layer/layer.js"></script>
-<script src="../../js/page_plugins/popup.js?032604"></script>
+<script src="../../js/page_plugins/popup.js?051502"></script>
+<script>
+    (function(){
+        var layerO = new LayerInit();
+        var obj = {
+            init: function(){
+                //信息提示
+                $("#msg").click(function(){layer.msg("hello")});
+                $("#tip").click(function(){layer.tips("Hi，我是tips",$(this));});
+                //加载
+                $("#load").click(function(){
+                    layerO.load(0);
+                });
+                $("#loadClose").click(function(){
+                    layerO.closeLoad();
+                });
+                $("#loadMsg").click(function(){
+                    layerO.loadMsg("正在加载，请稍等......");
+                });
+                //alert、confirm
+                $("#alert").click(function(){
+                    layerO.alert("请再次核实您的信息！",1);
+                });
+                $("#confirm").click(function(){
+                    layerO.confirm({
+                        title: "删除确认",
+                        area: ["350px", "200px"],
+                        msg: "<p class='p-text'>确定要删除本条商品记录？</p>"
+                    });
+                });
+                $("#confirmTwo").click(function(){
+                    layerO.confirm({
+                        title: "删除确认",
+                        area: ["350px", "200px"],
+                        btn:["确定","返回","取消"],
+                        msg: "<p class='p-text'>确定要删除本条商品记录？</p>"
+                    });
+                });
+                $("#confirmBack").click(function(){
+                    layerO.confirm({
+                        title: "删除确认",
+                        area: ["350px", "200px"],
+                        btn: ["删除", "取消"],
+                        msg: "<p class='p-text'>确定要删除本条商品记录？</p>",
+                        yes:function(index){
+                            layer.close(index);
+                            layer.msg("删除成功");
+                        }
+                    });
+                });
+                //图片打开
+                $("#openImg").click(function(){
+                    layerO.openImg({
+                        content:"<img src='../../imgs/refresh/banner.gif'>"
+                    },$(this));
+                });
+                $("#openPhotos").click(function(){
+                    layerO.openPhotos({
+                        photos:"#layer-photos-demo"
+                    },$(this));
+                });
+                //内容打开【】
+                $("#openOne").click(function(){
+                    layerO.openContent({
+                        title: "没有按钮",
+                        area: ["350px", "200px"],
+                        btn: [],
+                        content: "<p class='p-text'>确定要删除本条商品记录？</p>"
+                    });
+                });
+                $("#openTwo").click(function(){
+                    layerO.openContent({
+                        title: "一个按钮",
+                        btn:["确定"],
+                        area: ["350px", "200px"],
+                        content: "<p class='p-text'>确定要删除本条商品记录？</p>"
+                    });
+                });
+                $("#openThree").click(function(){
+                    layerO.openContent({
+                        title: "一个按钮",
+                        btn:["确定","返回"],
+                        area: ["350px", "200px"],
+                        content: "<p class='p-text'>确定要删除本条商品记录？</p>"
+                    });
+                });
+                $("#openFour").click(function(){
+                    layerO.openContent({
+                        title:"三个按钮",
+                        btn:["确定","返回","取消"],
+                        area: ["350px", "200px"],
+                        content: "<p class='p-text'>确定要删除本条商品记录？</p>",
+                        btn2:function(){
+                            layer.msg("正在返回");
+                        }
+                    });
+                });
+                $("#openFive").click(function(){
+                    layerO.openContent({
+                        btn:["确定","返回","取消"],
+                        area: ["350px", "200px"],
+                        content: "<p class='p-text'>确定要删除本条商品记录？</p>",
+                        btn2:function(){
+                            layer.msg("正在返回");
+                        }
+                    });
+                });
+            }
+        };
+        $(obj.init)
+    })();
+</script>
 </html>
