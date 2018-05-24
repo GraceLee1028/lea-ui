@@ -4,6 +4,7 @@
 (function(){
     var urlJson = [
         //pc
+        {key:"page_url_wh",url:"page/page_element/wh.html"},
         {key:"page_url_color",url:"page/page_element/color.html"},
         {key:"page_url_button",url:"page/page_element/button.html"},
         {key:"page_url_form",url:"page/page_element/form.html"},

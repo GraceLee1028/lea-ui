@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit">
+    <meta name="description" content="">
+    <title>视图宽高、滚动位置</title>
+    <link rel="shortcut icon" href="">
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="https://cdn.bootcss.com/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <link href="../../css/common.css?0426" rel="stylesheet" />
+</head>
+<body>
+<main class="content content-main">
+    <h1 class="main-title">视图高宽</h1>
+    <article>
+        <header class="header-title">
+            <h4 class="title-text">window窗口高宽</h4>
+            <p class="alert alert-danger">
+                <img src="../../imgs/wh/wh-one.png">
+            </p>
+        </header>
+        <section>
+            <h5 class="title-small">window:整个窗口的高宽【包括工具栏、标题栏、状态栏】</h5>
+            <p><code>window.outerWidth</code>：<span id="wow"></span></p>
+            <p><code>window.outerHeight</code>：<span id="woh"></span></p>
+        </section>
+        <section>
+            <h5 class="title-small">window:窗口的高宽【不包括上面的，只包含滚动条,非css标准】</h5>
+            <h6>IE8及以下版本不支持window.innerHeight和window.innerWidth等属性。</h6>
+            <p><code>window.innerWidth</code>：<span id="wiw"></span></p>
+            <p><code>window.innerHeight</code>：<span id="wih"></span></p>
+            <p>不支持window.innerHeight等属性的浏览器，可以读取documentElement和body的高度.</p>
+
+        </section>
+        <section>
+            <h5 class="title-small">document.documentElement.clientHeight和document.body.clientHeight区别在于：</h5>
+            <p class="alert alert-info">
+                document.documentElement.clientHeight：不包括整个文档的滚动条，但【包括html元素的边框】<br>
+                document.body.clientHeight：不包括整个文档的滚动条，也【不包括html元素的边框】，也不包括body的边框和滚动条
+            </p>
+            <h5 class="title-small">document.documentElement的可视区域</h5>
+            <p><code>document.documentElement.clientWidth</code>：<span id="dcw"></span></p>
+            <p><code>document.documentElement.clientHeight</code>：<span id="dch"></span></p>
+            <h5 class="title-small">document.body的可视区域</h5>
+            <p><code>document.body.clientWidth</code>：<span id="bcw"></span></p>
+            <p><code>document.body.clientHeight</code>：<span id="bch"></span></p>
+
+        </section>
+        <section>
+            <h5 class="title-small">浏览器可视区宽高：</h5>
+            <p>可视区域宽：<code></code>：<span id="vw"></span></p>
+            <p>可视区域高:<code></code>：<span id="vh"></span></p>
+        </section>
+    </article>
+</main>
+</body>
+<script>
+    (function(){
+        //
+        document.querySelector("#wow").innerHTML = window.outerWidth;
+        document.querySelector("#woh").innerHTML = window.outerHeight;
+
+        document.querySelector("#wiw").innerHTML = window.innerWidth;
+        document.querySelector("#wih").innerHTML = window.innerHeight;
+        //
+        document.querySelector("#dcw").innerHTML = document.documentElement.clientWidth;
+        document.querySelector("#dch").innerHTML = document.documentElement.clientHeight;
+        //
+        document.querySelector("#bcw").innerHTML = document.body.clientWidth;
+        document.querySelector("#bch").innerHTML = document.body.clientHeight;
+        //
+        function getVw(){
+            return window.innerWidth||document.documentElement.clientWidth;
+        }
+    })();
+</script>
+</html>
