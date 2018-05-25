@@ -11,7 +11,9 @@
         {key:"page_url_progress",url:"page/page_element/progress.html"},
         {key:"page_url_alert",url:"page/page_element/alert.html"},
         {key:"page_url_video",url:"page/page_element/video.html"},
-
+        //dom js
+        {key:"page_url_attr",url:"page/dom/methods_attr.html"},
+        //插件
         {key:"page_url_menu",url:"page/page_plugins/menu.html"},
         {key:"page_url_popup",url:"page/page_plugins/popup.html"},
         {key:"page_url_scroll",url:"page/page_plugins/scroll.html"},
@@ -24,9 +26,9 @@
         {key:"page_url_cate",url:"page/page_plugins/category.html"},
         {key:"page_url_lazy",url:"page/page_plugins/lazyload.html"},
         //可视化数据
-        {key:"chart_url_echarts",url:"page/mobile_plugins/echarts.html"},
+        {key:"chart_url_echarts",url:"page/chart/echarts.html"},
 
-        //mobile
+        //mobile[mescroll]
         {key:"mobile_url_refresh",url:"page/mobile_plugins/refresh.html"}
 
     ];

@@ -15,7 +15,7 @@
   .nav-block li {
     flex: 1; }
     .nav-block li.active {
-      border-bottom: 2px solid #FF9800; }
+      border-bottom: 2px solid #CDDC39; }
 
 .content {
   width: 100%;
@@ -33,11 +33,11 @@
   bottom: auto;
   font-size: 18px;
   text-align: center;
-  background-color: #FF9800;
+  background-color: #CDDC39;
   color: #fff;
-  -webkit-box-shadow: 0 1px 20px 0 #FF9800;
-  -moz-box-shadow: 0 1px 20px 0 #FF9800;
-  box-shadow: 0 1px 20px 0 #FF9800; }
+  -webkit-box-shadow: 0 1px 20px 0 #CDDC39;
+  -moz-box-shadow: 0 1px 20px 0 #CDDC39;
+  box-shadow: 0 1px 20px 0 #CDDC39; }
   .content-title .back {
     font-size: 14px;
     *display: inline;
@@ -126,7 +126,7 @@ body .content-fixed, .ms-fixed {
   margin-bottom: 50px; }
   .nav.nav-normal li.active {
     float: none;
-    color: #FF9800;
+    color: #CDDC39;
     background-color: rgba(255, 255, 255, 0.6); }
 
 /*# sourceMappingURL=refresh.css.map */

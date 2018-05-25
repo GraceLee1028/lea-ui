@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit">
     <meta name="description" content="">
-    <title>视图宽高、滚动位置</title>
+    <title>视图宽高、滚动位置距离</title>
     <link rel="shortcut icon" href="">
     <link href="../../css/bootstrap.min.css" rel="stylesheet">
     <!--[if lt IE 9]>
@@ -14,18 +14,30 @@
     <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
     <link href="../../css/common.css?0426" rel="stylesheet" />
+    <style>
+        #load{
+            text-align: center;
+            color:green;
+        }
+    </style>
 </head>
 <body>
-<main class="content content-main">
-    <h1 class="main-title">视图高宽</h1>
+<main class="content content-main" id="main">
+    <h1 class="main-title">window窗口高宽,视图宽高、滚动位置距离</h1>
+    <p class="alert alert-danger">
+        <img src="../../imgs/wh/wh-one.png">
+    </p>
+    <ol class="alert alert-info">
+        <li><a href="#window" class="link">window、视图高宽</a></li>
+        <li><a href="#offset" class="link">元素距离文档顶部、左侧距离</a></li>
+        <li><a href="#scroll" class="link">scroll</a></li>
+        <li><a href="#isBottom" class="link">判断是否滚动到底部</a></li>
+    </ol>
     <article>
         <header class="header-title">
-            <h4 class="title-text">window窗口高宽</h4>
-            <p class="alert alert-danger">
-                <img src="../../imgs/wh/wh-one.png">
-            </p>
+            <h4 class="title-text">window、视图高宽</h4>
         </header>
-        <section>
+        <section id="window">
             <h5 class="title-small">window:整个窗口的高宽【包括工具栏、标题栏、状态栏】</h5>
             <p><code>window.outerWidth</code>：<span id="wow"></span></p>
             <p><code>window.outerHeight</code>：<span id="woh"></span></p>
@@ -52,13 +64,61 @@
             <p><code>document.body.clientHeight</code>：<span id="bch"></span></p>
 
         </section>
+        <section id="view">
+            <h5 class="title-small">最佳获取可视区宽高：</h5>
+            <p>可视区域宽：<code>window.innerWidth||document.documentElement.clientWidth||document.body.clientWidth</code>：<span id="vw"></span></p>
+            <p>可视区域高:<code>window.innerHeight||document.documentElement.clientHeight||document.body.clientHeight</code>：<span id="vh"></span></p>
+        </section>
+    </article>
+    <article id="offset">
+        <header class="header-title">
+            <h4 class="title-text">元素距离文档顶部、左侧距离</h4>
+        </header>
         <section>
-            <h5 class="title-small">浏览器可视区宽高：</h5>
-            <p>可视区域宽：<code></code>：<span id="vw"></span></p>
-            <p>可视区域高:<code></code>：<span id="vh"></span></p>
+            <h5 class="title-small">顶部距离top</h5>
+            <div class="alert alert-info" id="aiOne">
+                <p>该alert距离顶部的距离：<span id="top"></span></p>
+                <p>该alert距离左侧的距离：<span id="left"></span></p>
+            </div>
+        </section>
+    </article>
+    <article  id="scroll">
+        <header class="header-title">
+            <h4 class="title-text">滚动高度</h4>
+        </header>
+        <p class="alert alert-danger">
+            <img src="../../imgs/wh/wh-two.png">
+        </p>
+        <section>
+            <h5 class="title-small">获取页面垂直和水平的滚动距离</h5>
+            <div class="alert alert-info" id="">
+                <p>水平滚动条滚动的距离：<span id="sx"></span></p>
+                <p>垂直滚动条滚动的距离：<span id="sy"></span></p>
+            </div>
+        </section>
+    </article>
+    <article  id="isBottom">
+        <header class="header-title">
+            <h4 class="title-text">滚动到底部的研究</h4>
+        </header>
+        <p class="alert alert-danger">
+            scrollWidth:该元素宽度，包含隐藏区域和滚动条，大于clientWidth。<br>
+            需要注意的是：改属性返回的是四舍五入后的整数值，如果需要小数，则需要使用getBoundingClientRect()。<br>
+
+            scrollHeight返回该元素内容高度。包括被overflow隐藏掉的部分，包含padding，但不包含margin。
+            和scrollWidth类似，如果需要小数，则需要使用getBoundingClientRect()。
+            <img src="../../imgs/wh/wh-three.png">
+        </p>
+        <section>
+            <h5 class="title-small">是否滚动到底部</h5>
+            <div class="alert alert-info">
+                <p>离底部的距离<span id="bottomOffset"></span></p>
+                <p>是否滚动到底部：<span id="bottomVal"></span></p>
+            </div>
         </section>
     </article>
 </main>
+<p id="load">加载中....</p>
 </body>
 <script>
     (function(){
@@ -74,10 +134,133 @@
         //
         document.querySelector("#bcw").innerHTML = document.body.clientWidth;
         document.querySelector("#bch").innerHTML = document.body.clientHeight;
-        //
-        function getVw(){
-            return window.innerWidth||document.documentElement.clientWidth;
+        //获取可视区域
+        function getVwh(){
+            //ie8及以下不支持||
+            var w = window.innerWidth||document.documentElement.clientWidth||document.body.clientWidth;
+            var h = window.innerHeight||document.documentElement.clientHeight||document.body.clientHeight;
+            return {w:w,h:h}
         }
+//        let {w,h}=getVwh();
+        document.querySelector("#vw").innerHTML = getVwh().w;
+        document.querySelector("#vh").innerHTML = getVwh().h;
+
+        //顶部距离
+        function getTop(el){
+            var top = 0;
+            //offsetParent 很有用，因为 offsetTop 和 offsetLeft 都是相对于其内边距边界的。
+            var offTop = el.offsetTop;
+            //只读属性，返回一个指向最近的（closest，指包含层级上的最近）包含该元素的定位元素
+            var parent = el.offsetParent;//该元素或其祖元素style.display:"none"，或者style.position为 "fixed",则该属性返回 null。
+            while(parent!=null){
+                top+=offTop;
+                parent = parent.offsetParent;
+            }
+            return top;
+        }
+        //左侧距离
+        function getLeft(el){
+            var left = 0;
+            //offsetParent 很有用，因为 offsetTop 和 offsetLeft 都是相对于其内边距边界的。
+            var offLeft = el.offsetLeft;
+            //返回一个指向最近的（closest，指包含层级上的最近）包含该元素的定位元素
+            var parent = el.offsetParent;//该元素或其祖元素style.display:"none"，或者style.position为 "fixed",则该属性返回 null。
+            while(parent!=null){
+                left+=offLeft;
+                parent = parent.offsetParent;
+            }
+            return left;
+        }
+        var alert = document.querySelector("#aiOne");
+        document.querySelector("#top").innerHTML = getTop(alert);
+        document.querySelector("#left").innerHTML = getLeft(alert);
+        //window.scrollX和window.scrollY两个属性在IE9以下的版本都未支持.
+        //获取当前滚动条滚动的距离
+        function getScrollXY(){
+            var supportPageXOffset = (window.pageXOffset !== undefined);
+            //判断是不是标准模式
+            var isCss1 = document.compatMode=="CSS1Compat";
+            var sx = supportPageXOffset?window.pageXOffset:isCss1?document.documentElement.scrollLeft:document.body.scrollLeft;
+            var sy = supportPageXOffset?window.pageYOffset:isCss1?document.documentElement.scrollTop:document.body.scrollTop;
+            console.log("水平滚动条滚动的距离:"+sx+"<br>垂直滚动条滚动的距离:"+sy);
+            return {sx:sx,sy:sy};
+        }
+        var sx = document.querySelector("#sx");
+        var sy = document.querySelector("#sy");
+        var list= 0,state = false//是否加载完成;
+        window.onscroll = function(){
+            var scroll = getScrollXY();
+            sx.innerHTML = scroll.sx;
+            sy.innerHTML = scroll.sy;
+            //查看滚动
+            //滚动加载
+            var load = document.querySelector("#load");
+            scrollBottomDeal(null,50,function(){
+                if(list<=10){
+                    load.style.display = "block";
+                }
+                if(list==0||state){
+                    state = false;//等待加载
+                    list++;
+                    console.log(list);
+                    console.log("等待加载++++++++++++");
+                    setTimeout(function(){
+                        state = true;
+                        console.log(state);
+                        load.style.display = "none";
+                        console.log("加载完成+++++++++++++++++++++");
+                        if(list>10){
+                            return;
+                        }
+                        var node = document.createElement("h3");
+                        node.className = "alert alert-danger";
+                        var txtNode = document.createTextNode("列表"+list+":节目安排中。。。。");
+                        node.appendChild(txtNode);
+//                    document.body.appendChild(node);
+                        document.querySelector("#main").appendChild(node);
+                    },3000);
+                }
+            });
+        };
+        //判断是否滚动到底部
+        /**
+         *
+         * @param wrap
+         * @param offset
+         * @param cbFunc
+         */
+        function scrollBottomDeal(wrap,offset,cbFunc){
+            var scrollTop = 0,
+                    wrapH,//整个元素【文档】的高度
+                    clientH;//
+            offset = offset||0;
+            if(!wrap){//整个文档的滚动，wrap就是document 了
+                if (document.documentElement && document.documentElement.scrollTop) {
+                    scrollTop = document.documentElement.scrollTop;
+                } else if (document.body) {
+                    scrollTop = document.body.scrollTop;
+                }
+                // 获取当前可视范围的高度
+                if (document.body.clientHeight && document.documentElement.clientHeight) {
+                    clientH = Math.min(document.body.clientHeight, document.documentElement.clientHeight);
+                } else {
+                    clientH = Math.max(document.body.clientHeight, document.documentElement.clientHeight);
+                }
+                // 获取list完整的高度
+                wrapH = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
+            }else{//某个元素
+                wrapH = wrap.scrollHeight;
+                clientH = wrap.clientHeight;
+                scrollTop = wrap.scrollTop;
+            }
+            var offsetNow = wrapH - (scrollTop+clientH);
+            document.querySelector("#bottomOffset").innerHTML = offsetNow;
+            if(offsetNow<=offset){
+                console.log("距离底部的距离："+offsetNow);
+                if(typeof cbFunc == "function"){cbFunc();}
+            }
+        }
+
     })();
 </script>
 </html>

@@ -56,3 +56,6 @@ h5{
   font-weight:700;
   @include gradient-text($theme,#fff,right);
 }
+.link{
+  @include line-link($bg-color);
+}
